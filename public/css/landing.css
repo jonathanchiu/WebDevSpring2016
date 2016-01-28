@@ -1,11 +1,74 @@
+html,
 body {
+  font-family: 'Open Sans', sans-serif;
+}
+.container {
+  max-width: 1280px;
+}
+.jumbotron {
+  background: no-repeat center right fixed url('https://upload.wikimedia.org/wikipedia/commons/d/df/Jean-Baptiste_Camille_Corot_-_La_Seine_a_Chatou_-_Google_Art_Project.jpg');
+  margin-bottom: 0px;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.jumbotron .container {
+  color: #fff;
+  z-index: 2;
+  top: 16%;
+  position: relative;
+}
+.jumbotron .container > * {
+  text-align: center;
+}
+.jumbotron .container h1 {
+  font-weight: 700;
+  letter-spacing: -2px;
+}
+.icons {
+  padding-top: 0.5em;
+}
+.icons a {
+  margin-right: 8px;
+  text-decoration: none;
+  color: inherit;
+}
+.icons a:hover {
+  color: #494343;
+}
+a:hover {
+  text-decoration: none;
+}
+#overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background-color: #000;
-  padding-top: 1em;
-
+  z-index: 1;
+  opacity: 0.35;
 }
-p {
-  color: #eee;
-}
+/**
+ * Golden Ratio scale factor (1.618)
+ *
+ * Thanks to:
+ * - http://www.gridlover.net/app/
+ * - http://type-scale.com/
+ */
 h1 {
-  color: #eee;
+  font-size: 4.227272727em;
+  line-height: 1.161290322em;
+  margin-top: 0.77419355em;
+  margin-bottom: 0.38709677em;
+  font-weight: 700;
+}
+p, ul, ol, pre, table, blockquote {
+  margin-top: 1.63636364em;
+  margin-bottom: 1.63636364em;
+}
+::selection {
+  background: #323232;
+  color: #fff;
 }

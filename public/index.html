@@ -1,29 +1,40 @@
-
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jonathan Chiu</title>
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/landing.css">
 
-    <title>Home</title>
-
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/landing.css" rel="stylesheet">
-  </head>
-
-  <body>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-4">
-          <h1>Jonathan Chiu</h1>
-          <p>NU CS 2017</p>
-          <a href="assignment/home.html">Assignment</a>
-          <a href="project">Project</a>
-        </div>
-      </div>
+</head>
+<body>
+  <div id="top" class="jumbotron">
+    <div class="container">
+      <h1>Jonathan Chiu</h1>
+      <p>Northeastern University 2017</p>
+      <p class="icons text-center">
+        <a href="https://github.com/jonathanchiu"><i class="fa fa-github-square fa-3x"></i></a>
+        <a href="https://www.linkedin.com/in/jonathanchiu7"><i class="fa fa-linkedin-square fa-3x"></i></a>
+        <a href="https://secure.flickr.com/photos/jonathan_chiu/"><i class="fa fa-flickr fa-3x"></i></a>
+        <a href="mailto:jchiu@ccs.neu.edu"><i class="fa fa-envelope-square fa-3x"></i></a>
+      </p>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-  </body>
+    <div id="overlay"></div>
+  </div>
+
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script>
+  // Putting this here for now since there's so little JS for this site
+  $(document).ready(function() {
+    $('.jumbotron').css({ height: ($(window).height()) +'px' });
+    $(window).resize(function() {
+      $('.jumbotron').css({ height: ($(window).height()) +'px' });
+    });
+  });
+</script>
+</body>
 </html>
