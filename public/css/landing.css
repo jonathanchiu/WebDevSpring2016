@@ -18,8 +18,6 @@ body {
   z-index: 2;
   top: 16%;
   position: relative;
-}
-.jumbotron .container > * {
   text-align: center;
 }
 .jumbotron .container h1 {
@@ -31,14 +29,15 @@ body {
 }
 .icons a {
   margin-right: 8px;
-  text-decoration: none;
-  color: inherit;
-}
-.icons a:hover {
-  color: #494343;
 }
 a:hover {
+  color: #494343;
   text-decoration: none;
+}
+a,
+a:visited {
+  text-decoration: none;
+  color: inherit;
 }
 #overlay {
   position: absolute;
