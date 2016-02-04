@@ -11,11 +11,10 @@ a {
   color: inherit;
 }
 #form-fields {
-  border-bottom: 1px solid #eee;
   padding-bottom: 1em;
 }
 .btn-arrange-group {
-  padding-top: 10px;
+  margin-top: 31px;
 }
 #forms-table {
   margin-top: -20px;
