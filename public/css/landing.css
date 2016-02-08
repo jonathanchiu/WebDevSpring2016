@@ -6,12 +6,14 @@ body {
   max-width: 1280px;
 }
 .jumbotron {
-  background: no-repeat center right fixed url('https://upload.wikimedia.org/wikipedia/commons/d/df/Jean-Baptiste_Camille_Corot_-_La_Seine_a_Chatou_-_Google_Art_Project.jpg');
   margin-bottom: 0px;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  background-image: url("https://33.media.tumblr.com/tumblr_lzxmydwG6M1rn95k2o1_500.gif");
+  background-position: center center;
+  background-repeat:no-repeat;
 }
 .jumbotron .container {
   color: #fff;
