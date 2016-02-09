@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Register</title>
+    <title>Login</title>
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/dashboard.css" rel="stylesheet">
@@ -25,13 +25,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="home.html">Form Maker</a>
+          <a class="navbar-brand" href="home.view.html">Form Maker</a>
         </div>
 
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="register.html">Register</a></li>
-            <li><a href="login.html">Login</a></li>
+            <li><a href="register.view.html">Register</a></li>
+            <li class="active"><a href="login.view.html">Login</a></li>
             <li><a href="#">Username</a></li>
             <li><a href="#">Logout</a></li>
           </ul>
@@ -44,48 +44,34 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li><a href="home.html">Home <span class="sr-only">(current)</span></a></li>
-            <li><a href="profile.html">Profile</a></li>
-            <li><a href="admin.html">Admin</a></li>
-            <li><a href="forms.html">Forms</a></li>
+            <li><a href="home.view.html">Home <span class="sr-only">(current)</span></a></li>
+            <li><a href="profile.view.html">Profile</a></li>
+            <li><a href="admin.view.html">Admin</a></li>
+            <li><a href="forms.view.html">Forms</a></li>
           </ul>
         </div>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Register</h1>
+          <h1 class="page-header">Login</h1>
 
-          <form class="form-horizontal" action="profile.html">
+          <form class="form-horizontal" action="profile.view.html">
             <div class="form-group">
-              <label for="input-username-register" class="col-sm-2 control-label">Username</label>
+              <label for="input-username-login" class="col-sm-2 control-label">Username</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="input-username-register" id="input-username-register" placeholder="Username">
+                <input type="text" class="form-control" name="input-username-login" id="input-username-login" placeholder="Username">
               </div>
             </div>
 
             <div class="form-group">
-              <label for="input-password-register" class="col-sm-2 control-label">Password</label>
+              <label for="input-password-login" class="col-sm-2 control-label">Password</label>
               <div class="col-sm-10">
-                <input type="password" class="form-control" name="input-password-register" id="input-password-register" placeholder="Password">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="input-verify-password" class="col-sm-2 control-label">Verify Password</label>
-              <div class="col-sm-10">
-                <input type="password" class="form-control" name="input-verify-password" id="input-verify-password" placeholder="Verify Password">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="input-email" class="col-sm-2 control-label">Email</label>
-              <div class="col-sm-10">
-                <input type="email" class="form-control" name="input-email" id="input-email" placeholder="Email">
+                <input type="password" class="form-control" name="input-password-login" id="input-password-login" placeholder="Password">
               </div>
             </div>
 
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
-                <button class="btn btn-default btn-block" type="submit">Register</button>
+                <button class="btn btn-default btn-block" type="submit">Login</button>
               </div>
             </div>
           </form>
