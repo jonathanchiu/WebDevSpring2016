@@ -19,6 +19,12 @@
         .when("/admin", {
           templateUrl: "views/admin/admin.view.html"
         })
+        .when("/forms", {
+          templateUrl: "views/form/forms.view.html"
+        })
+        .when("/fields", {
+          templateUrl: "views/field/form-fields.view.html"
+        })
         .otherwise({
           redirectTo: "/home"
         });
