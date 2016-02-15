@@ -15,11 +15,11 @@
     function findUserByUsernameAndPassword(username, password, callback) {
       var found = false;
 
-      for (var user in users) {
+      users.forEach(function(user) {
         if (user.username === username && user.password === password) {
           found = user;
         }
-      }
+      });
 
       found ? callback(found) : callback(null);
     }
@@ -46,7 +46,7 @@
     function updateUser(userId, user, callback) {
       var found = false;
 
-      for (var currentUser in users) {
+      users.forEach(function(currentUser) {
         if (currentUser._id === userId) {
           currentUser.firstName = user.firstName;
           currentUser.lastName = user.lastName;
@@ -54,7 +54,7 @@
           currentUser.password = user.password;
           found = currentUser;
         }
-      }
+      });
 
       found ? callback(found) : callback(null);
     }
