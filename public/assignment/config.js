@@ -8,7 +8,8 @@
           controller: 'MainController'
         })
         .when("/register", {
-          templateUrl: "views/users/register.view.html"
+          templateUrl: "register/register.view.html",
+          controller: "RegisterController"
         })
         .when("/login", {
           templateUrl: "views/users/login.view.html"
