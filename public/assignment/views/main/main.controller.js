@@ -4,6 +4,6 @@
     .controller("MainController", MainController);
 
   function MainController($scope, $location) {
-    console.log($location.url());
+
   }
 })();

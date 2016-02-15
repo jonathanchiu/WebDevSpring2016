@@ -48,10 +48,6 @@
 
       users.forEach(function(oldUser) {
         if (oldUser._id === userId) {
-          console.log("CURRENT USER");
-          console.log(oldUser);
-          console.log("GIVEN USER");
-          console.log(user);
           oldUser.firstName = user.firstName;
           oldUser.lastName = user.lastName;
           oldUser.username = user.username;
@@ -62,7 +58,6 @@
         }
       });
 
-      console.log(found);
       found ? callback(found) : callback(null);
     }
 

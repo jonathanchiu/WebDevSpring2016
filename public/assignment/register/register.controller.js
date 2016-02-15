@@ -12,8 +12,6 @@
      * redirecting to profile page
      */
     function register() {
-      console.log("User registered!");
-
       var user = {
         firstName: null,
         lastName: null,
