@@ -46,16 +46,23 @@
     function updateUser(userId, user, callback) {
       var found = false;
 
-      users.forEach(function(currentUser) {
-        if (currentUser._id === userId) {
-          currentUser.firstName = user.firstName;
-          currentUser.lastName = user.lastName;
-          currentUser.username = user.username;
-          currentUser.password = user.password;
-          found = currentUser;
+      users.forEach(function(oldUser) {
+        if (oldUser._id === userId) {
+          console.log("CURRENT USER");
+          console.log(oldUser);
+          console.log("GIVEN USER");
+          console.log(user);
+          oldUser.firstName = user.firstName;
+          oldUser.lastName = user.lastName;
+          oldUser.username = user.username;
+          oldUser.password = user.password;
+          oldUser.email = user.email;
+          found = oldUser;
+          $rootScope.currentUser = found;
         }
       });
 
+      console.log(found);
       found ? callback(found) : callback(null);
     }
 
