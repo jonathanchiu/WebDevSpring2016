@@ -13,12 +13,12 @@
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li ng-class="{ active: isActive('/register') }"><a href="#/register">Register</a></li>
-        <li ng-class="{ active: isActive('/login') }"><a href="#/login">Login</a></li>
-        <li><a href="#/">Username</a></li>
-        <li ng-class="{ active: isActive('/profile') }"><a href="#/profile">Profile</a></li>
-        <li ng-class="{ active: isActive('/admin') }"><a href="#/admin">Admin</a></li>
-        <li><a href="#/">Logout</a></li>
+        <li ng-class="{ active: isActive('/register'), hide: $root.currentUser }"><a href="#/register">Register</a></li>
+        <li ng-class="{ active: isActive('/login'), hide: $root.currentUser }"><a href="#/login">Login</a></li>
+        <li ng-class="{ hide: !$root.currentUser }"><a href="#/">{{$root.currentUser.username}}</a></li>
+        <li ng-class="{ active: isActive('/profile'), hide: !$root.currentUser }"><a href="#/profile">Profile</a></li>
+        <li ng-class="{ active: isActive('/admin'), hide: !($root.currentUser.roles.indexOf('admin') > -1) }"><a href="#/admin">Admin</a></li>
+        <li ng-class="{ hide: !$root.currentUser }"><a ng-click="logout()" href="#/">Logout</a></li>
       </ul>
     </div>
 
