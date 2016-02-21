@@ -16,9 +16,9 @@ a {
 .btn-arrange-group {
   margin-top: 31px;
 }
-#forms-table {
-  margin-top: -20px;
-}
 #new-field-container {
   padding-top: 1.5em;
+}
+#forms-table .selected {
+  background: #ffe69b;
 }
