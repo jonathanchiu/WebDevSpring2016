@@ -1,4 +1,6 @@
 (function(){
+  "use strict";
+
   angular
     .module("FormBuilderApp")
     .controller("FormController", FormController);
@@ -46,8 +48,10 @@
       });
     }
 
+    /**
+     * Update the selected form in the view
+     */
     function updateForm() {
-      console.table($scope.forms);
       // Generate an array of form names of all the forms a user has created
       var formNames = $scope.forms.map(function(form) {
         return form.title
