@@ -20,7 +20,7 @@
     ];
 
     function findUserByCredentials(username, password, callback) {
-      var found = false;
+      var found = null;
 
       users.forEach(function(user) {
         if (user.username === username && user.password === password) {
@@ -28,7 +28,7 @@
         }
       });
 
-      found ? callback(found) : callback(null);
+      callback(found);
     }
 
     function findAllUsers(callback) {
@@ -51,7 +51,7 @@
     }
 
     function updateUser(userId, user, callback) {
-      var found = false;
+      var found = null;
 
       users.forEach(function(oldUser) {
         if (oldUser._id === userId) {
@@ -65,7 +65,7 @@
         }
       });
 
-      found ? callback(found) : callback(null);
+      callback(found);
     }
 
     var service = {
