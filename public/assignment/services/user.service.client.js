@@ -19,7 +19,7 @@
       "username":"ed", "password":"ed", "roles": ["student"]}
     ];
 
-    function findUserByUsernameAndPassword(username, password, callback) {
+    function findUserByCredentials(username, password, callback) {
       var found = false;
 
       users.forEach(function(user) {
@@ -70,7 +70,7 @@
 
     var service = {
       findAllUsers : findAllUsers,
-      findUserByUsernameAndPassword : findUserByUsernameAndPassword,
+      findUserByCredentials : findUserByCredentials,
       createUser : createUser,
       deleteUserById : deleteUserById,
       updateUser : updateUser
