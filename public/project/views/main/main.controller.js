@@ -6,6 +6,5 @@
     .controller("MainController", MainController);
 
   function MainController($scope, $location) {
-
   }
 })();

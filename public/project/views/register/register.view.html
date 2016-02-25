@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+  <div class="row">
+    <h1 class="text-xs-center form-header">Register</h1>
+  </div>
+
+  <form>
+    <div class="form-group row">
+      <label for="register-username" class="col-sm-2 control-label">Username</label>
+      <div class="col-sm-12">
+        <input ng-model="registerUsername" type="text" class="form-control" name="register-username" id="register-username" placeholder="Username">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="register-password" class="col-sm-2 control-label">Password</label>
+      <div class="col-sm-12">
+        <input ng-model="registerPassword" type="password" class="form-control" name="register-password" id="register-password" placeholder="Password">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="register-confirm-password" class="col-sm-2 control-label">Confirm</label>
+      <div class="col-sm-12">
+        <input ng-model="registerConfirmPassword" type="password" class="form-control" name="register-confirm-password" id="register-confirm-password" placeholder="Confirm Password">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <button ng-click="register()" class="btn btn-success btn-block" type="submit">Register</button>
+      </div>
+    </div>
+
+  </form>
+  </div>
+</div>
