@@ -13,6 +13,9 @@
           templateUrl: "views/login/login.view.html",
           controller: "LoginController"
         })
+        .when("/search", {
+          templateUrl: "views/movie/movie.view.html",
+        })
         .when("/register", {
           templateUrl: "views/register/register.view.html",
           controller: "RegisterController"

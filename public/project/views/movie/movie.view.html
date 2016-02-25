@@ -1,0 +1,23 @@
+<div ng-controller="MovieController" class="row">
+  <div class="col-md-12">
+    <h3>Search Results</h3>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Poster</th>
+            <th>Title</th>
+            <th>Info</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-imdb-id="{{movie.imdbID}}" ng-repeat="movie in $root.movies">
+            <td><img class="poster" ng-src="{{movie.Poster}}"></td>
+            <td>{{movie.Title}}&nbsp;({{movie.Year}})</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

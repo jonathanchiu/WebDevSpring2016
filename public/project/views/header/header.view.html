@@ -10,12 +10,15 @@
       <li class="nav-item">
         <a class="nav-link" href="#/register">Register</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#/admin">Admin</a>
+      </li>
     </ul>
 
-    <div class="input-group pull-xs-left">
-      <input type="text" class="form-control" placeholder="Star Wars">
+    <div ng-controller="MovieController" class="input-group pull-xs-left">
+      <input ng-model="searchedMovie" type="text" class="form-control" placeholder="Star Wars">
       <span class="input-group-btn">
-        <button class="btn btn-secondary" type="submit">
+        <button ng-click="search()" class="btn btn-secondary" type="submit">
           <i class="fa fa-search"></i>
         </button>
       </span>

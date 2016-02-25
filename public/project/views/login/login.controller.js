@@ -5,7 +5,7 @@
     .module("FreshPotatoes")
     .controller("LoginController", LoginController);
 
-  function LoginController($scope, $rootScope, $location) {
+  function LoginController($scope, $location) {
     $scope.login = login;
     $scope.register = register;
 
