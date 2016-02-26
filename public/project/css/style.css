@@ -8,3 +8,7 @@
 .form-header {
   padding-bottom: 1em;
 }
+
+.action-buttons {
+  white-space: nowrap;
+}

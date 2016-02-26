@@ -17,20 +17,56 @@
             <th>ID</th>
             <th>Poster</th>
             <th>Title</th>
+            <th>Year</th>
+            <th>Actions</th>
           </tr>
         </thead>
+
+        <!-- Row for adding movie -->
+        <thead>
+          <tr>
+            <th></th>
+            <th><input ng-model="moviePoster" type="text" class="form-control" placeholder="Poster URL"></th>
+            <th><input ng-model="movieTitle" type="text" class="form-control" placeholder="Movie Title"></th>
+            <th><input ng-model="movieYear" type="number" class="form-control" placeholder="Movie Year"></th>
+            <th>
+              <button class="btn btn-primary"><i class="fa fa-plus-square-o"></i></button>
+              <button class="btn btn-success"><i class="fa fa-check"></i></button>
+            </th>
+          </tr>
+        </thead>
+
+        <!-- Template for search results -->
         <tbody ng-repeat="movie in $root.movies">
-          <tr ng-click="toggleDetails($index, movie.imdbID)" data-imdb-id="{{movie.imdbID}}">
+          <tr data-imdb-id="{{movie.imdbID}}">
             <td>{{movie.imdbID}}</td>
             <td><img class="poster" ng-src="{{movie.Poster}}"></td>
-            <td>{{movie.Title}}&nbsp;({{movie.Year}})</td>
+            <td>{{movie.Title}}</td>
+            <td>{{movie.Year}}</td>
+            <td class="action-buttons">
+              <button ng-click="toggleDetails($index, movie.imdbID)" class="btn btn-success">
+                <i class="fa fa-info"></i>
+              </button>
+              <button class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></button>
+              <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
+              <button class="btn btn-danger"><i class="fa fa-heart"></i></button>
+              <button class="btn btn-primary"><i class="fa fa-newspaper-o"></i></button>
+              <button class="btn btn-primary"><i class="fa fa-pencil"></i></button>
+            </td>
           </tr>
           <tr ng-show="activePosition === $index">
             <td>{{title}}&nbsp;({{year}})</td>
             <td>Rated {{rated}}</td>
             <td>
+              <h3>Plot</h3>
               <p>{{plot}}</p>
+              <h3>Actors</h3>
+              <p>{{actors}}</p>
+              <h3>Director</h3>
+              <p>{{director}}</p>
             </td>
+            <td></td>
+            <td></td>
           </tr>
         </tbody>
       </table>
