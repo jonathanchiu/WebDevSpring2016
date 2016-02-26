@@ -12,3 +12,14 @@
 .action-buttons {
   white-space: nowrap;
 }
+
+.meta {
+  color: #999;
+}
+.review-title {
+  margin-bottom: .25rem;
+}
+
+.lead {
+  margin-bottom: 2em;
+}

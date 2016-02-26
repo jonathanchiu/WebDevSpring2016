@@ -20,6 +20,14 @@
           templateUrl: "views/register/register.view.html",
           controller: "RegisterController"
         })
+        .when("/write-review/:id", {
+          templateUrl: "views/review/write-review.view.html",
+          controller: "ReviewController"
+        })
+        .when("/read-review/:id", {
+          templateUrl: "views/review/read-review.view.html",
+          controller: "ReviewController"
+        })
         .otherwise({
           redirectTo: "/home"
         });
