@@ -1,20 +1,36 @@
 <div ng-controller="MovieController" class="row">
   <div class="col-md-12">
-    <h3>Search Results</h3>
+    <div class="pull-xs-left">
+      <h3>Search Results</h3>
+    </div>
+    <div class="pull-xs-right">
+      <div class="btn-group" role="group" aria-label="Pagination">
+        <button ng-hide="$root.currentPage == 1 || !($root.currentPage) || $root.hideTable" ng-click="getPrevPage()" type="button" class="btn btn-primary">Prev</button>
+        <button ng-hide="!($root.currentPage) || $root.hideTable" ng-click="getNextPage()" type="button" class="btn btn-success">Next</button>
+      </div>
+    </div>
     <div class="table-responsive">
-      <table class="table table-striped">
+      <p class="lead" ng-hide="$root.hideMessage">No more results! Click previous to go back!</p>
+      <table ng-hide="$root.hideTable" class="table">
         <thead class="thead-inverse">
           <tr>
+            <th>ID</th>
             <th>Poster</th>
             <th>Title</th>
-            <th>Info</th>
           </tr>
         </thead>
-        <tbody>
-          <tr data-imdb-id="{{movie.imdbID}}" ng-repeat="movie in $root.movies">
+        <tbody ng-repeat="movie in $root.movies">
+          <tr ng-click="toggleDetails($index, movie.imdbID)" data-imdb-id="{{movie.imdbID}}">
+            <td>{{movie.imdbID}}</td>
             <td><img class="poster" ng-src="{{movie.Poster}}"></td>
             <td>{{movie.Title}}&nbsp;({{movie.Year}})</td>
-            <td></td>
+          </tr>
+          <tr ng-show="activePosition === $index">
+            <td>{{title}}&nbsp;({{year}})</td>
+            <td>Rated {{rated}}</td>
+            <td>
+              <p>{{plot}}</p>
+            </td>
           </tr>
         </tbody>
       </table>
