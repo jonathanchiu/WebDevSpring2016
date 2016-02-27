@@ -5,8 +5,8 @@
     </div>
     <div class="pull-xs-right">
       <div class="btn-group" role="group" aria-label="Pagination">
-        <button ng-hide="$root.currentPage == 1 || !($root.currentPage) || $root.hideTable" ng-click="getPrevPage()" type="button" class="btn btn-primary">Prev</button>
-        <button ng-hide="!($root.currentPage) || $root.hideTable" ng-click="getNextPage()" type="button" class="btn btn-success">Next</button>
+        <button ng-hide="$root.currentPage == 1 || !($root.currentPage) || $root.hideTable" ng-click="getPage('p')" type="button" class="btn btn-primary">Prev</button>
+        <button ng-hide="!($root.currentPage) || $root.hideTable" ng-click="getPage('n')" type="button" class="btn btn-success">Next</button>
       </div>
     </div>
     <div class="table-responsive">
@@ -53,7 +53,7 @@
                 <a ng-href="#/read-review/{{movie.imdbID}}" class="btn btn-primary"><i class="fa fa-newspaper-o"></i></a>
               </span>
 
-              <a class="btn btn-warning"><i class="fa fa-trash-o"></i></a>
+              <a ng-click="deleteMovie($index)" class="btn btn-warning"><i class="fa fa-trash-o"></i></a>
               <a class="btn btn-danger"><i class="fa fa-heart"></i></a>
               <a class="btn btn-primary"><i class="fa fa-pencil"></i></a>
             </td>

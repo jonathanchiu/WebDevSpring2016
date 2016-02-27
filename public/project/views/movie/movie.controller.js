@@ -9,8 +9,8 @@
 
     $scope.search = search;
     $scope.toggleDetails = toggleDetails;
-    $scope.getNextPage = getNextPage;
-    $scope.getPrevPage = getPrevPage;
+    $scope.deleteMovie = deleteMovie;
+    $scope.getPage = getPage;
     $rootScope.hideMessage = true;
     $rootScope.hideTable = false;
 
@@ -24,18 +24,19 @@
         .then(renderSearchResults, renderError);
     }
 
-    function getNextPage() {
-      $scope.activePosition = -1;
-      $rootScope.currentPage += 1;
-
-      MovieService
-        .searchMovie($rootScope.lastSearched, $rootScope.currentPage)
-        .then(renderSearchResults, renderError);
+    function deleteMovie(index) {
+      $rootScope.movies.splice(index, 1);
     }
 
-    function getPrevPage() {
+    function getPage(page) {
+      if (page === "n") {
+        $rootScope.currentPage += 1;
+      }
+      else {
+        $rootScope.currentPage -= 1;
+      }
+      // Reset any expanded details pane to close
       $scope.activePosition = -1;
-      $rootScope.currentPage -= 1;
 
       MovieService
         .searchMovie($rootScope.lastSearched, $rootScope.currentPage)
