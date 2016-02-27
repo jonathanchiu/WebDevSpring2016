@@ -26,12 +26,12 @@
         <thead>
           <tr>
             <th></th>
-            <th><input ng-model="moviePoster" type="text" class="form-control" placeholder="Poster URL"></th>
-            <th><input ng-model="movieTitle" type="text" class="form-control" placeholder="Movie Title"></th>
-            <th><input ng-model="movieYear" type="number" class="form-control" placeholder="Movie Year"></th>
+            <th><input ng-model="editMoviePoster" type="text" class="form-control" placeholder="Poster URL"></th>
+            <th><input ng-model="editMovieTitle" type="text" class="form-control" placeholder="Movie Title"></th>
+            <th><input ng-model="editMovieYear" type="number" class="form-control" placeholder="Movie Year"></th>
             <th>
-              <button class="btn btn-primary"><i class="fa fa-plus-square-o"></i></button>
-              <button class="btn btn-success"><i class="fa fa-check"></i></button>
+              <a class="btn btn-primary"><i class="fa fa-plus-square-o"></i></a>
+              <a ng-click="updateMovie()" class="btn btn-success"><i class="fa fa-check"></i></a>
             </th>
           </tr>
         </thead>
@@ -40,7 +40,7 @@
         <tbody ng-repeat="movie in $root.movies">
           <tr data-imdb-id="{{movie.imdbID}}">
             <td>{{movie.imdbID}}</td>
-            <td><img class="poster" ng-src="{{movie.Poster}}"></td>
+            <td><img class="poster" ng-src="{{movie.Poster.indexOf('http') > -1 ? movie.Poster : noPoster}}"></td>
             <td>{{movie.Title}}</td>
             <td>{{movie.Year}}</td>
             <td class="action-buttons">
@@ -55,7 +55,7 @@
 
               <a ng-click="deleteMovie($index)" class="btn btn-warning"><i class="fa fa-trash-o"></i></a>
               <a class="btn btn-danger"><i class="fa fa-heart"></i></a>
-              <a class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+              <a ng-click="selectMovie($index)" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
             </td>
           </tr>
           <tr ng-show="activePosition === $index">

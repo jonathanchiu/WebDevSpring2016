@@ -10,7 +10,11 @@
     $scope.search = search;
     $scope.toggleDetails = toggleDetails;
     $scope.deleteMovie = deleteMovie;
+    $scope.selectMovie = selectMovie;
+    $scope.updateMovie = updateMovie;
+
     $scope.getPage = getPage;
+    $scope.noPoster = 'images/saitama.jpeg';
     $rootScope.hideMessage = true;
     $rootScope.hideTable = false;
 
@@ -28,6 +32,24 @@
       $rootScope.movies.splice(index, 1);
     }
 
+    function updateMovie() {
+      for (var i = 0; i < $rootScope.movies.length; i++) {
+        if ($rootScope.movies[i].imdbID === $scope.selectedMovie) {
+          $rootScope.movies[i].Title = $scope.editMovieTitle;
+          $rootScope.movies[i].Poster = $scope.editMoviePoster;
+          $rootScope.movies[i].Year = $scope.editMovieYear;
+          return;
+        }
+      }
+    }
+
+    function selectMovie(index) {
+      $scope.selectedMovie = $scope.movies[index].imdbID;
+      $scope.editMoviePoster = $rootScope.movies[index].Poster;
+      $scope.editMovieTitle = $rootScope.movies[index].Title;
+      $scope.editMovieYear = parseInt($rootScope.movies[index].Year, 10);
+    }
+
     function getPage(page) {
       if (page === "n") {
         $rootScope.currentPage += 1;
@@ -35,12 +57,21 @@
       else {
         $rootScope.currentPage -= 1;
       }
-      // Reset any expanded details pane to close
-      $scope.activePosition = -1;
+
+      resetViewState();
 
       MovieService
         .searchMovie($rootScope.lastSearched, $rootScope.currentPage)
         .then(renderSearchResults, renderError);
+    }
+
+    function resetViewState() {
+      // Reset any expanded details pane to close
+      $scope.activePosition = -1;
+      // Clears fields for editing/adding a movie
+      $scope.editMoviePoster = null;
+      $scope.editMovieTitle = null;
+      $scope.editMovieYear = null;
     }
 
     function renderSearchResults(response) {
