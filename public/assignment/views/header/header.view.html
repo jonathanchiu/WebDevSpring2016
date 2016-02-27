@@ -17,6 +17,7 @@
         <li ng-class="{ active: isActive('/login'), hide: $root.currentUser }"><a href="#/login">Login</a></li>
         <li ng-class="{ hide: !$root.currentUser }"><a href="#/">{{$root.currentUser.username}}</a></li>
         <li ng-class="{ active: isActive('/profile'), hide: !$root.currentUser }"><a href="#/profile">Profile</a></li>
+        <li ng-class="{ active: isActive('/forms'), hide: !$root.currentUser }"><a href="#/forms">Forms</a></li>
         <li ng-class="{ active: isActive('/admin'), hide: !($root.currentUser.roles.indexOf('admin') > -1) }"><a href="#/admin">Admin</a></li>
         <li ng-class="{ hide: !$root.currentUser }"><a ng-click="logout()" href="#/">Logout</a></li>
       </ul>
