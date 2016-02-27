@@ -6,7 +6,8 @@
 }
 
 .form-header {
-  padding-bottom: 1em;
+  padding-bottom: 0.5em;
+  padding-top: 0.5em;
 }
 
 .action-buttons {
@@ -22,4 +23,16 @@
 
 .lead {
   margin-bottom: 2em;
+}
+
+.avatar {
+  width: 230px;
+}
+
+.username {
+  margin-top: 1em;
+}
+
+#profile-buttons {
+  padding-bottom: 2em;
 }

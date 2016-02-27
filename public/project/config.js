@@ -28,6 +28,10 @@
           templateUrl: "views/review/read-review.view.html",
           controller: "ReviewController"
         })
+        .when("/profile", {
+          templateUrl: "views/profile/profile.view.html",
+          controller: "ProfileController"
+        })
         .otherwise({
           redirectTo: "/home"
         });
