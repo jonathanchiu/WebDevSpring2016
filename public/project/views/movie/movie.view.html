@@ -39,7 +39,14 @@
           <tr data-imdb-id="{{movie.imdbID}}">
             <td>{{movie.imdbID}}</td>
             <td><img class="poster" ng-src="{{movie.Poster.indexOf('http') > -1 ? movie.Poster : noPoster}}"></td>
-            <td>{{movie.Title}}</td>
+            <td>
+              <p>{{movie.Title}}</p>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+            </td>
             <td>{{movie.Year}}</td>
             <td class="action-buttons">
               <a ng-click="toggleDetails($index, movie.imdbID)" class="btn btn-success">
