@@ -12,6 +12,7 @@
     $scope.deleteMovie = deleteMovie;
     $scope.selectMovie = selectMovie;
     $scope.updateMovie = updateMovie;
+    $scope.favoriteMovie = favoriteMovie;
 
     $scope.getPage = getPage;
     $scope.noPoster = 'images/saitama.jpeg';
@@ -41,6 +42,10 @@
           return;
         }
       }
+    }
+
+    function favoriteMovie(index) {
+      $scope.favoritedMovie = $rootScope.movies[index].imdbID;
     }
 
     function selectMovie(index) {
