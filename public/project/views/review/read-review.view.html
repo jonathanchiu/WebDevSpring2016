@@ -4,17 +4,45 @@
     <p class="lead">
       You are now viewing all reviews submitted for {{id}}.
     </p>
-  </div>
-</div>
 
-<div class="row">
-  <div ng-repeat="review in reviews" class="col-md-12">
-    <h3 class="review-title">{{review.title}}</h3>
-    <p>
-      <span class="meta">{{review.created}} by</span>
-      <a>{{review.author}}</a>
-    </p>
-    <hr>
-    <p>{{review.content}}</p>
+    <div class="table-responsive">
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Created</th>
+            <th>Content</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <thead>
+          <tr>
+            <th><input ng-model="reviewTitleSubmission" type="text" class="form-control" placeholder="Review Title"></th>
+            <th><input ng-model="reviewAuthorSubmission" type="text" class="form-control" placeholder="Author ID"></th>
+            <th><input ng-model="reviewCreatedSubmission" type="date" class="form-control" placeholder="Date"></th>
+            <th><input ng-model="reviewContentSubmission" type="text" class="form-control" placeholder="Review Content"></th>
+            <th>
+              <button class="btn btn-primary"><i class="fa fa-plus-square-o"></i></button>
+              <button class="btn btn-success"><i class="fa fa-check"></i></button>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr ng-repeat="review in reviews">
+            <td>{{review.title}}</td>
+            <td><a>{{review.author}}</a></td>
+            <td>{{review.created}}</td>
+            <td>{{review.content}}</td>
+            <td>
+              <a class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+              <a class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
