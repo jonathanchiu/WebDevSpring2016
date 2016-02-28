@@ -32,6 +32,10 @@
           templateUrl: "views/profile/profile.view.html",
           controller: "ProfileController"
         })
+        .when("/users", {
+          templateUrl: "views/user/user.view.html",
+          controller: "UserController"
+        })
         .otherwise({
           redirectTo: "/home"
         });

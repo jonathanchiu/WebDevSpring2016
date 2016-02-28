@@ -4,17 +4,20 @@
       <h1 class="display-4">Fresh Potatoes</h1>
     </a>
     <ul class="nav navbar-nav pull-xs-right">
-      <li class="nav-item">
+      <li ng-hide="$root.currentUser" class="nav-item">
         <a class="nav-link" href="#/login">Login</a>
       </li>
-      <li class="nav-item">
+      <li ng-hide="$root.currentUser" class="nav-item">
         <a class="nav-link" href="#/register">Register</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#/search">Search</a>
       </li>
-      <li class="nav-item">
+      <li ng-show="$root.currentUser" class="nav-item">
         <a class="nav-link" href="#/profile">Profile</a>
+      </li>
+      <li ng-show="$root.currentUser && $root.currentUser.role === 1" class="nav-item">
+        <a class="nav-link" href="#/users">Users</a>
       </li>
     </ul>
 

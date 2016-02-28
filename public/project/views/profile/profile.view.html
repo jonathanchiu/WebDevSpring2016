@@ -6,32 +6,45 @@
 
 <div class="row">
   <div class="col-md-2">
-    <img class="avatar img-fluid" src="images/avatar.gif" alt="avatar">
-    <h4 class="text-md-center username"><a>Username</a></h4>
+    <img class="avatar img-fluid" ng-src="{{$root.currentUser.avatar}}" alt="avatar">
+    <h4 class="text-md-center username"><a>{{$root.currentUser.username}}</a></h4>
     <p class="text-muted text-md-center">
       9999 Followers
     </p>
     <hr>
     <div class="text-md-center" id="profile-buttons">
       <button class="btn btn-primary" type="button">Follow</button>
-      <button class="btn btn-danger" type="button">Delete</button>
+      <button ng-show="$root.currentUser || $root.currentUser.role === 1" class="btn btn-danger" type="button">Delete</button>
     </div>
   </div>
 
   <div class="col-md-10">
     <h3 class="form-header">Info</h3>
     <form>
+
+      <fieldset class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control" id="firstName" value="{{$root.currentUser.firstName}}" placeholder="First Name">
+      </fieldset>
+
+      <fieldset class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" class="form-control" id="lastName" value="{{$root.currentUser.lastName}}" placeholder="Last Name">
+      </fieldset>
+
       <fieldset class="form-group">
         <label for="profileDescription">Description</label>
-        <textarea type="text" class="form-control" rows="4" id="profileDescription" placeholder="Description"></textarea>
+        <textarea type="text" class="form-control" rows="4" id="profileDescription" placeholder="Description">{{$root.currentUser.description}}</textarea>
         <small class="text-muted">
-          What are soome of your favorite movies? Actors? Genres?
+          What are some of your favorite movies? Actors? Genres?
         </small>
       </fieldset>
+
       <fieldset class="form-group">
         <label for="profileBirthdate">Birthdate</label>
-        <input type="date" class="form-control" id="profileBirthdate" placeholder="Birthdate">
+        <input type="date" class="form-control" value="{{$root.currentUser.dob | date:'yyyy-MM-dd'}}" id="profileBirthdate" placeholder="Birthdate">
       </fieldset>
+
       <fieldset class="form-group">
         <button class="btn btn-success">Update</button>
       </fieldset>
