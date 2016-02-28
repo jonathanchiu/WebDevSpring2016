@@ -9,6 +9,7 @@
 
     $scope.search = search;
     $scope.toggleDetails = toggleDetails;
+    $scope.addMovie = addMovie;
     $scope.deleteMovie = deleteMovie;
     $scope.selectMovie = selectMovie;
     $scope.updateMovie = updateMovie;
@@ -29,6 +30,17 @@
         .then(renderSearchResults, renderError);
     }
 
+    function addMovie() {
+      var newMovie = {
+        imdbID: $scope.editID,
+        Poster: $scope.editMoviePoster,
+        Title: $scope.editMovieTitle,
+        Year: $scope.editMovieYear
+      };
+
+      // Prepend newly added movie to current result set
+      $rootScope.movies.unshift(newMovie);
+    }
     function deleteMovie(index) {
       $rootScope.movies.splice(index, 1);
     }
@@ -49,7 +61,7 @@
     }
 
     function selectMovie(index) {
-      $scope.selectedMovie = $scope.movies[index].imdbID;
+      $scope.selectedMovie = $rootScope.movies[index].imdbID;
       $scope.editMoviePoster = $rootScope.movies[index].Poster;
       $scope.editMovieTitle = $rootScope.movies[index].Title;
       $scope.editMovieYear = parseInt($rootScope.movies[index].Year, 10);
