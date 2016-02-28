@@ -51,7 +51,7 @@
       callback(user);
     }
 
-    function updateUser(userId, user, callback) {
+    function updateUserProfile(userId, user, callback) {
 
       users.forEach(function(updatedUser) {
         if (updatedUser._id === userId) {
@@ -69,10 +69,40 @@
       callback(null);
     }
 
+    function deleteUserById(id, callback) {
+      users = _.filter(users, function(u) { return u._id !== id; });
+      callback(users);
+    }
+
+    function updateUser(user, id, callback) {
+      for (var i = 0; i < users.length; i++) {
+        if (users[i]._id === id) {
+          users[i].avatar = user.avatar;
+          users[i].username = user.username;
+          users[i].password = user.password;
+          users[i].firstName = user.firstName;
+          users[i].lastName = user.lastName;
+          users[i].dob = user.dob;
+          users[i].role = user.role;
+          callback(users);
+          return;
+        }
+      }
+    }
+
+    function createUser(user, callback) {
+      user._id = (new Date).getTime();
+      users.push(user);
+      callback(users);
+    }
+
     var service = {
       findUserByCredentials: findUserByCredentials,
       createUser: createUser,
-      updateUser: updateUser
+      updateUserProfile: updateUserProfile,
+      updateUser: updateUser,
+      deleteUserById: deleteUserById,
+      createUser: createUser
     };
 
     return service;

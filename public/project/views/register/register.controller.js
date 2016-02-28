@@ -20,7 +20,6 @@
       UserService.createUser(user, function(newUser) {
         if (newUser) {
           $rootScope.currentUser = newUser;
-          console.log($rootScope.currentUser);
           $location.url("/profile");
         }
       });

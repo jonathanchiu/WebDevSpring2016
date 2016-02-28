@@ -29,7 +29,7 @@
         dob: $scope.profileBirthdate
       };
 
-      UserService.updateUser($rootScope.currentUser._id, updatedUser, function(found) {
+      UserService.updateUserProfile($rootScope.currentUser._id, updatedUser, function(found) {
         if (found) {
           $location.url("/profile");
         }

@@ -4,7 +4,7 @@
   </div>
 </div>
 
-<div class="row">
+<div ng-show="$root.currentUser && $root.currentUser.role === 1" class="row">
   <div class="col-md-12">
     <div class="table-responsive">
       <table class="table">
@@ -30,20 +30,35 @@
             <th><input ng-model="lastNameSubmit" type="text" class="form-control" placeholder="Last Name"></th>
             <th><input ng-model="birthdateSubmit" type="date" class="form-control"></th>
             <th>
-              <select class="form-control" ng-model="roleSubmit">
-                <option>Default</option>
-                <option>Admin</option>
+              <select ng-init="roleSubmit = defaultRole" class="form-control" ng-model="roleSubmit">
+                <option name="admin" value="1">Admin</option>
+                <option name="default" value="2">Default</option>
               </select>
             </th>
             <th class="action-buttons">
-              <a class="btn btn-primary"><i class="fa fa-plus-square-o"></i></a>
-              <a class="btn btn-success"><i class="fa fa-check"></i></a>
+              <a ng-click="addUser()" class="btn btn-primary"><i class="fa fa-plus-square-o"></i></a>
+              <a ng-click="updateUser()" class="btn btn-success"><i class="fa fa-check"></i></a>
             </th>
           </tr>
         </thead>
 
         <tbody>
-
+          <tr ng-repeat="user in $root.users">
+            <td><img class="poster img-responsive" ng-src="{{user.avatar}}"></td>
+            <td><a>{{user.username}}</a></td>
+            <td>{{user.password}}</td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.dob | date: 'MM-dd-yyyy'}}</td>
+            <td>{{user.role}}</td>
+            <td class="action-buttons">
+              <a ng-click="toggleDetails($index)" class="btn btn-success">
+                <i class="fa fa-info"></i>
+              </a>
+              <a ng-click="deleteUser(user._id)" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+              <a ng-click="selectUser($index)" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
