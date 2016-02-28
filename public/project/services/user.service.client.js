@@ -5,7 +5,7 @@
     .module("FreshPotatoes")
     .factory("UserService", UserService);
 
-  function UserService() {
+  function UserService($rootScope) {
 
     var users = [
       {
@@ -32,6 +32,8 @@
       }
     ];
 
+    $rootScope.users = users;
+
     function findUserByCredentials(username, password, callback) {
       users.forEach(function(user) {
         if (user.username === username && user.password === password) {
@@ -42,8 +44,35 @@
       callback(null);
     }
 
+    function createUser(user, callback) {
+      user._id = (new Date).getTime();
+      users.push(user);
+      $rootScope.users = users;
+      callback(user);
+    }
+
+    function updateUser(userId, user, callback) {
+
+      users.forEach(function(updatedUser) {
+        if (updatedUser._id === userId) {
+          updatedUser.firstName = user.firstName;
+          updatedUser.lastName = user.lastName;
+          updatedUser.password = user.password;
+          updatedUser.description = user.description;
+          updatedUser.dob = user.dob;
+
+          $rootScope.currentUser = updatedUser;
+          callback(updatedUser);
+          return;
+        }
+      });
+      callback(null);
+    }
+
     var service = {
       findUserByCredentials: findUserByCredentials,
+      createUser: createUser,
+      updateUser: updateUser
     };
 
     return service;

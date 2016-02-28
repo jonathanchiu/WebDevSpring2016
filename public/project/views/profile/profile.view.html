@@ -24,17 +24,22 @@
 
       <fieldset class="form-group">
         <label for="firstName">First Name</label>
-        <input type="text" class="form-control" id="firstName" value="{{$root.currentUser.firstName}}" placeholder="First Name">
+        <input ng-model="profileFirstName" type="text" class="form-control" id="firstName" placeholder="First Name">
       </fieldset>
 
       <fieldset class="form-group">
         <label for="lastName">Last Name</label>
-        <input type="text" class="form-control" id="lastName" value="{{$root.currentUser.lastName}}" placeholder="Last Name">
+        <input ng-model="profileLastName" type="text" class="form-control" id="lastName" placeholder="Last Name">
+      </fieldset>
+
+      <fieldset class="form-group">
+        <label for="profilePassword">Password</label>
+        <input ng-model="profilePassword" type="password" class="form-control" id="profilePassword" placeholder="Password">
       </fieldset>
 
       <fieldset class="form-group">
         <label for="profileDescription">Description</label>
-        <textarea type="text" class="form-control" rows="4" id="profileDescription" placeholder="Description">{{$root.currentUser.description}}</textarea>
+        <textarea ng-model="profileDescription" type="text" class="form-control" rows="4" id="profileDescription" placeholder="Description">{{$root.currentUser.description}}</textarea>
         <small class="text-muted">
           What are some of your favorite movies? Actors? Genres?
         </small>
@@ -42,11 +47,11 @@
 
       <fieldset class="form-group">
         <label for="profileBirthdate">Birthdate</label>
-        <input type="date" class="form-control" value="{{$root.currentUser.dob | date:'yyyy-MM-dd'}}" id="profileBirthdate" placeholder="Birthdate">
+        <input ng-model="profileBirthdate" type="date" class="form-control" id="profileBirthdate" placeholder="Birthdate">
       </fieldset>
 
       <fieldset class="form-group">
-        <button class="btn btn-success">Update</button>
+        <button ng-click="update()" class="btn btn-success">Update</button>
       </fieldset>
     </form>
   </div>
