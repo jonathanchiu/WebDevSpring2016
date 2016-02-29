@@ -1,0 +1,36 @@
+<div ng-controller="HeaderController" class="main-header">
+  <nav class="navbar navbar-light bg-faded">
+    <a class="navbar-brand" href="#">
+      <h1 class="display-4">Fresh Potatoes</h1>
+    </a>
+    <ul class="nav navbar-nav pull-xs-right">
+      <li ng-hide="$root.currentUser" class="nav-item">
+        <a class="nav-link" href="#/login">Login</a>
+      </li>
+      <li ng-hide="$root.currentUser" class="nav-item">
+        <a class="nav-link" href="#/register">Register</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#/search">Search</a>
+      </li>
+      <li ng-show="$root.currentUser" class="nav-item">
+        <a class="nav-link" href="#/profile">Profile</a>
+      </li>
+      <li ng-show="$root.currentUser && $root.currentUser.role === 1" class="nav-item">
+        <a class="nav-link" href="#/users">Users</a>
+      </li>
+      <li ng-show="$root.currentUser" class="nav-item">
+        <a ng-click="logout()" href="#/" class="nav-link">Logout</a>
+      </li>
+    </ul>
+
+    <div ng-controller="MovieController" class="input-group pull-xs-left">
+      <input ng-model="searchedMovie" type="text" class="form-control" placeholder="Star Wars">
+      <span class="input-group-btn">
+        <button ng-click="search()" class="btn btn-secondary" type="submit">
+          <i class="fa fa-search"></i>
+        </button>
+      </span>
+    </div>
+  </nav>
+</div>

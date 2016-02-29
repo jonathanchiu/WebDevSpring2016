@@ -1,0 +1,38 @@
+.main-header {
+  padding-bottom: 2em;
+}
+.poster {
+  width: 190px;
+}
+
+.form-header {
+  padding-bottom: 0.5em;
+  padding-top: 0.5em;
+}
+
+.action-buttons {
+  white-space: nowrap;
+}
+
+.meta {
+  color: #999;
+}
+.review-title {
+  margin-bottom: .25rem;
+}
+
+.lead {
+  margin-bottom: 2em;
+}
+
+.avatar {
+  width: 230px;
+}
+
+.username {
+  margin-top: 1em;
+}
+
+#profile-buttons {
+  padding-bottom: 2em;
+}

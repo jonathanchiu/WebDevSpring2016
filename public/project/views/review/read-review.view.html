@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>Reviews</h1>
+    <p class="lead">
+      You are now viewing all reviews submitted for {{id}}.
+    </p>
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Created</th>
+            <th>Content</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <thead>
+          <tr>
+            <th><input ng-model="reviewTitleSubmission" type="text" class="form-control" placeholder="Review Title"></th>
+            <th><input ng-model="reviewAuthorSubmission" type="text" class="form-control" placeholder="Author ID"></th>
+            <th><input ng-model="reviewCreatedSubmission" type="date" class="form-control" placeholder="Date"></th>
+            <th><textarea ng-model="reviewContentSubmission" type="text" class="form-control" placeholder="Review Content" rows="4"></textarea></th>
+            <th class="action-buttons">
+              <a ng-click="addReview()" class="btn btn-primary"><i class="fa fa-plus-square-o"></i></a>
+              <a ng-click="updateReview()" class="btn btn-success"><i class="fa fa-check"></i></a>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr ng-repeat="review in reviews">
+            <td>{{review.title}}</td>
+            <td><a>{{review.author}}</a></td>
+            <td>{{review.created}}</td>
+            <td>{{review.content}}</td>
+            <td class="action-buttons">
+              <a ng-click="deleteReview($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+              <a ng-click="selectReview($index)" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

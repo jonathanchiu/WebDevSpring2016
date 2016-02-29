@@ -1,0 +1,84 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1 class="form-header text-xs-center">Profile</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <img class="avatar img-fluid" ng-src="{{$root.currentUser.avatar}}" alt="avatar">
+    <h4 class="text-md-center username"><a>{{$root.currentUser.username}}</a></h4>
+    <p class="text-muted text-md-center">
+      9999 Followers
+    </p>
+    <hr>
+    <div class="text-md-center" id="profile-buttons">
+      <button class="btn btn-primary" type="button">Follow</button>
+      <button ng-show="$root.currentUser || $root.currentUser.role === 1" class="btn btn-danger" type="button">Delete</button>
+    </div>
+  </div>
+
+  <div class="col-md-10">
+    <h3 class="form-header">Info</h3>
+    <form>
+
+      <fieldset class="form-group">
+        <label for="firstName">First Name</label>
+        <input ng-model="profileFirstName" type="text" class="form-control" id="firstName" placeholder="First Name">
+      </fieldset>
+
+      <fieldset class="form-group">
+        <label for="lastName">Last Name</label>
+        <input ng-model="profileLastName" type="text" class="form-control" id="lastName" placeholder="Last Name">
+      </fieldset>
+
+      <fieldset class="form-group">
+        <label for="profilePassword">Password</label>
+        <input ng-model="profilePassword" type="password" class="form-control" id="profilePassword" placeholder="Password">
+      </fieldset>
+
+      <fieldset class="form-group">
+        <label for="profileDescription">Description</label>
+        <textarea ng-model="profileDescription" type="text" class="form-control" rows="4" id="profileDescription" placeholder="Description">{{$root.currentUser.description}}</textarea>
+        <small class="text-muted">
+          What are some of your favorite movies? Actors? Genres?
+        </small>
+      </fieldset>
+
+      <fieldset class="form-group">
+        <label for="profileBirthdate">Birthdate</label>
+        <input ng-model="profileBirthdate" type="date" class="form-control" id="profileBirthdate" placeholder="Birthdate">
+      </fieldset>
+
+      <fieldset class="form-group">
+        <button ng-click="update()" class="btn btn-success">Update</button>
+      </fieldset>
+    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-10">
+    <h3 class="form-header">Favorites</h3>
+    <p class="lead">This user has not favorited any movies yet.</p>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-10">
+    <h3 class="form-header">Activity</h3>
+    <p class="lead">You must follow this user to view their activity.</p>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-10">
+    <h3 class="form-header">Reviews</h3>
+    <p class="lead">This user has not written any reviews yet.</p>
+  </div>
+</div>

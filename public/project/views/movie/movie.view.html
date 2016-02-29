@@ -1,0 +1,84 @@
+<div ng-controller="MovieController" class="row">
+  <div class="col-md-12">
+    <h1 class="text-xs-center form-header">Search Results</h1>
+    <div class="pull-xs-right">
+      <div class="btn-group" role="group" aria-label="Pagination">
+        <button ng-hide="$root.currentPage == 1 || !($root.currentPage) || $root.hideTable" ng-click="getPage('p')" type="button" class="btn btn-primary">Prev</button>
+        <button ng-hide="!($root.currentPage) || $root.hideTable" ng-click="getPage('n')" type="button" class="btn btn-success">Next</button>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <p class="lead" ng-hide="$root.hideMessage">No more results! Click previous to go back!</p>
+      <table ng-hide="$root.hideTable" class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>ID</th>
+            <th>Poster</th>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <!-- Row for adding movie -->
+        <thead ng-show="$root.currentUser && $root.currentUser.role === 1">
+          <tr>
+            <th><input ng-model="editID" type="text" class="form-control" placeholder="ID"></th>
+            <th><input ng-model="editMoviePoster" type="text" class="form-control" placeholder="Poster URL"></th>
+            <th><input ng-model="editMovieTitle" type="text" class="form-control" placeholder="Movie Title"></th>
+            <th><input ng-model="editMovieYear" type="number" class="form-control" placeholder="Movie Year"></th>
+            <th class="action-buttons">
+              <a ng-click="addMovie()" class="btn btn-primary"><i class="fa fa-plus-square-o"></i></a>
+              <a ng-click="updateMovie()" class="btn btn-success"><i class="fa fa-check"></i></a>
+            </th>
+          </tr>
+        </thead>
+
+        <!-- Template for search results -->
+        <tbody ng-repeat="movie in $root.movies">
+          <tr data-imdb-id="{{movie.imdbID}}">
+            <td>{{movie.imdbID}}</td>
+            <td><img class="poster" ng-src="{{movie.Poster.indexOf('http') > -1 ? movie.Poster : noPoster}}"></td>
+            <td>
+              <p>{{movie.Title}}</p>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+            </td>
+            <td>{{movie.Year}}</td>
+            <td class="action-buttons">
+              <a ng-show="$root.currentUser" ng-click="toggleDetails($index, movie.imdbID)" class="btn btn-success">
+                <i class="fa fa-info"></i>
+              </a>
+
+              <span ng-controller="ReviewController">
+                <a ng-show="$root.currentUser" ng-href="#/write-review/{{movie.imdbID}}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a>
+                <a ng-href="#/read-review/{{movie.imdbID}}" class="btn btn-primary"><i class="fa fa-newspaper-o"></i></a>
+              </span>
+
+              <a ng-show="$root.currentUser && $root.currentUser.role === 1" ng-click="deleteMovie($index)" class="btn btn-warning"><i class="fa fa-trash-o"></i></a>
+              <a ng-show="$root.currentUser" ng-click"favoriteMovie($index)" class="btn btn-danger"><i class="fa fa-heart"></i></a>
+              <a ng-show="$root.currentUser && $root.currentUser.role === 1" ng-click="selectMovie($index)" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+            </td>
+          </tr>
+          <tr ng-show="activePosition === $index">
+            <td>{{title}}&nbsp;({{year}})</td>
+            <td>Rated {{rated}}</td>
+            <td>
+              <h3>Plot</h3>
+              <p>{{plot}}</p>
+              <h3>Actors</h3>
+              <p>{{actors}}</p>
+              <h3>Director</h3>
+              <p>{{director}}</p>
+            </td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
