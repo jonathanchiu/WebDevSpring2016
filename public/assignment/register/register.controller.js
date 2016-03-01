@@ -18,13 +18,15 @@
         firstName: null,
         lastName: null,
         username: $scope.username,
-        password: $scope.password
+        password: $scope.password,
+        email: $scope.email
       };
 
       // Once new user is created in the UserService, callback here
       UserService.createUser(user, function(newUser) {
         if (newUser) {
           $rootScope.newUser = newUser;
+          $rootScope.currentUser = newUser;
           $location.url("/profile");
         }
       });
