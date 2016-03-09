@@ -21,7 +21,6 @@
       UserService
         .login(user.username, user.password)
         .then(function(response) {
-          console.log(response);
           if (response.data) {
             UserService.setCurrentUser(response.data);
             $location.url("/profile");

@@ -34,22 +34,8 @@
       callback(users);
     }
 
-    function updateUser(userId, user, callback) {
-      var found = null;
-
-      users.forEach(function(oldUser) {
-        if (oldUser._id === userId) {
-          oldUser.firstName = user.firstName;
-          oldUser.lastName = user.lastName;
-          oldUser.username = user.username;
-          oldUser.password = user.password;
-          oldUser.email = user.email;
-          found = oldUser;
-          $rootScope.currentUser = found;
-        }
-      });
-
-      callback(found);
+    function updateUser(userId, user) {
+      return $http.put("/api/assignment/user/" + userId, user);
     }
 
     var service = {

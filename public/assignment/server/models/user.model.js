@@ -45,9 +45,8 @@ module.exports = function() {
   }
 
   function updateUserById(userId, user) {
-
     for (var i = 0; i < mock.length; i++) {
-      if (mock[i]._id === userId) {
+      if (mock[i]._id == userId) {
         mock[i].firstName = user.firstName;
         mock[i].lastName = user.lastName;
         mock[i].username = user.username;

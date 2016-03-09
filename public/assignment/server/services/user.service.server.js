@@ -42,7 +42,6 @@ module.exports = function(app, userModel) {
   }
 
   function login(req, res) {
-
     var credentials = {
         username: req.query.username,
         password: req.query.password
