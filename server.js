@@ -18,4 +18,5 @@ app.get('/user', function(req, res) {
   res.json(users);
 });
 
+require("./public/assignment/server/app.js")(app);
 app.listen(port, ipaddress);

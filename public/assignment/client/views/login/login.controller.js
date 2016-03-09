@@ -6,16 +6,24 @@
     .controller("LoginController", LoginController);
 
   function LoginController($scope, $rootScope, $location, UserService) {
+    var vm = this;
 
-    $scope.login = login;
+    vm.login = login;
 
-    function login() {
-      UserService.findUserByCredentials(
-        $scope.loginUsername,
-        $scope.loginPassword,
-        function(found) {
-          if (found) {
-            $rootScope.currentUser = found;
+    function init() {
+    }
+    init();
+
+    function login(user) {
+      if (!user) {
+        return;
+      }
+      UserService
+        .login(user.username, user.password)
+        .then(function(response) {
+          console.log(response);
+          if (response.data) {
+            UserService.setCurrentUser(response.data);
             $location.url("/profile");
           }
         });

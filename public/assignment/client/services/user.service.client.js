@@ -5,30 +5,14 @@
     .module("FormBuilderApp")
     .factory("UserService", userService);
 
-  function userService($rootScope) {
-    var users = [
-      {"_id":123, "firstName":"Alice", "lastName":"Wonderland",
-      "username":"alice", "password":"alice", "roles": ["student"]},
-      {"_id":234, "firstName":"Bob","lastName":"Hope",
-      "username":"bob", "password":"bob", "roles": ["admin"]},
-      {"_id":345, "firstName":"Charlie","lastName":"Brown",
-      "username":"charlie", "password":"charlie", "roles": ["faculty"]},
-      {"_id":456, "firstName":"Dan", "lastName":"Craig",
-      "username":"dan", "password":"dan", "roles": ["faculty", "admin"]},
-      {"_id":567, "firstName":"Edward","lastName":"Norton",
-      "username":"ed", "password":"ed", "roles": ["student"]}
-    ];
+  function userService($http, $rootScope) {
 
-    function findUserByCredentials(username, password, callback) {
-      var found = null;
+    function login(username, password) {
+      return $http.get("/api/assignment/user?username=" + username + "&password=" + password);
+    }
 
-      users.forEach(function(user) {
-        if (user.username === username && user.password === password) {
-          found = user;
-        }
-      });
-
-      callback(found);
+    function setCurrentUser(user) {
+      $rootScope.currentUser = user;
     }
 
     function findAllUsers(callback) {
@@ -70,7 +54,8 @@
 
     var service = {
       findAllUsers : findAllUsers,
-      findUserByCredentials : findUserByCredentials,
+      setCurrentUser: setCurrentUser,
+      login: login,
       createUser : createUser,
       deleteUserById : deleteUserById,
       updateUser : updateUser
