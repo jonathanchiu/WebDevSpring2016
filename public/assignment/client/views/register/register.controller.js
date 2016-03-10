@@ -5,31 +5,33 @@
     .module("FormBuilderApp")
     .controller("RegisterController", RegisterController);
 
-  function RegisterController($scope, $rootScope, $location, UserService) {
+  function RegisterController($location, UserService) {
+    var vm = this;
 
-    $scope.register = register;
+    vm.register = register;
 
-    /**
-     * Generate new user object and store it as variable in $rootScope before
-     * redirecting to profile page
-     */
+    function init() {
+
+    }
+    init();
+
     function register() {
       var user = {
         firstName: null,
         lastName: null,
-        username: $scope.username,
-        password: $scope.password,
-        email: $scope.email
+        username: vm.username,
+        password: vm.password,
+        email: vm.email
       };
 
-      // Once new user is created in the UserService, callback here
-      UserService.createUser(user, function(newUser) {
-        if (newUser) {
-          $rootScope.newUser = newUser;
-          $rootScope.currentUser = newUser;
-          $location.url("/profile");
-        }
-      });
+      UserService
+        .createUser(user)
+        .then(function(response) {
+          if (response.data) {
+            UserService.setCurrentUser(response.data);
+            $location.url("/profile");
+          }
+        });
     }
   }
 })();

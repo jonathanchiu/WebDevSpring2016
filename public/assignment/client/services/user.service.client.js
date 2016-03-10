@@ -19,11 +19,8 @@
       callback(users);
     }
 
-    function createUser(user, callback) {
-      user._id = (new Date).getTime();
-      users.push(user);
-      $rootScope.usersList = users;
-      callback(user);
+    function createUser(user) {
+      return $http.post("/api/assignment/user", user);
     }
 
     function deleteUserById(userId, callback) {

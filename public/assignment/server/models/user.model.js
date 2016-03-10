@@ -33,7 +33,6 @@ module.exports = function() {
   }
 
   function createUser(user) {
-
     user._id = (new Date()).getTime();
     mock.push(user);
     return user;
