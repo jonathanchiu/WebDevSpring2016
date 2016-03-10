@@ -7,7 +7,7 @@
 
   function userService($http, $rootScope) {
 
-    function login(username, password) {
+    function findUserByCredentials(username, password) {
       return $http.get("/api/assignment/user?username=" + username + "&password=" + password);
     }
 
@@ -15,20 +15,20 @@
       $rootScope.currentUser = user;
     }
 
-    function findAllUsers(callback) {
-      callback(users);
+    function findAllUsers() {
+      return $http.get("/api/assignment/user");
     }
 
     function createUser(user) {
       return $http.post("/api/assignment/user", user);
     }
 
-    function deleteUserById(userId, callback) {
-      users = users.filter(function(user) {
-        return user._id === userId;
-      });
+    function deleteUserById(userId) {
+      return $http.delete("/api/assignment/user/" + userId);
+    }
 
-      callback(users);
+    function findUserByUsername(username) {
+      return $http.get("/api/assignment/user?username=" + username);
     }
 
     function updateUser(userId, user) {
@@ -38,7 +38,8 @@
     var service = {
       findAllUsers : findAllUsers,
       setCurrentUser: setCurrentUser,
-      login: login,
+      findUserByUsername: findUserByUsername,
+      findUserByCredentials: findUserByCredentials,
       createUser : createUser,
       deleteUserById : deleteUserById,
       updateUser : updateUser

@@ -20,7 +20,7 @@ module.exports = function(app, userModel) {
 
   function delegate(req, res) {
     if (req.query.username && req.query.password) {
-      login(req, res);
+      findUserByCredentials(req, res);
     }
     else if (req.query.username) {
       findUserByUsername(req, res);
@@ -41,7 +41,7 @@ module.exports = function(app, userModel) {
     res.json(user);
   }
 
-  function login(req, res) {
+  function findUserByCredentials(req, res) {
     var credentials = {
         username: req.query.username,
         password: req.query.password

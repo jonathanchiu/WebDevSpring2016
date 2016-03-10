@@ -19,7 +19,7 @@
         return;
       }
       UserService
-        .login(user.username, user.password)
+        .findUserByCredentials(user.username, user.password)
         .then(function(response) {
           if (response.data) {
             UserService.setCurrentUser(response.data);
