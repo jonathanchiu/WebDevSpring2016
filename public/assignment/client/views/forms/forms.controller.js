@@ -5,78 +5,78 @@
     .module("FormBuilderApp")
     .controller("FormController", FormController);
 
-  function FormController($scope, $rootScope, $location, FormService) {
-    $scope.addForm = addForm;
-    $scope.deleteForm = deleteForm;
-    $scope.updateForm = updateForm;
-    $scope.selectForm = selectForm;
+  function FormController($rootScope, $location, FormService) {
+    var vm = this;
 
-    var currentUser = $rootScope.currentUser;
+    vm.createFormForUser = createFormForUser;
+    vm.deleteFormById = deleteFormById;
+    vm.updateFormById = updateFormById;
+    vm.selectForm = selectForm;
 
-    FormService.findAllFormsForUser(currentUser._id,
-      function(response) {
-        $scope.forms = response;
-      });
+    function init() {
+      FormService
+        .findAllFormsForUser($rootScope.currentUser._id)
+        .then(function(response) {
+          if (response.data) {
+            vm.forms = response.data;
+          }
+        });
+    }
+    init();
 
-    /**
-     * Adds a new form for the current user
-     * Create a skeleton form object, pass it to the FormService,
-     * populate the form object with more info, and update scope
-     */
-    function addForm() {
-      if ($scope.formTitle) {
+    function createFormForUser(title) {
+      if (title) {
         var newForm = {
-          title: $scope.formTitle
-        }
+          title: title
+        };
 
-        FormService.createFormForUser(currentUser._id, newForm,
-          function(response) {
-            $scope.forms = response;
+        FormService
+          .createFormForUser($rootScope.currentUser._id, newForm)
+          .then(function(response) {
+            if (response.data) {
+              vm.forms = response.data;
+            }
           });
       }
     }
 
-    /**
-     * Delete the form at the given index and update the forms in the scope
-     * so that the view will update appropriately
-     */
-    function deleteForm(index) {
-      var deleteFormId = $scope.forms[index]._id;
+    function deleteFormById(index) {
+      var deleteFormId = vm.forms[index]._id;
 
-      FormService.deleteFormById(deleteFormId, function(response) {
-        $scope.forms = response;
-      });
+      FormService
+        .deleteFormById(deleteFormId)
+        .then(function(response) {
+          if (response.data) {
+            var forms = response.data.filter(function(f) {
+              return parseInt(f.userId, 10) === $rootScope.currentUser._id;
+            });
+            vm.forms = forms;
+          }
+        });
     }
 
-    /**
-     * Update the selected form in the view
-     */
-    function updateForm() {
-      // Generate an array of form names of all the forms a user has created
-      var formNames = $scope.forms.map(function(form) {
-        return form.title
-      });
+    function updateFormById() {
+      if (vm.selectedFormId) {
+        var updatedForm = {
+          title: vm.formTitle
+        };
 
-      var updatedForm = {
-        title: $scope.formTitle
-      }
-      // Only allow updating a form if there is a valid form title and
-      // the user has selected a form to edit
-      if (formNames.indexOf($scope.formTitle) && $scope.selectedFormId) {
-        FormService.updateFormById($scope.selectedFormId, updatedForm,
-          function(response) {
-            $scope.forms = response;
+        FormService
+          .updateFormById(vm.selectedFormId, updatedForm)
+          .then(function(response) {
+            if (response.data) {
+              var forms = response.data.filter(function(f) {
+                return parseInt(f.userId, 10) === $rootScope.currentUser._id;
+              });
+              vm.forms = forms;
+            }
           });
       }
     }
 
-    /**
-     * Selects the form at the given index by highlighting the table row of
-     * the form, and updating the form title in the edit field
-     */
     function selectForm(index) {
-      $scope.selectedFormId = $scope.forms[index]._id;
-      $scope.formTitle = $scope.forms[index].title;
+      vm.selectedFormId = vm.forms[index]._id;
+      vm.formTitle = vm.forms[index].title;
     }
   }
 })();
