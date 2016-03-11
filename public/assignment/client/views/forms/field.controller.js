@@ -5,12 +5,13 @@
     .module("FormBuilderApp")
     .controller("FieldController", FieldController);
 
-  function FieldController($scope, $routeParams, $location, FieldService) {
+  function FieldController($rootScope, $scope, $uibModal, $routeParams, $location, FieldService) {
     var vm = this;
     var formId = $routeParams.formId;
 
     vm.removeField = removeField;
     vm.addField = addField;
+    vm.showEditPane = showEditPane;
 
     function init() {
       var formId = $routeParams.formId;
@@ -23,6 +24,19 @@
         });
     }
     init();
+
+    function showEditPane(index) {
+      $rootScope.modalInstance = $uibModal.open({
+        templateUrl: 'client/views/forms/field-modal.view.html',
+        controller: 'FieldModalController',
+        size: 'sm',
+        resolve: {
+          selectedField: function () {
+            return vm.fields[index];
+          }
+        }
+      });
+    }
 
     function addField(fieldType) {
       // Get the field template for the given field type
