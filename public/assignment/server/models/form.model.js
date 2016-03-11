@@ -1,4 +1,5 @@
 var mock = require("./form.mock.json");
+var fieldTemplates = require("./field-templates.mock.json");
 
 module.exports = function() {
 
@@ -57,13 +58,93 @@ module.exports = function() {
     return mock;
   }
 
+  function getFieldsForForm(formId) {
+    for (var f in mock) {
+      if (mock[f]._id == formId) {
+        return mock[f].fields;
+      }
+    }
+    return null;
+  }
+
+  function getFieldForForm(formId, fieldId) {
+    for (var f in mock) {
+      if (mock[f]._id == formId) {
+        for (var i = 0; i < mock[f].fields.length; i++) {
+          if (mock[f].fields[i]._id == fieldId) {
+            return mock[f].fields[i]._id;
+          }
+        }
+      }
+    }
+    return null;
+  }
+
+  function deleteFieldFromForm(formId, fieldId) {
+    for (var f in mock) {
+      if (mock[f]._id == formId) {
+        for (var i = 0; i < mock[f].fields.length; i++) {
+          if (mock[f].fields[i]._id == fieldId) {
+            mock[f].fields.splice(i, 1);
+            return mock[f].fields;
+          }
+        }
+      }
+    }
+    return null;
+  }
+
+  function getFieldTemplateType(fieldType) {
+    for (var f in fieldTemplates) {
+      if (fieldTemplates[f].type.toLowerCase() == fieldType.toLowerCase()) {
+        fieldTemplates[f]._id = (new Date()).getTime();
+        return fieldTemplates[f];
+      }
+    }
+    return null;
+  }
+
+  function createFieldForForm(formId, field) {
+    field._id = (new Date()).getTime();
+
+    for (var f in mock) {
+      if (mock[f]._id == formId) {
+        mock[f].fields.push(field);
+        return mock[f].fields;
+      }
+    }
+    return null;
+  }
+
+  function updateField(formId, fieldId, field) {
+    for (var f in mock) {
+      if (mock[f]._id == formId) {
+        for (var i = 0; i < mock[f].fields.length; i++) {
+          if (mock[f].fields[i]._id == fieldId) {
+            mock[f].fields[i].label = field.label;
+            mock[f].fields[i].type = field.type;
+            mock[f].fields[i].placeholder = field.placeholder;
+            break;
+          }
+        }
+      }
+    }
+    return mock;
+  }
+
   var api = {
     findFormByTitle: findFormByTitle,
     createFormForUser: createFormForUser,
     findFormById: findFormById,
     findAllFormsForUser: findAllFormsForUser,
     deleteFormById: deleteFormById,
-    updateFormById: updateFormById
+    updateFormById: updateFormById,
+    getFieldsForForm: getFieldsForForm,
+    getFieldForForm: getFieldForForm,
+    deleteFieldFromForm: deleteFieldFromForm,
+    createFieldForForm: createFieldForForm,
+    updateField: updateField,
+    getFieldTemplateType: getFieldTemplateType
   };
   return api
 };

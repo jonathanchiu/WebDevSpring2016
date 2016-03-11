@@ -28,12 +28,19 @@
           templateUrl: "client/views/admin/admin.view.html"
         })
         .when("/forms", {
-          templateUrl: "client/views/form/forms.view.html",
+          templateUrl: "client/views/forms/forms.view.html",
           controller: "FormController",
           controllerAs: "model"
         })
         .when("/fields", {
-          templateUrl: "client/views/fields/form-fields.view.html"
+          templateUrl: "client/views/forms/field.view.html",
+          controller: "FieldController",
+          controllerAs: "model"
+        })
+        .when("/form/:formId/fields", {
+          templateUrl: "client/views/forms/field.view.html",
+          controller: "FieldController",
+          controllerAs: "model"
         })
         .otherwise({
           redirectTo: "/home"
