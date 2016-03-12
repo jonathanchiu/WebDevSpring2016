@@ -27,7 +27,9 @@
     function createFormForUser(title) {
       if (title) {
         var newForm = {
-          title: title
+          title: title,
+          userId: $rootScope.currentUser._id,
+          fields: []
         };
 
         FormService
