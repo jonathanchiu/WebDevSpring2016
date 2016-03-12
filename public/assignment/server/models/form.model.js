@@ -1,7 +1,7 @@
 var mock = require("./form.mock.json");
 var fieldTemplates = require("./field-templates.mock.json");
 
-module.exports = function() {
+module.exports = function(uuid) {
 
   function findFormByTitle(title) {
     for (var f in mock) {
@@ -13,7 +13,7 @@ module.exports = function() {
   }
 
   function createFormForUser(userId, newForm) {
-    newForm._id = (new Date()).getTime();
+    newForm._id = uuid.v4();
     newForm.userId = userId;
     mock.push(newForm);
     return findAllFormsForUser(userId);
@@ -97,7 +97,7 @@ module.exports = function() {
   function getFieldTemplateType(fieldType) {
     for (var f in fieldTemplates) {
       if (fieldTemplates[f].type.toLowerCase() == fieldType.toLowerCase()) {
-        fieldTemplates[f]._id = (new Date()).getTime();
+        fieldTemplates[f]._id = uuid.v4();
         return fieldTemplates[f];
       }
     }
@@ -105,7 +105,7 @@ module.exports = function() {
   }
 
   function createFieldForForm(formId, field) {
-    field._id = (new Date()).getTime();
+    field._id = uuid.v4();
 
     for (var f in mock) {
       if (mock[f]._id == formId) {

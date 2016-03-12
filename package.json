@@ -24,7 +24,8 @@
   },
   "dependencies": {
     "express": "^3.4.8",
-    "jslint": "^0.9.6"
+    "jslint": "^0.9.6",
+    "node-uuid": "^1.4.7"
   },
   "devDependencies": {},
   "bundleDependencies": [],
