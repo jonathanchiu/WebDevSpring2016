@@ -23,6 +23,7 @@
     "npm": ">= 1.0.0"
   },
   "dependencies": {
+    "body-parser": "^1.15.0",
     "express": "^3.4.8",
     "jslint": "^0.9.6",
     "node-uuid": "^1.4.7"
