@@ -12,6 +12,7 @@
     vm.removeField = removeField;
     vm.addField = addField;
     vm.showEditPane = showEditPane;
+    vm.cloneField = cloneField;
 
     function init() {
       var formId = $routeParams.formId;
@@ -36,6 +37,16 @@
           }
         }
       });
+    }
+
+    function cloneField(field) {
+      FieldService
+        .createFieldForForm(formId, field)
+        .then(function(response) {
+          if (response.data) {
+            vm.fields = response.data;
+          }
+        });
     }
 
     function addField(fieldType) {
