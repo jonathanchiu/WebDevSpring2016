@@ -122,14 +122,15 @@ module.exports = function(uuid) {
         for (var i = 0; i < mock[f].fields.length; i++) {
           if (mock[f].fields[i]._id == fieldId) {
             mock[f].fields[i].label = field.label;
-            mock[f].fields[i].type = field.type;
             mock[f].fields[i].placeholder = field.placeholder;
-            break;
+            if (field.options && mock[f].fields[i].options) {
+              mock[f].fields[i].options = field.options;
+            }
+            return mock[f].fields[i];
           }
         }
       }
     }
-    return mock;
   }
 
   var api = {

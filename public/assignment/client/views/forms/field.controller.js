@@ -30,10 +30,13 @@
       $rootScope.modalInstance = $uibModal.open({
         templateUrl: 'client/views/forms/field-modal.view.html',
         controller: 'FieldModalController',
-        size: 'sm',
+        size: 'lg',
         resolve: {
           selectedField: function () {
             return vm.fields[index];
+          },
+          formId: function() {
+            return formId;
           }
         }
       });

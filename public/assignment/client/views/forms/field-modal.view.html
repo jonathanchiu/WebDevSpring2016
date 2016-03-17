@@ -5,17 +5,17 @@
   <div class="modal-body">
     <label>
       Label
-      <input type="text" class="form-control">
+      <input ng-model="label" type="text" class="form-control">
     </label>
-
+    <br>
     <label ng-class="{hide: !showPlaceholder}">
       Placeholder
-      <input type="text" class="form-control">
+      <input ng-model="placeholder" type="text" class="form-control">
     </label>
 
     <label ng-class="{hide: !showTextarea}">
       Options
-      <textarea class="form-control"></textarea>
+      <textarea ng-model="options" rows="7" cols="90" class="form-control">{{textArea}}</textarea>
     </label>
   </div>
   <div class="modal-footer">
