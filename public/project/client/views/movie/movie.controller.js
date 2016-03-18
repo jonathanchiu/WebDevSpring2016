@@ -6,7 +6,6 @@
     .controller("MovieController", MovieController);
 
   function MovieController($scope, $rootScope, $location, MovieService) {
-
     $scope.search = search;
     $scope.toggleDetails = toggleDetails;
     $scope.addMovie = addMovie;

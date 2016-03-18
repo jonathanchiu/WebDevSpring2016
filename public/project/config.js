@@ -6,35 +6,42 @@
     .config(function($routeProvider) {
       $routeProvider
         .when("/home", {
-          templateUrl: "views/home/home.view.html",
-          controller: "HomeController"
+          templateUrl: "client/views/home/home.view.html",
+          controller: "HomeController",
+          controllerAs: "model"
         })
         .when("/login", {
-          templateUrl: "views/login/login.view.html",
-          controller: "LoginController"
+          templateUrl: "client/views/login/login.view.html",
+          controller: "LoginController",
+          controllerAs: "model"
         })
         .when("/search", {
-          templateUrl: "views/movie/movie.view.html",
+          templateUrl: "client/views/movie/movie.view.html",
         })
         .when("/register", {
-          templateUrl: "views/register/register.view.html",
-          controller: "RegisterController"
+          templateUrl: "client/views/register/register.view.html",
+          controller: "RegisterController",
+          controllerAs: "model"
         })
         .when("/write-review/:id", {
-          templateUrl: "views/review/write-review.view.html",
-          controller: "ReviewController"
+          templateUrl: "client/views/review/write-review.view.html",
+          controller: "ReviewController",
+          controllerAs: "model"
         })
         .when("/read-review/:id", {
-          templateUrl: "views/review/read-review.view.html",
-          controller: "ReviewController"
+          templateUrl: "client/views/review/read-review.view.html",
+          controller: "ReviewController",
+          controllerAs: "model"
         })
         .when("/profile", {
-          templateUrl: "views/profile/profile.view.html",
-          controller: "ProfileController"
+          templateUrl: "client/views/profile/profile.view.html",
+          controller: "ProfileController",
+          controllerAs: "model"
         })
         .when("/users", {
-          templateUrl: "views/user/user.view.html",
-          controller: "UserController"
+          templateUrl: "client/views/user/user.view.html",
+          controller: "UserController",
+          controllerAs: "model"
         })
         .otherwise({
           redirectTo: "/home"

@@ -5,8 +5,10 @@
     .module("FreshPotatoes")
     .controller("HeaderController", HeaderController);
 
-  function HeaderController($scope, $rootScope, $location) {
-    $scope.logout = logout;
+  function HeaderController($rootScope, $location, UserService) {
+    var vm = this;
+
+    vm.logout = logout;
 
     function logout() {
       $rootScope.currentUser = null;
