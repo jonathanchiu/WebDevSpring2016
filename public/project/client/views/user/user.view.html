@@ -45,7 +45,7 @@
         <tbody>
           <tr ng-model="model.users" ng-repeat="user in model.users">
             <td><img class="poster img-responsive" ng-src="{{user.avatar}}"></td>
-            <td><a href="">{{user.username}}</a></td>
+            <td><a ng-href="#/profile/{{user.username}}">{{user.username}}</a></td>
             <td>{{user.password}}</td>
             <td>{{user.firstName}}</td>
             <td>{{user.lastName}}</td>

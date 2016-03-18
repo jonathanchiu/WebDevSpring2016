@@ -1,4 +1,14 @@
-<div ng-controller="MovieController" class="row">
+<div class="row">
+  <div class="col-md-12">
+    <input ng-model="model.searchedMovie" type="text" class="form-control" placeholder="Star Wars">
+    <span class="input-group-btn">
+      <button ng-click="model.search()" class="btn btn-secondary" type="submit">
+        <i class="fa fa-search"></i>
+      </button>
+    </span>
+  </div>
+</div>
+<div class="row">
   <div class="col-md-12">
     <h1 class="text-xs-center form-header">Search Results</h1>
     <div class="pull-xs-right">

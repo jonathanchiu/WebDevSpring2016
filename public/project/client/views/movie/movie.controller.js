@@ -6,35 +6,36 @@
     .controller("MovieController", MovieController);
 
   function MovieController($scope, $rootScope, $location, MovieService) {
-    $scope.search = search;
-    $scope.toggleDetails = toggleDetails;
-    $scope.addMovie = addMovie;
-    $scope.deleteMovie = deleteMovie;
-    $scope.selectMovie = selectMovie;
-    $scope.updateMovie = updateMovie;
-    $scope.favoriteMovie = favoriteMovie;
+    var vm = this;
 
-    $scope.getPage = getPage;
-    $scope.noPoster = 'images/saitama.jpeg';
+    vm.search = search;
+    vm.toggleDetails = toggleDetails;
+    vm.addMovie = addMovie;
+    vm.deleteMovie = deleteMovie;
+    vm.selectMovie = selectMovie;
+    vm.updateMovie = updateMovie;
+    vm.favoriteMovie = favoriteMovie;
+
+    vm.getPage = getPage;
+    vm.noPoster = 'images/saitama.jpeg';
     $rootScope.hideMessage = true;
     $rootScope.hideTable = false;
 
     function search() {
-      $rootScope.lastSearched = $scope.searchedMovie;
+      $rootScope.lastSearched = vm.searchedMovie;
       $rootScope.currentPage = 1;
-      $location.url("/search");
 
       MovieService
-        .searchMovie($scope.lastSearched, $rootScope.currentPage)
+        .searchMovie(vm.searchedMovie, $rootScope.currentPage)
         .then(renderSearchResults, renderError);
     }
 
     function addMovie() {
       var newMovie = {
-        imdbID: $scope.editID,
-        Poster: $scope.editMoviePoster,
-        Title: $scope.editMovieTitle,
-        Year: $scope.editMovieYear
+        imdbID: vm.editID,
+        Poster: vm.editMoviePoster,
+        Title: vm.editMovieTitle,
+        Year: vm.editMovieYear
       };
 
       // Prepend newly added movie to current result set
@@ -46,24 +47,24 @@
 
     function updateMovie() {
       for (var i = 0; i < $rootScope.movies.length; i++) {
-        if ($rootScope.movies[i].imdbID === $scope.selectedMovie) {
-          $rootScope.movies[i].Title = $scope.editMovieTitle;
-          $rootScope.movies[i].Poster = $scope.editMoviePoster;
-          $rootScope.movies[i].Year = $scope.editMovieYear;
+        if ($rootScope.movies[i].imdbID === vm.selectedMovie) {
+          $rootScope.movies[i].Title = vm.editMovieTitle;
+          $rootScope.movies[i].Poster = vm.editMoviePoster;
+          $rootScope.movies[i].Year = vm.editMovieYear;
           return;
         }
       }
     }
 
     function favoriteMovie(index) {
-      $scope.favoritedMovie = $rootScope.movies[index].imdbID;
+      vm.favoritedMovie = $rootScope.movies[index].imdbID;
     }
 
     function selectMovie(index) {
-      $scope.selectedMovie = $rootScope.movies[index].imdbID;
-      $scope.editMoviePoster = $rootScope.movies[index].Poster;
-      $scope.editMovieTitle = $rootScope.movies[index].Title;
-      $scope.editMovieYear = parseInt($rootScope.movies[index].Year, 10);
+      vm.selectedMovie = $rootScope.movies[index].imdbID;
+      vm.editMoviePoster = $rootScope.movies[index].Poster;
+      vm.editMovieTitle = $rootScope.movies[index].Title;
+      vm.editMovieYear = parseInt($rootScope.movies[index].Year, 10);
     }
 
     function getPage(page) {
@@ -83,11 +84,11 @@
 
     function resetViewState() {
       // Reset any expanded details pane to close
-      $scope.activePosition = -1;
+      vm.activePosition = -1;
       // Clears fields for editing/adding a movie
-      $scope.editMoviePoster = null;
-      $scope.editMovieTitle = null;
-      $scope.editMovieYear = null;
+      vm.editMoviePoster = null;
+      vm.editMovieTitle = null;
+      vm.editMovieYear = null;
     }
 
     function renderSearchResults(response) {
@@ -103,25 +104,25 @@
     }
 
     function renderError(response) {
-      $scope.error = "Unable to search for that movie!";
+      vm.error = "Unable to search for that movie!";
     }
 
     function toggleDetails(index, id) {
-      $scope.activePosition = $scope.activePosition == index ? -1 : index;
+      vm.activePosition = vm.activePosition == index ? -1 : index;
       MovieService
         .getMovieDetails(id)
         .then(renderMovieDetails, renderError);
     }
 
     function renderMovieDetails(response) {
-      $scope.title = response.Title;
-      $scope.year = response.Year;
-      $scope.rated = response.Rated;
-      $scope.plot = response.Plot;
-      $scope.actors = response.Actors;
-      $scope.genre = response.Genre;
-      $scope.director = response.Director;
-      $scope.genre = response.Genre;
+      vm.title = response.Title;
+      vm.year = response.Year;
+      vm.rated = response.Rated;
+      vm.plot = response.Plot;
+      vm.actors = response.Actors;
+      vm.genre = response.Genre;
+      vm.director = response.Director;
+      vm.genre = response.Genre;
     }
   }
 })();

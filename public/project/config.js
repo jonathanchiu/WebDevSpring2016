@@ -17,6 +17,8 @@
         })
         .when("/search", {
           templateUrl: "client/views/movie/movie.view.html",
+          controller: "MovieController",
+          controllerAs: "model"
         })
         .when("/register", {
           templateUrl: "client/views/register/register.view.html",
