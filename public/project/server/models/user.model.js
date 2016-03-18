@@ -24,12 +24,11 @@ module.exports = function(uuid) {
   function deleteUserById(userId) {
 
     for (var i = 0; i < mock.length; i++) {
-      if (mock[i]._id === userId) {
+      if (mock[i]._id == userId) {
         mock.splice(i, 1);
-        break;
+        return mock;
       }
     }
-    return mock;
   }
 
   function createUser(user) {
@@ -49,13 +48,15 @@ module.exports = function(uuid) {
         mock[i].lastName = user.lastName;
         mock[i].username = user.username;
         mock[i].password = user.password;
-        return mock[i];
+        mock[i].avatar = user.avatar;
+        mock[i].role = user.role;
+        mock[i].dob = user.dob;
       }
     }
+    return mock;
   }
 
   function findUserByCredentials(credentials) {
-    console.log(credentials);
     for (var u in mock) {
       if (mock[u].username === credentials.username &&
         mock[u].password === credentials.password) {

@@ -43,18 +43,15 @@
         </thead>
 
         <tbody>
-          <tr ng-repeat="user in $root.users">
+          <tr ng-model="model.users" ng-repeat="user in model.users">
             <td><img class="poster img-responsive" ng-src="{{user.avatar}}"></td>
-            <td><a>{{user.username}}</a></td>
+            <td><a href="">{{user.username}}</a></td>
             <td>{{user.password}}</td>
             <td>{{user.firstName}}</td>
             <td>{{user.lastName}}</td>
             <td>{{user.dob | date: 'MM-dd-yyyy'}}</td>
             <td>{{user.role}}</td>
             <td class="action-buttons">
-              <a ng-click="model.toggleDetails($index)" class="btn btn-success">
-                <i class="fa fa-info"></i>
-              </a>
               <a ng-click="model.deleteUser(user._id)" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
               <a ng-click="model.selectUser($index)" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
             </td>

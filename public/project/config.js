@@ -33,7 +33,7 @@
           controller: "ReviewController",
           controllerAs: "model"
         })
-        .when("/profile", {
+        .when("/profile/:username", {
           templateUrl: "client/views/profile/profile.view.html",
           controller: "ProfileController",
           controllerAs: "model"

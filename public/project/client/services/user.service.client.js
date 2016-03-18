@@ -15,7 +15,7 @@
       $rootScope.currentUser = user;
     }
 
-    function findAllUsers() {
+    function getAllUsers() {
       return $http.get("/api/project/user");
     }
 
@@ -31,18 +31,18 @@
       return $http.get("/api/project/user?username=" + username);
     }
 
-    function updateUser(userId, user) {
+    function updateUserById(userId, user) {
       return $http.put("/api/project/user/" + userId, user);
     }
 
     var service = {
-      findAllUsers : findAllUsers,
+      getAllUsers : getAllUsers,
       setCurrentUser: setCurrentUser,
       findUserByUsername: findUserByUsername,
       findUserByCredentials: findUserByCredentials,
       createUser : createUser,
       deleteUserById : deleteUserById,
-      updateUser : updateUser
+      updateUserById : updateUserById
     };
 
     return service;

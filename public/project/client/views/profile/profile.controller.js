@@ -5,19 +5,30 @@
     .module("FreshPotatoes")
     .controller("ProfileController", ProfileController);
 
-  function ProfileController($scope, $rootScope, $location, UserService) {
+  function ProfileController($rootScope, $routeParams, UserService) {
     var vm = this;
     var user = $rootScope.currentUser;
+    var usernameRoute = $routeParams.username;
 
     vm.update = update;
     vm.init = init;
 
     function init() {
-      vm.profilePassword = user.password;
-      vm.profileFirstName = user.firstName;
-      vm.profileLastName = user.lastName;
-      vm.profileDescription = user.description;
-      vm.profileBirthdate = user.dob;
+      UserService
+        .findUserByUsername(usernameRoute)
+        .then(function(response) {
+          if (response.data) {
+            var user = response.data;
+            
+            vm.profilePassword = user.password;
+            vm.profileFirstName = user.firstName;
+            vm.profileLastName = user.lastName;
+            vm.profileDescription = user.description;
+            vm.profileBirthdate = user.dob;
+            vm.avatar = user.avatar;
+            vm.username = user.username;
+          }
+        });
     }
     init();
 

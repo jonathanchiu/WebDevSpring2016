@@ -5,56 +5,83 @@
     .module("FreshPotatoes")
     .controller("UserController", UserController);
 
-  function UserController($scope, $rootScope, $location, UserService) {
-    $scope.deleteUser = deleteUser;
-    $scope.selectUser = selectUser;
-    $scope.updateUser = updateUser;
-    $scope.addUser = addUser;
+  function UserController(UserService) {
+    var vm = this;
+
+    vm.deleteUser = deleteUser;
+    vm.selectUser = selectUser;
+    vm.updateUser = updateUser;
+    vm.addUser = addUser;
+    vm.init = init;
+
+    function init() {
+      UserService
+        .getAllUsers()
+        .then(function(response) {
+          if (response.data) {
+            vm.users = response.data;
+          }
+        });
+    }
+    init();
 
     function deleteUser(id) {
-      UserService.deleteUserById(id, function(response) {
-        $rootScope.users = response;
-      });
+      console.log(id);
+      UserService
+        .deleteUserById(id)
+        .then(function(response) {
+          if (response.data) {
+            vm.users = response.data
+          }
+        });
     }
 
     function fieldsToUserObject() {
       return {
-        avatar: $scope.avatarUrlSubmit,
-        username: $scope.usernameSubmit,
-        password: $scope.passwordSubmit,
-        firstName: $scope.firstNameSubmit,
-        lastName: $scope.lastNameSubmit,
-        dob: $scope.birthdateSubmit,
-        role: parseInt($scope.roleSubmit, 10)
+        avatar: vm.avatarUrlSubmit,
+        username: vm.usernameSubmit,
+        password: vm.passwordSubmit,
+        firstName: vm.firstNameSubmit,
+        lastName: vm.lastNameSubmit,
+        dob: vm.birthdateSubmit,
+        role: parseInt(vm.roleSubmit, 10)
       };
     }
 
     function selectUser(index) {
-      $scope.selectedUser = $rootScope.users[index];
+      vm.selectedUser = vm.users[index];
 
-      $scope.avatarUrlSubmit = $scope.selectedUser.avatar;
-      $scope.usernameSubmit = $scope.selectedUser.username;
-      $scope.passwordSubmit = $scope.selectedUser.password;
-      $scope.firstNameSubmit = $scope.selectedUser.firstName;
-      $scope.lastNameSubmit = $scope.selectedUser.lastName;
-      $scope.birthdateSubmit = $scope.selectedUser.dob;
-      $scope.roleSubmit = $scope.selectedUser.role.toString();
+      vm.avatarUrlSubmit = vm.selectedUser.avatar;
+      vm.usernameSubmit = vm.selectedUser.username;
+      vm.passwordSubmit = vm.selectedUser.password;
+      vm.firstNameSubmit = vm.selectedUser.firstName;
+      vm.lastNameSubmit = vm.selectedUser.lastName;
+      vm.birthdateSubmit = vm.selectedUser.dob;
+      vm.roleSubmit = vm.selectedUser.role.toString();
     }
 
     function updateUser() {
       var updatedUser = fieldsToUserObject();
 
-      UserService.updateUser(updatedUser, $scope.selectedUser._id, function(response) {
-        $rootScope.users = response;
-      });
+      UserService
+        .updateUserById(vm.selectedUser._id, updatedUser)
+        .then(function(response) {
+          if (response.data) {
+            vm.users = response.data;
+          }
+        });
     }
 
     function addUser() {
       var newUser = fieldsToUserObject();
 
-      UserService.createUser(newUser, function(response) {
-        $rootScope.users = response;
-      });
+      UserService
+        .createUser(newUser)
+        .then(function(response) {
+          if (response.data) {
+            vm.users.push(response.data);
+          }
+        });
     }
   }
 })();
