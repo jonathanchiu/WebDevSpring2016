@@ -5,7 +5,7 @@
     .module("FreshPotatoes")
     .controller("ProfileController", ProfileController);
 
-  function ProfileController($rootScope, $routeParams, UserService) {
+  function ProfileController($rootScope, $routeParams, UserService, MovieService) {
     var vm = this;
     var user = $rootScope.currentUser;
     var usernameRoute = $routeParams.username;

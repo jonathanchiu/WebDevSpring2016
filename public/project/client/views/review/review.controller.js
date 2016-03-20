@@ -6,35 +6,37 @@
     .controller("ReviewController", ReviewController);
 
   function ReviewController($scope, $routeParams, ReviewService) {
-    $scope.id = $routeParams.id;
-    $scope.deleteReview = deleteReview;
-    $scope.selectReview = selectReview;
-    $scope.updateReview = updateReview;
-    $scope.addReview = addReview;
+    var vm = this;
 
-    ReviewService.findAllReviewsForMovie($scope.id, function(response) {
-      $scope.reviews = response;
+    vm.id = $routeParams.id;
+    vm.deleteReview = deleteReview;
+    vm.selectReview = selectReview;
+    vm.updateReview = updateReview;
+    vm.addReview = addReview;
+
+    ReviewService.findAllReviewsForMovie(vm.id, function(response) {
+      vm.reviews = response;
     });
 
     function deleteReview(index) {
-      $scope.reviews.splice(index, 1);
+      vm.reviews.splice(index, 1);
     }
 
     function selectReview(index) {
-      $scope.selectedReview = $scope.reviews[index];
-      $scope.reviewTitleSubmission = $scope.selectedReview.title;
-      $scope.reviewCreatedSubmission = $scope.selectedReview.created;
-      $scope.reviewAuthorSubmission = $scope.selectedReview.author;
-      $scope.reviewContentSubmission = $scope.selectedReview.content;
+      vm.selectedReview = vm.reviews[index];
+      vm.reviewTitleSubmission = vm.selectedReview.title;
+      vm.reviewCreatedSubmission = vm.selectedReview.created;
+      vm.reviewAuthorSubmission = vm.selectedReview.author;
+      vm.reviewContentSubmission = vm.selectedReview.content;
     }
 
     function updateReview() {
-      for (var i = 0; i < $scope.reviews.length; i++) {
-        if ($scope.reviews[i].id === $scope.selectedReview.id) {
-          $scope.reviews[i].title = $scope.reviewTitleSubmission;
-          $scope.reviews[i].created = $scope.reviewCreatedSubmission;
-          $scope.reviews[i].author = $scope.reviewAuthorSubmission;
-          $scope.reviews[i].content = $scope.reviewContentSubmission;
+      for (var i = 0; i < vm.reviews.length; i++) {
+        if (vm.reviews[i].id === vm.selectedReview.id) {
+          vm.reviews[i].title = vm.reviewTitleSubmission;
+          vm.reviews[i].created = vm.reviewCreatedSubmission;
+          vm.reviews[i].author = vm.reviewAuthorSubmission;
+          vm.reviews[i].content = vm.reviewContentSubmission;
           return;
         }
       }
@@ -42,16 +44,16 @@
 
     function addReview() {
       var newReview = {
-        imdb_id: $scope.id,
-        title: $scope.reviewTitleSubmission,
-        author: $scope.reviewAuthorSubmission,
-        content: $scope.reviewContentSubmission,
+        imdb_id: vm.id,
+        title: vm.reviewTitleSubmission,
+        author: vm.reviewAuthorSubmission,
+        content: vm.reviewContentSubmission,
         edited: new Date(),
         created: new Date()
       };
 
       ReviewService.createReview(newReview, function(response) {
-        $scope.reviews = response;
+        vm.reviews = response;
       });
     }
   }

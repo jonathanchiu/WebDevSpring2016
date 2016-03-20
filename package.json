@@ -26,6 +26,7 @@
     "body-parser": "^1.15.0",
     "express": "^3.4.8",
     "jslint": "^0.9.6",
+    "mongoose": "^4.4.8",
     "node-uuid": "^1.4.7"
   },
   "devDependencies": {},

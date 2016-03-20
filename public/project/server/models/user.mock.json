@@ -6,6 +6,13 @@
     "username": "bob",
     "password": "bob",
     "role": 2,
+    "likes": [
+      "tt1798709",
+      "tt0335266",
+      "tt1723811",
+      "tt1375666",
+      "tt0482571"
+    ],
     "avatar": "http://goo.gl/957rZZ",
     "dob": "",
     "description": "I love Full House and romantic comedies!"
@@ -17,6 +24,13 @@
     "username": "admin",
     "password": "admin",
     "role": 1,
+    "likes": [
+      "tt1798709",
+      "tt0335266",
+      "tt1723811",
+      "tt1375666",
+      "tt0482571"
+    ],
     "avatar": "images/avatar.gif",
     "dob": "",
     "description": "I love all types of movies! I'm also an administrator!"

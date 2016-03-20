@@ -1,11 +1,13 @@
 <div class="row">
   <div class="col-md-12">
-    <input ng-model="model.searchedMovie" type="text" class="form-control" placeholder="Star Wars">
-    <span class="input-group-btn">
-      <button ng-click="model.search()" class="btn btn-secondary" type="submit">
-        <i class="fa fa-search"></i>
-      </button>
-    </span>
+    <div class="input-group">
+      <input ng-model="model.searchedMovie" type="text" class="form-control" placeholder="Star Wars">
+      <span class="input-group-btn">
+        <button ng-click="model.search()" class="btn btn-secondary" type="submit">
+          <i class="fa fa-search"></i>
+        </button>
+      </span>
+    </div>
   </div>
 </div>
 <div class="row">
@@ -13,13 +15,13 @@
     <h1 class="text-xs-center form-header">Search Results</h1>
     <div class="pull-xs-right">
       <div class="btn-group" role="group" aria-label="Pagination">
-        <button ng-hide="$root.currentPage == 1 || !($root.currentPage) || $root.hideTable" ng-click="model.getPage('p')" type="button" class="btn btn-primary">Prev</button>
-        <button ng-hide="!($root.currentPage) || $root.hideTable" ng-click="model.getPage('n')" type="button" class="btn btn-success">Next</button>
+        <button ng-hide="$root.currentPage == 1 || !($root.currentPage) || model.hideTable" ng-click="model.getPage('p')" type="button" class="btn btn-primary">Prev</button>
+        <button ng-hide="!($root.currentPage) || model.hideTable" ng-click="model.getPage('n')" type="button" class="btn btn-success">Next</button>
       </div>
     </div>
     <div class="table-responsive">
-      <p class="lead" ng-hide="$root.hideMessage">No more results! Click previous to go back!</p>
-      <table ng-hide="$root.hideTable" class="table">
+      <p class="lead" ng-hide="model.hideMessage">No more results! Click previous to go back!</p>
+      <table ng-hide="model.hideTable" class="table">
         <thead class="thead-inverse">
           <tr>
             <th>ID</th>
@@ -45,7 +47,7 @@
         </thead>
 
         <!-- Template for search results -->
-        <tbody ng-repeat="movie in $root.movies">
+        <tbody ng-repeat="movie in model.movies">
           <tr data-imdb-id="{{movie.imdbID}}">
             <td>{{movie.imdbID}}</td>
             <td><img class="poster" ng-src="{{movie.Poster.indexOf('http') > -1 ? movie.Poster : noPoster}}"></td>
@@ -68,21 +70,21 @@
                 <a ng-href="#/read-review/{{movie.imdbID}}" class="btn btn-primary"><i class="fa fa-newspaper-o"></i></a>
               </span>
 
-              <a ng-show="$root.currentUser && $root.currentUser.role === 1" ng-click="model.deleteMovie($index)" class="btn btn-warning"><i class="fa fa-trash-o"></i></a>
-              <a ng-show="$root.currentUser" ng-click"favoriteMovie($index)" class="btn btn-danger"><i class="fa fa-heart"></i></a>
+              <a ng-show="$root.currentUser && $root.currentUser.role === 1" ng-click="model.deleteMovie(movie.imdbID, $index)" class="btn btn-warning"><i class="fa fa-trash-o"></i></a>
+              <a ng-show="$root.currentUser" ng-click="model.favoriteMovie($index)" class="btn btn-danger"><i class="fa fa-heart"></i></a>
               <a ng-show="$root.currentUser && $root.currentUser.role === 1" ng-click="model.selectMovie($index)" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
             </td>
           </tr>
-          <tr ng-show="activePosition === $index">
-            <td>{{title}}&nbsp;({{year}})</td>
-            <td>Rated {{rated}}</td>
+          <tr ng-show="model.activePosition === $index">
+            <td>{{model.title}}&nbsp;({{model.year}})</td>
+            <td>Rated {{model.rated}}</td>
             <td>
               <h3>Plot</h3>
-              <p>{{plot}}</p>
+              <p>{{model.plot}}</p>
               <h3>Actors</h3>
-              <p>{{actors}}</p>
+              <p>{{model.actors}}</p>
               <h3>Director</h3>
-              <p>{{director}}</p>
+              <p>{{model.director}}</p>
             </td>
             <td></td>
             <td></td>

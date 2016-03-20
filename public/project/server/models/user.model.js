@@ -8,9 +8,30 @@ module.exports = function(uuid) {
     findUserById: findUserById,
     deleteUserById: deleteUserById,
     getAllUsers: getAllUsers,
-    updateUserById: updateUserById
+    updateUserById: updateUserById,
+    userLikesMovie: userLikesMovie,
+    findUsersByIds: findUsersByIds
   };
   return api;
+
+  function findUsersByIds(userIds) {
+    var users = []
+    for (var u in mock) {
+      if (userIds.indexOf(mock[u]._id) > 0) {
+        users.push(mock[u])
+      }
+    }
+    return users;
+  }
+
+  function userLikesMovie(userId, movie) {
+    for (var u in mock) {
+      if (mock[u]._id === userId) {
+        mock[u].likes.push(movie._id);
+        return mock[u].likes;
+      }
+    }    
+  }
 
   function findUserById(userId) {
     for (var u in mock) {

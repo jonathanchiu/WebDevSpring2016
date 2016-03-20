@@ -5,7 +5,7 @@
     .module("FreshPotatoes")
     .controller("MovieController", MovieController);
 
-  function MovieController($scope, $rootScope, $location, MovieService) {
+  function MovieController($scope, $rootScope, $location, OmdbService, MovieService) {
     var vm = this;
 
     vm.search = search;
@@ -18,53 +18,82 @@
 
     vm.getPage = getPage;
     vm.noPoster = 'images/saitama.jpeg';
-    $rootScope.hideMessage = true;
-    $rootScope.hideTable = false;
+    vm.hideMessage = true;
+    vm.hideTable = false;
 
     function search() {
       $rootScope.lastSearched = vm.searchedMovie;
       $rootScope.currentPage = 1;
 
-      MovieService
+      OmdbService
         .searchMovie(vm.searchedMovie, $rootScope.currentPage)
         .then(renderSearchResults, renderError);
     }
 
     function addMovie() {
       var newMovie = {
-        imdbID: vm.editID,
-        Poster: vm.editMoviePoster,
-        Title: vm.editMovieTitle,
-        Year: vm.editMovieYear
+        _id: vm.editID,
+        title: vm.editMovieTitle,
+        poster: vm.editMoviePoster,
+        likes: [],
+        reviews: []
       };
 
-      // Prepend newly added movie to current result set
-      $rootScope.movies.unshift(newMovie);
+      MovieService
+        .createMovie(newMovie)
+        .then(function(response) {
+          if (response.data) {
+            vm.movies.unshift(response.data);
+          }
+        });
     }
-    function deleteMovie(index) {
-      $rootScope.movies.splice(index, 1);
+
+    function deleteMovie(id, index) {
+      MovieService
+        .getMovieById(id)
+        .then(function(response) {
+          // If movie exists in our own database
+          if (response.data) {
+            MovieService
+              .deleteMovie(function(response) {
+                if (response.data) {
+                  vm.movies = response.data
+                }
+              });
+          }
+          else {
+            vm.movies.splice(index, 1);
+          }
+        });
     }
 
     function updateMovie() {
-      for (var i = 0; i < $rootScope.movies.length; i++) {
-        if ($rootScope.movies[i].imdbID === vm.selectedMovie) {
-          $rootScope.movies[i].Title = vm.editMovieTitle;
-          $rootScope.movies[i].Poster = vm.editMoviePoster;
-          $rootScope.movies[i].Year = vm.editMovieYear;
+      for (var i = 0; i < vm.movies.length; i++) {
+        if (vm.movies[i].imdbID === vm.selectedMovie) {
+          vm.movies[i].Title = vm.editMovieTitle;
+          vm.movies[i].Poster = vm.editMoviePoster;
+          vm.movies[i].Year = vm.editMovieYear;
           return;
         }
       }
     }
 
     function favoriteMovie(index) {
-      vm.favoritedMovie = $rootScope.movies[index].imdbID;
+      var movie = vm.movies[index];
+      MovieService
+        .userLikesMovie($rootScope.currentUser._id, movie)
+        .then(function(response) {
+          if (response.data) {
+
+          }
+        });
     }
 
     function selectMovie(index) {
-      vm.selectedMovie = $rootScope.movies[index].imdbID;
-      vm.editMoviePoster = $rootScope.movies[index].Poster;
-      vm.editMovieTitle = $rootScope.movies[index].Title;
-      vm.editMovieYear = parseInt($rootScope.movies[index].Year, 10);
+      vm.selectedMovie = vm.movies[index].imdbID;
+      vm.editMoviePoster = vm.movies[index].Poster;
+      vm.editMovieTitle = vm.movies[index].Title;
+      vm.editMovieYear = parseInt(vm.movies[index].Year, 10);
     }
 
     function getPage(page) {
@@ -77,7 +106,7 @@
 
       resetViewState();
 
-      MovieService
+      OmdbService
         .searchMovie($rootScope.lastSearched, $rootScope.currentPage)
         .then(renderSearchResults, renderError);
     }
@@ -93,13 +122,13 @@
 
     function renderSearchResults(response) {
       if (response.Response == "False") {
-        $rootScope.hideTable = true;
-        $rootScope.hideMessage = false;
+        vm.hideTable = true;
+        vm.hideMessage = false;
       }
       else {
-        $rootScope.hideMessage = true;
-        $rootScope.hideTable = false;
-        $rootScope.movies = response.Search;
+        vm.hideMessage = true;
+        vm.hideTable = false;
+        vm.movies = response.Search;
       }
     }
 
@@ -109,7 +138,7 @@
 
     function toggleDetails(index, id) {
       vm.activePosition = vm.activePosition == index ? -1 : index;
-      MovieService
+      OmdbService
         .getMovieDetails(id)
         .then(renderMovieDetails, renderError);
     }
@@ -122,7 +151,12 @@
       vm.actors = response.Actors;
       vm.genre = response.Genre;
       vm.director = response.Director;
-      vm.genre = response.Genre;
+
+      MovieService
+        .getMovieById(response.imdbID)
+        .then(function(response) {
+          console.log(response);
+        });
     }
   }
 })();
