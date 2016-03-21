@@ -15,7 +15,7 @@
     <h1 class="text-xs-center form-header">Search Results</h1>
     <div class="pull-xs-right">
       <div class="btn-group" role="group" aria-label="Pagination">
-        <button ng-hide="$root.currentPage == 1 || !($root.currentPage) || model.hideTable" ng-click="model.getPage('p')" type="button" class="btn btn-primary">Prev</button>
+        <button ng-hide="$root.currentPage == 1 || !($root.currentPage)" ng-click="model.getPage('p')" type="button" class="btn btn-primary">Prev</button>
         <button ng-hide="!($root.currentPage) || model.hideTable" ng-click="model.getPage('n')" type="button" class="btn btn-success">Next</button>
       </div>
     </div>
@@ -50,7 +50,7 @@
         <tbody ng-repeat="movie in model.movies">
           <tr data-imdb-id="{{movie.imdbID}}">
             <td>{{movie.imdbID}}</td>
-            <td><img class="poster" ng-src="{{movie.Poster.indexOf('http') > -1 ? movie.Poster : noPoster}}"></td>
+            <td><img class="poster" ng-src="{{movie.Poster.indexOf('http') > -1 ? movie.Poster : model.noPoster}}"></td>
             <td>
               <p>{{movie.Title}}</p>
               <i class="fa fa-star-o"></i>
@@ -86,7 +86,10 @@
               <h3>Director</h3>
               <p>{{model.director}}</p>
             </td>
-            <td></td>
+            <td>
+              <h5>Num Likes</h5>
+              <p>{{model.numLikes}}</p>
+            </td>
             <td></td>
           </tr>
         </tbody>

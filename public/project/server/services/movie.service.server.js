@@ -29,9 +29,6 @@ module.exports = function(app, movieModel, userModel) {
     var userId = req.params.userId;
     var movieId = req.params.id;
     var movie;
-    console.log(movieOmdb);
-    console.log(userId);
-    console.log(movieId);
 
     var movie = movieModel.userLikesMovie(userId, movieOmdb);
     res.json(movie);

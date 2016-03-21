@@ -7,6 +7,7 @@
 
   function MovieController($scope, $rootScope, $location, OmdbService, MovieService) {
     var vm = this;
+    var detailsAreShowing = 0;
 
     vm.search = search;
     vm.toggleDetails = toggleDetails;
@@ -84,7 +85,7 @@
         .userLikesMovie($rootScope.currentUser._id, movie)
         .then(function(response) {
           if (response.data) {
-
+            vm.numLikes += 1;
           }
         });
     }
@@ -138,6 +139,7 @@
 
     function toggleDetails(index, id) {
       vm.activePosition = vm.activePosition == index ? -1 : index;
+
       OmdbService
         .getMovieDetails(id)
         .then(renderMovieDetails, renderError);
@@ -155,7 +157,7 @@
       MovieService
         .getMovieById(response.imdbID)
         .then(function(response) {
-          console.log(response);
+          vm.numLikes = response.data ? response.data.likes.length : 0;
         });
     }
   }

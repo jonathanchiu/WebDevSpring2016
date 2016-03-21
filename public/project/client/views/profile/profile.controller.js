@@ -42,7 +42,7 @@
       };
 
       UserService
-        .updateUser(user._id, updatedUser)
+        .updateUserById(user._id, updatedUser)
         .then(function(response) {
           if (response.data) {
             UserService.setCurrentUser(response.data);

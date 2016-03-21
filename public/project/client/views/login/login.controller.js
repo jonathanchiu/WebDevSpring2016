@@ -9,6 +9,7 @@
     var vm = this;
 
     vm.login = login;
+    vm.register = register;
 
     function init() {
     }
@@ -24,9 +25,13 @@
         .then(function(response) {
           if (response.data) {
             UserService.setCurrentUser(response.data);
-            $location.url("/profile");
+            $location.url("/profile/" + user.username);
           }
         });
+    }
+
+    function register() {
+      $location.url("/register");
     }
   }
 })();
