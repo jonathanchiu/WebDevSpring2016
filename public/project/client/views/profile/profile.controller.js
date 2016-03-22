@@ -8,14 +8,14 @@
   function ProfileController($rootScope, $routeParams, UserService, MovieService) {
     var vm = this;
     var user = $rootScope.currentUser;
-    var usernameRoute = $routeParams.username;
+    var userId = $routeParams.userId;
 
     vm.update = update;
     vm.init = init;
 
     function init() {
       UserService
-        .findUserByUsername(usernameRoute)
+        .findUserById(userId)
         .then(function(response) {
           if (response.data) {
             var user = response.data;

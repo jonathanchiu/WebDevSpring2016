@@ -31,6 +31,10 @@
       return $http.get("/api/project/user?username=" + username);
     }
 
+    function findUserById(id) {
+      return $http.get("/api/project/user/" + id);
+    }
+
     function updateUserById(userId, user) {
       return $http.put("/api/project/user/" + userId, user);
     }
@@ -42,7 +46,8 @@
       findUserByCredentials: findUserByCredentials,
       createUser : createUser,
       deleteUserById : deleteUserById,
-      updateUserById : updateUserById
+      updateUserById : updateUserById,
+      findUserById: findUserById
     };
 
     return service;

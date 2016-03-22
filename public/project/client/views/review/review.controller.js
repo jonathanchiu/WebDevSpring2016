@@ -5,21 +5,35 @@
     .module("FreshPotatoes")
     .controller("ReviewController", ReviewController);
 
-  function ReviewController($scope, $routeParams, ReviewService) {
+  function ReviewController($routeParams, ReviewService) {
     var vm = this;
 
-    vm.id = $routeParams.id;
+    vm.imdbID = $routeParams.id;
+    vm.init = init;
     vm.deleteReview = deleteReview;
     vm.selectReview = selectReview;
     vm.updateReview = updateReview;
-    vm.addReview = addReview;
+    vm.createReview = createReview;
 
-    ReviewService.findAllReviewsForMovie(vm.id, function(response) {
-      vm.reviews = response;
-    });
+    function init() {
+      ReviewService
+        .getReviewsByMovieId(vm.imdbID)
+        .then(function(response) {
+          if (response.data) {
+            vm.reviews = response.data;
+          }
+        });
+    }
+    init();
 
-    function deleteReview(index) {
-      vm.reviews.splice(index, 1);
+    function deleteReview(id, index) {
+      ReviewService
+        .deleteReviewById(id)
+        .then(function(response) {
+          if (response.data) {
+            vm.reviews.splice(index, 1);
+          }
+        });
     }
 
     function selectReview(index) {
@@ -31,20 +45,25 @@
     }
 
     function updateReview() {
-      for (var i = 0; i < vm.reviews.length; i++) {
-        if (vm.reviews[i].id === vm.selectedReview.id) {
-          vm.reviews[i].title = vm.reviewTitleSubmission;
-          vm.reviews[i].created = vm.reviewCreatedSubmission;
-          vm.reviews[i].author = vm.reviewAuthorSubmission;
-          vm.reviews[i].content = vm.reviewContentSubmission;
-          return;
-        }
-      }
+      var updatedReview = {
+        title: vm.reviewTitleSubmission,
+        author: vm.reviewAuthorSubmission,
+        content: vm.reviewContentSubmission,
+        edited: new Date()
+      };
+
+      ReviewService
+        .updateReview(vm.selectedReview._id, updatedReview)
+        .then(function(response) {
+          if (response.data) {
+            init();
+          }
+        });
     }
 
-    function addReview() {
+    function createReview() {
       var newReview = {
-        imdb_id: vm.id,
+        imdbID: vm.imdbID,
         title: vm.reviewTitleSubmission,
         author: vm.reviewAuthorSubmission,
         content: vm.reviewContentSubmission,
@@ -52,9 +71,13 @@
         created: new Date()
       };
 
-      ReviewService.createReview(newReview, function(response) {
-        vm.reviews = response;
-      });
+      ReviewService
+        .createReview(newReview)
+        .then(function(response) {
+          if (response.data) {
+            vm.reviews.unshift(response.data);
+          }
+        });
     }
   }
 })();

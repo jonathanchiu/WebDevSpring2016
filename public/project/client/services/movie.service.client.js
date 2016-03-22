@@ -11,9 +11,14 @@
       findUserLikes: findUserLikes,
       createMovie: createMovie,
       deleteMovie: deleteMovie,
-      getMovieById: getMovieById
+      getMovieById: getMovieById,
+      updateMovie: updateMovie
     };
     return api;
+
+    function updateMovie(id, movie) {
+      return $http.put("/api/project/movie/" + id, movie);
+    }
 
     function findUserLikes(imdbID) {
       return $http.get("/api/project/movie/" + imdbID + "/user");

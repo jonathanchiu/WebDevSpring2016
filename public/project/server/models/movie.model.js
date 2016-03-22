@@ -7,9 +7,30 @@ module.exports = function(uuid) {
     getMovieById: getMovieById,
     createMovie: createMovie,
     userLikesMovie: userLikesMovie,
-    deleteMovieById: deleteMovieById
+    deleteMovieById: deleteMovieById,
+    updateMovie: updateMovie
   };
   return api;
+
+  function updateMovie(id, movie) {
+    var ids = mock.map(function(m) {
+      return m.imdbID;
+    });
+
+    if (ids.indexOf(id) < 0) {
+      mock.push(movie);
+      return movie;
+    }
+    else {
+      for (var m in mock) {
+        if (mock[m].imdbID === id) {
+          mock[m].title = movie.title;
+          mock[m].poster = movie.poster;
+          return mock[m];
+        }
+      }
+    }
+  }
 
   function deleteMovieById(id) {
     for (var i = 0; i < mock.length; i++) {
@@ -18,6 +39,7 @@ module.exports = function(uuid) {
         return mock;
       }
     }
+    return null;
   }
 
   function getAllMovies() {

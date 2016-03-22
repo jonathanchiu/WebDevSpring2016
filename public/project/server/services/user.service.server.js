@@ -1,7 +1,7 @@
 module.exports = function(app, userModel) {
   app.post("/api/project/user", register);
   app.get("/api/project/user", delegate);
-  app.get("/api/project/user/:id", profile);
+  app.get("/api/project/user/:userId", profile);
   app.put("/api/project/user/:userId", updateUserById);
   app.delete("/api/project/user/:userId", deleteUserById);
   app.post("/api/project/user/logout", logout);

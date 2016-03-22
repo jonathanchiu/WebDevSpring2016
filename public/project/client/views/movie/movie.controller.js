@@ -68,15 +68,30 @@
         });
     }
 
-    function updateMovie() {
-      for (var i = 0; i < vm.movies.length; i++) {
-        if (vm.movies[i].imdbID === vm.selectedMovie) {
-          vm.movies[i].Title = vm.editMovieTitle;
-          vm.movies[i].Poster = vm.editMoviePoster;
-          vm.movies[i].Year = vm.editMovieYear;
-          return;
-        }
-      }
+    function updateMovie(id) {
+
+      var movie = {
+        imdbID: vm.editID,
+        title: vm.editMovieTitle,
+        poster: vm.editMoviePoster
+      };
+
+      MovieService
+        .updateMovie(vm.editID, movie)
+        .then(function(response) {
+          if (response.data) {
+            console.log(response.data);
+            var movie = response.data;
+
+            for (var i = 0; i < vm.movies.length; i++) {
+              if (vm.movies[i].imdbID == id) {
+                vm.movies[i].title = movie.title;
+                vm.movies[i].poster = movie.poster;
+                return;
+              }
+            }
+          }
+        });
     }
 
     function favoriteMovie(index) {
@@ -91,7 +106,7 @@
     }
 
     function selectMovie(index) {
-      vm.selectedMovie = vm.movies[index].imdbID;
+      vm.editID = vm.movies[index].imdbID;
       vm.editMoviePoster = vm.movies[index].Poster;
       vm.editMovieTitle = vm.movies[index].Title;
       vm.editMovieYear = parseInt(vm.movies[index].Year, 10);

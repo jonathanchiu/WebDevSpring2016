@@ -4,11 +4,18 @@ module.exports = function(app, movieModel, userModel) {
 
   app.get("/api/project/movie/:id", getMovieById);
   app.post("/api/project/movie/", createMovie);
+  app.put("/api/project/movie/:id", updateMovie);
   app.delete("/api/project/movie/:id", deleteMovieById);
 
   function createMovie(req, res) {
     var movie = req.body;
     movies = movieModel.createMovie(movie);
+    res.json(movies);
+  }
+
+  function updateMovie(req, res) {
+    var movie = req.body;
+    var movies = movieModel.updateMovie(movie.imdbID, movie);
     res.json(movies);
   }
 

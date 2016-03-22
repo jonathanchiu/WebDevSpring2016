@@ -35,13 +35,13 @@
         <!-- Row for adding movie -->
         <thead ng-show="$root.currentUser && $root.currentUser.role === 1">
           <tr>
-            <th><input ng-model="model.editID" type="text" class="form-control" placeholder="ID"></th>
+            <th>{{model.editID}}</th>
             <th><input ng-model="model.editMoviePoster" type="text" class="form-control" placeholder="Poster URL"></th>
             <th><input ng-model="model.editMovieTitle" type="text" class="form-control" placeholder="Movie Title"></th>
-            <th><input ng-model="model.editMovieYear" type="number" class="form-control" placeholder="Movie Year"></th>
+            <th>{{model.editMovieYear}}</th>
             <th class="action-buttons">
               <a ng-click="model.addMovie()" class="btn btn-primary"><i class="fa fa-plus-square-o"></i></a>
-              <a ng-click="model.updateMovie()" class="btn btn-success"><i class="fa fa-check"></i></a>
+              <a ng-click="model.updateMovie(model.editID)" class="btn btn-success"><i class="fa fa-check"></i></a>
             </th>
           </tr>
         </thead>
@@ -53,11 +53,6 @@
             <td><img class="poster" ng-src="{{movie.Poster.indexOf('http') > -1 ? movie.Poster : model.noPoster}}"></td>
             <td>
               <p>{{movie.Title}}</p>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
             </td>
             <td>{{movie.Year}}</td>
             <td class="action-buttons">
