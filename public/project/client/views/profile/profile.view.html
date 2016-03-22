@@ -13,7 +13,7 @@
     </p>
     <hr>
     <div class="text-md-center" id="profile-buttons">
-      <button ng-show="model.username != $root.currentUser.username" class="btn btn-primary" type="button">Follow</button>
+      <button ng-click="model.follow()" ng-show="model.username != $root.currentUser.username" class="btn btn-primary" type="button">Follow</button>
       <button ng-show="$root.currentUser || $root.currentUser.role === 1" class="btn btn-danger" type="button">Delete</button>
     </div>
   </div>
@@ -61,10 +61,17 @@
   <div class="col-md-2"></div>
   <div class="col-md-10">
     <h3 class="form-header">Favorites</h3>
-    <p class="lead">This user has not favorited any movies yet.</p>
+    <p ng-hide="model.likedMovies.length > 0" class="lead">This user has not favorited any movies yet.</p>
   </div>
 </div>
 
+<div ng-repeat="rows in model.likedMovies" class="row">
+  <div class="col-md-2"></div>
+  <div ng-repeat="movie in rows" class="col-md-2">
+    <img class="img-fluid poster" ng-src="{{movie.poster}}">
+    <p>{{movie.title}}</p>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-md-2"></div>

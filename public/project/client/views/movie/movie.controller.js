@@ -5,7 +5,7 @@
     .module("FreshPotatoes")
     .controller("MovieController", MovieController);
 
-  function MovieController($scope, $rootScope, $location, OmdbService, MovieService) {
+  function MovieController($scope, $rootScope, $location, OmdbService, MovieService, UserService) {
     var vm = this;
     var detailsAreShowing = 0;
 
@@ -101,6 +101,15 @@
         .then(function(response) {
           if (response.data) {
             vm.numLikes += 1;
+          }
+        });
+
+      UserService
+        .addMovieToUserLikes($rootScope.currentUser._id, movie.imdbID)
+        .then(function(response) {
+          if (response.data) {
+            console.log(response.data);
+            console.log("success");
           }
         });
     }

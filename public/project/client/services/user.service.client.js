@@ -11,6 +11,10 @@
       return $http.get("/api/project/user?username=" + username + "&password=" + password);
     }
 
+    function addMovieToUserLikes(userId, imdbId) {
+      return $http.put("/api/project/user/" + userId + "/likes/" + imdbId);
+    }
+
     function setCurrentUser(user) {
       $rootScope.currentUser = user;
     }
@@ -47,7 +51,8 @@
       createUser : createUser,
       deleteUserById : deleteUserById,
       updateUserById : updateUserById,
-      findUserById: findUserById
+      findUserById: findUserById,
+      addMovieToUserLikes: addMovieToUserLikes
     };
 
     return service;

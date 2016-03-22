@@ -10,9 +10,19 @@ module.exports = function(uuid) {
     getAllUsers: getAllUsers,
     updateUserById: updateUserById,
     userLikesMovie: userLikesMovie,
-    findUsersByIds: findUsersByIds
+    findUsersByIds: findUsersByIds,
+    addMovieToUserLikes: addMovieToUserLikes
   };
   return api;
+
+  function addMovieToUserLikes(userId, imdbId) {
+    for (var u in mock) {
+      if (mock[u]._id == userId) {
+        mock[u].likes.push(imdbId);
+        return mock[u].likes;
+      }
+    }
+  }
 
   function findUsersByIds(userIds) {
     var users = []

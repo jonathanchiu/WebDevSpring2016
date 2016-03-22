@@ -3,9 +3,18 @@ module.exports = function(app, movieModel, userModel) {
   app.get("/api/project/movie/:id/user", findUserLikes);
 
   app.get("/api/project/movie/:id", getMovieById);
+  app.post("/api/project/movies/", getMoviesByIds);
   app.post("/api/project/movie/", createMovie);
   app.put("/api/project/movie/:id", updateMovie);
   app.delete("/api/project/movie/:id", deleteMovieById);
+
+  function getMoviesByIds(req, res) {
+    var ids = req.body;
+    console.log("shit");
+    console.log(ids);
+    movies = movieModel.getMoviesByIds(ids);
+    res.json(movies);
+  }
 
   function createMovie(req, res) {
     var movie = req.body;

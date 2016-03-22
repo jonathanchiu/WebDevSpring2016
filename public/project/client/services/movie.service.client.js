@@ -12,9 +12,14 @@
       createMovie: createMovie,
       deleteMovie: deleteMovie,
       getMovieById: getMovieById,
-      updateMovie: updateMovie
+      updateMovie: updateMovie,
+      getMoviesByIds: getMoviesByIds
     };
     return api;
+
+    function getMoviesByIds(ids) {
+      return $http.post("/api/project/movies/", ids);
+    }
 
     function updateMovie(id, movie) {
       return $http.put("/api/project/movie/" + id, movie);

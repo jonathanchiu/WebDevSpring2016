@@ -14,7 +14,7 @@
         <a class="nav-link" href="#/search">Search</a>
       </li>
       <li ng-show="$root.currentUser" class="nav-item">
-        <a class="nav-link" ng-href="#/profile/{{$root.currentUser.username}}">Profile</a>
+        <a class="nav-link" ng-href="#/profile/{{$root.currentUser._id}}">Profile</a>
       </li>
       <li ng-show="$root.currentUser && $root.currentUser.role === 1" class="nav-item">
         <a class="nav-link" href="#/users">Users</a>

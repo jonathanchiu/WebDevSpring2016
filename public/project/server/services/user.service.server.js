@@ -5,6 +5,14 @@ module.exports = function(app, userModel) {
   app.put("/api/project/user/:userId", updateUserById);
   app.delete("/api/project/user/:userId", deleteUserById);
   app.post("/api/project/user/logout", logout);
+  app.put("/api/project/user/:userId/likes/:imdbId", addMovieToUserLikes);
+
+  function addMovieToUserLikes(req, res) {
+    var userId = req.params.userId;
+    var imdbId = req.params.imdbId;
+    var likes = userModel.addMovieToUserLikes(userId, imdbId);
+    res.json(likes);
+  }
 
   function register(req, res) {
     var user = req.body;
