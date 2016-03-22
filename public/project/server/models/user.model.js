@@ -39,6 +39,7 @@ module.exports = function(uuid) {
     console.log(userId);
     for (var u in mock) {
       if (mock[u]._id == userId) {
+        console.log(mock[u]);
         return mock[u];
       }
     }
@@ -70,9 +71,8 @@ module.exports = function(uuid) {
       if (mock[i]._id == userId) {
         mock[i].firstName = user.firstName;
         mock[i].lastName = user.lastName;
-        mock[i].username = user.username;
         mock[i].password = user.password;
-        mock[i].avatar = user.avatar;
+        mock[i].description = user.description;
         mock[i].role = user.role;
         mock[i].dob = user.dob;
       }
