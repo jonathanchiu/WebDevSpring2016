@@ -1,6 +1,6 @@
 [
   {
-    "imdbID": "tt1798709",
+    "imdbid": "tt1798709",
     "title": "Her",
     "poster": "http://ia.media-imdb.com/images/M/MV5BMjA1Nzk0OTM2OF5BMl5BanBnXkFtZTgwNjU2NjEwMDE@._V1_SX300.jpg",
     "likes": [123, 999, 888, 777, 333],
@@ -10,7 +10,7 @@
     ]
   },
   {
-    "imdbID": "tt0335266",
+    "imdbid": "tt0335266",
     "title": "Lost in Translation",
     "poster": "http://ia.media-imdb.com/images/M/MV5BMTI2NDI5ODk4N15BMl5BanBnXkFtZTYwMTI3NTE3._V1_SX300.jpg",
     "likes": [123, 999, 444],
@@ -20,7 +20,7 @@
     ]
   },
   {
-    "imdbID": "tt1723811",
+    "imdbid": "tt1723811",
     "title": "Shame",
     "poster": "http://ia.media-imdb.com/images/M/MV5BMTQ3MzM0OTE5MF5BMl5BanBnXkFtZTcwNzI4MDM5Ng@@._V1_SX300.jpg",
     "likes": [123, 999],
@@ -30,7 +30,7 @@
     ]
   },
   {
-    "imdbID": "tt1375666",
+    "imdbid": "tt1375666",
     "title": "Inception",
     "poster": "http://ia.media-imdb.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
     "likes": [123, 999, 333],
@@ -40,7 +40,7 @@
     ]
   },
   {
-    "imdbID": "tt0482571",
+    "imdbid": "tt0482571",
     "title": "The Prestige",
     "poster": "http://ia.media-imdb.com/images/M/MV5BMjA4NDI0MTIxNF5BMl5BanBnXkFtZTYwNTM0MzY2._V1_SX300.jpg",
     "likes": [123, 999],

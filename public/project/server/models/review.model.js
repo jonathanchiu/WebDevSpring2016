@@ -38,7 +38,7 @@ module.exports = function(uuid) {
   function getReviewsByMovieId(imdbId) {
     var reviews = []
     for (var r in mock) {
-      if (mock[r].imdbID == imdbId) {
+      if (mock[r].imdbid == imdbId) {
         reviews.push(mock[r]);
       }
     }

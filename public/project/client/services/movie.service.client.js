@@ -43,11 +43,11 @@
     }
 
     function createMovie(movie) {
-      return $http.post("/api/project/movie", movie);
+      return $http.post("/api/project/movie/", movie);
     }
 
     function userLikesMovie(userId, movie) {
-      return $http.post("/api/project/user/"+ userId + "/movie/" + movie.imdbID, movie);
+      return $http.post("/api/project/user/"+ userId + "/movie/" + movie.imdbid, movie);
     }
   }
 })();

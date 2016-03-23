@@ -27,6 +27,7 @@
             <th>ID</th>
             <th>Poster</th>
             <th>Title</th>
+            <th></th>
             <th>Year</th>
             <th>Actions</th>
           </tr>
@@ -38,6 +39,7 @@
             <th>{{model.editID}}</th>
             <th><input ng-model="model.editMoviePoster" type="text" class="form-control" placeholder="Poster URL"></th>
             <th><input ng-model="model.editMovieTitle" type="text" class="form-control" placeholder="Movie Title"></th>
+            <th><textarea ng-model="model.editMovieDescription" type="text" class="form-control" placeholder="Movie Description"></textarea></th>
             <th>{{model.editMovieYear}}</th>
             <th class="action-buttons">
               <a ng-click="model.addMovie()" class="btn btn-primary"><i class="fa fa-plus-square-o"></i></a>
@@ -47,25 +49,26 @@
         </thead>
 
         <!-- Template for search results -->
-        <tbody ng-repeat="movie in model.movies">
-          <tr data-imdb-id="{{movie.imdbID}}">
-            <td>{{movie.imdbID}}</td>
-            <td><img class="poster" ng-src="{{movie.Poster.indexOf('http') > -1 ? movie.Poster : model.noPoster}}"></td>
+        <tbody ng-model="model.movies" ng-repeat="movie in model.movies">
+          <tr data-imdb-id="{{movie.imdbid}}">
+            <td>{{movie.imdbid}}</td>
+            <td><img class="poster" ng-src="{{movie.poster.indexOf('http') > -1 ? movie.poster : model.noPoster}}"></td>
             <td>
-              <p>{{movie.Title}}</p>
+              <p>{{movie.title}}</p>
             </td>
-            <td>{{movie.Year}}</td>
+            <td></td>
+            <td>{{movie.year}}</td>
             <td class="action-buttons">
-              <a ng-show="$root.currentUser" ng-click="model.toggleDetails($index, movie.imdbID)" class="btn btn-success">
+              <a ng-show="$root.currentUser" ng-click="model.toggleDetails($index, movie.imdbid)" class="btn btn-success">
                 <i class="fa fa-info"></i>
               </a>
 
               <span ng-controller="ReviewController">
-                <a ng-show="$root.currentUser" ng-href="#/write-review/{{movie.imdbID}}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a>
-                <a ng-href="#/read-review/{{movie.imdbID}}" class="btn btn-primary"><i class="fa fa-newspaper-o"></i></a>
+                <a ng-show="$root.currentUser" ng-href="#/write-review/{{movie.imdbid}}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a>
+                <a ng-href="#/read-review/{{movie.imdbid}}" class="btn btn-primary"><i class="fa fa-newspaper-o"></i></a>
               </span>
 
-              <a ng-show="$root.currentUser && $root.currentUser.role === 1" ng-click="model.deleteMovie(movie.imdbID, $index)" class="btn btn-warning"><i class="fa fa-trash-o"></i></a>
+              <a ng-show="$root.currentUser && $root.currentUser.role === 1" ng-click="model.deleteMovie(movie.imdbid, $index)" class="btn btn-warning"><i class="fa fa-trash-o"></i></a>
               <a ng-show="$root.currentUser" ng-click="model.favoriteMovie($index)" class="btn btn-danger"><i class="fa fa-heart"></i></a>
               <a ng-show="$root.currentUser && $root.currentUser.role === 1" ng-click="model.selectMovie($index)" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
             </td>

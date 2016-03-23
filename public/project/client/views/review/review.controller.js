@@ -8,7 +8,7 @@
   function ReviewController($routeParams, $rootScope, $location, ReviewService) {
     var vm = this;
 
-    vm.imdbID = $routeParams.id;
+    vm.imdbid = $routeParams.id;
     vm.init = init;
     vm.deleteReview = deleteReview;
     vm.selectReview = selectReview;
@@ -18,7 +18,7 @@
 
     function init() {
       ReviewService
-        .getReviewsByMovieId(vm.imdbID)
+        .getReviewsByMovieId(vm.imdbid)
         .then(function(response) {
           if (response.data) {
             vm.reviews = response.data;
@@ -64,7 +64,7 @@
 
     function writeReview() {
       var newReview = {
-        imdbID: vm.imdbID,
+        imdbID: vm.imdbid,
         title: vm.reviewTitle,
         author: $rootScope.currentUser._id,
         content: vm.reviewContent,
@@ -76,14 +76,14 @@
         .createReview(newReview)
         .then(function(response) {
           if (response.data) {
-            $location.url("/read-review/" + vm.imdbID);
+            $location.url("/read-review/" + vm.imdbid);
           }
         });
     }
 
     function createReview() {
       var newReview = {
-        imdbID: vm.imdbID,
+        imdbID: vm.imdbid,
         title: vm.reviewTitleSubmission,
         author: vm.reviewAuthorSubmission,
         content: vm.reviewContentSubmission,

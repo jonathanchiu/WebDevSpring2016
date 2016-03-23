@@ -16,6 +16,7 @@
     vm.selectMovie = selectMovie;
     vm.updateMovie = updateMovie;
     vm.favoriteMovie = favoriteMovie;
+    vm.movies = [];
 
     vm.getPage = getPage;
     vm.noPoster = 'images/saitama.jpeg';
@@ -36,9 +37,12 @@
         _id: vm.editID,
         title: vm.editMovieTitle,
         poster: vm.editMoviePoster,
+        plot: vm.editMovieDescription,
         likes: [],
         reviews: []
       };
+
+      console.log(newMovie);
 
       MovieService
         .createMovie(newMovie)
@@ -80,14 +84,10 @@
         .updateMovie(vm.editID, movie)
         .then(function(response) {
           if (response.data) {
-            console.log(response.data);
-            var movie = response.data;
-
             for (var i = 0; i < vm.movies.length; i++) {
-              if (vm.movies[i].imdbID == id) {
+              if (vm.movies[i].imdbid == id) {
                 vm.movies[i].title = movie.title;
                 vm.movies[i].poster = movie.poster;
-                return;
               }
             }
           }
@@ -105,7 +105,7 @@
         });
 
       UserService
-        .addMovieToUserLikes($rootScope.currentUser._id, movie.imdbID)
+        .addMovieToUserLikes($rootScope.currentUser._id, movie.imdbid)
         .then(function(response) {
           if (response.data) {
             console.log(response.data);
@@ -115,9 +115,10 @@
     }
 
     function selectMovie(index) {
-      vm.editID = vm.movies[index].imdbID;
-      vm.editMoviePoster = vm.movies[index].Poster;
-      vm.editMovieTitle = vm.movies[index].Title;
+      vm.editID = vm.movies[index].imdbid;
+      vm.editMoviePoster = vm.movies[index].poster;
+      vm.editMovieTitle = vm.movies[index].title;
+      vm.editMovieDescription = vm.movies[index].Plot;
       vm.editMovieYear = parseInt(vm.movies[index].Year, 10);
     }
 
@@ -145,6 +146,26 @@
       vm.editMovieYear = null;
     }
 
+    /**
+     * Created by gonchub on 19/03/14.
+     */
+    function keysToLowerCase(obj) {
+      if (!typeof(obj) === "object" || typeof(obj) === "string" || typeof(obj) === "number" || typeof(obj) === "boolean") {
+          return obj;
+      }
+      var keys = Object.keys(obj);
+      var n = keys.length;
+      var lowKey;
+      while (n--) {
+          var key = keys[n];
+          if (key === (lowKey = key.toLowerCase()))
+              continue;
+          obj[lowKey] = keysToLowerCase(obj[key]);
+          delete obj[key];
+      }
+      return (obj);
+    }
+
     function renderSearchResults(response) {
       if (response.Response == "False") {
         vm.hideTable = true;
@@ -153,6 +174,10 @@
       else {
         vm.hideMessage = true;
         vm.hideTable = false;
+        // Sanitize keys to conform to how database fields are laid out
+        for (var i = 0; i < response.Search.length; i++) {
+          keysToLowerCase(response.Search[i]);
+        }
         vm.movies = response.Search;
       }
     }
@@ -170,7 +195,7 @@
     }
 
     function renderMovieDetails(response) {
-      vm.title = response.Title;
+      vm.title = response.title;
       vm.year = response.Year;
       vm.rated = response.Rated;
       vm.plot = response.Plot;
@@ -179,7 +204,7 @@
       vm.director = response.Director;
 
       MovieService
-        .getMovieById(response.imdbID)
+        .getMovieById(response.imdbid)
         .then(function(response) {
           vm.numLikes = response.data ? response.data.likes.length : 0;
         });

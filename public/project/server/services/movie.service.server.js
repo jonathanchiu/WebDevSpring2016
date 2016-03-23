@@ -28,7 +28,7 @@ module.exports = function(app, movieModel, userModel) {
 
   function updateMovie(req, res) {
     var movie = req.body;
-    var movies = movieModel.updateMovie(movie.imdbID, movie);
+    var movies = movieModel.updateMovie(movie.imdbid, movie);
     res.json(movies);
   }
 

@@ -28,7 +28,7 @@ module.exports = function(uuid) {
 
   function updateMovie(id, movie) {
     var ids = mock.map(function(m) {
-      return m.imdbID;
+      return m.imdbid;
     });
 
     if (ids.indexOf(id) < 0) {
@@ -37,7 +37,7 @@ module.exports = function(uuid) {
     }
     else {
       for (var m in mock) {
-        if (mock[m].imdbID === id) {
+        if (mock[m].imdbid === id) {
           mock[m].title = movie.title;
           mock[m].poster = movie.poster;
           return mock[m];
@@ -48,7 +48,7 @@ module.exports = function(uuid) {
 
   function deleteMovieById(id) {
     for (var i = 0; i < mock.length; i++) {
-      if (mock[i].imdbID === id) {
+      if (mock[i].imdbid === id) {
         mock.splice(i, 1);
         return mock;
       }
@@ -63,7 +63,7 @@ module.exports = function(uuid) {
   function getMoviesByIds(ids) {
     var movies = [];
     for (var m in mock) {
-      if (ids.indexOf(mock[m].imdbID) > 0) {
+      if (ids.indexOf(mock[m].imdbid) > 0) {
         movies.push(mock[m]);
       }
     }
@@ -72,7 +72,7 @@ module.exports = function(uuid) {
 
   function getMovieById(id) {
     for (var m in mock) {
-      if (mock[m].imdbID === id) {
+      if (mock[m].imdbid === id) {
         return mock[m];
       }
     }
@@ -80,21 +80,21 @@ module.exports = function(uuid) {
   }
 
   function createMovie(movie) {
-    movie.imdbID = uuid.v4();
+    movie.imdbid = uuid.v4();
     mock.push(movie);
     return movie;
   }
 
   function userLikesMovie(userId, movie) {
     var ids = mock.map(function(m) {
-      return m.imdbID;
+      return m.imdbid;
     });
 
-    if (ids.indexOf(movie.imdbID) < 0) {
+    if (ids.indexOf(movie.imdbid) < 0) {
       var newMovie = {
-        imdbID: movie.imdbID,
-        title: movie.Title,
-        poster: movie.Poster,
+        imdbID: movie.imdbid,
+        title: movie.title,
+        poster: movie.poster,
         likes: [],
         reviews: []
       };
@@ -104,7 +104,7 @@ module.exports = function(uuid) {
     }
     else {
       for (var m in mock) {
-        if (mock[m].imdbID === movie.imdbID) {
+        if (mock[m].imdbid === movie.imdbid) {
           mock[m].likes.push(userId);
           return mock[m];
         }
