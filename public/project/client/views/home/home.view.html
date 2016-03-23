@@ -1,182 +1,28 @@
 <div class="row">
   <div class="col-md-12">
-    <h3>Top 10 Favorited Movies</h3>
+    <h3>Top 3 Favorited Movies</h3>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead class="thead-inverse">
           <tr>
             <th>Poster</th>
             <th>Title</th>
-            <th>Info</th>
+            <th>Liked By</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr ng-repeat="movie in model.topMovies">
             <td>
-              <img class="img-fluid poster" src="https://s-media-cache-ak0.pinimg.com/564x/50/12/5b/50125ba650c6832fe80f840cc4086264.jpg">
-              4096 Favorites
+              <img class="img-fluid poster" ng-src="{{movie.poster}}">
+              Num Likes: {{movie.likes.length}}
             </td>
-            <td>Requiem For A Dream (2000)</td>
+            <td>{{movie.title}}</td>
             <td>
-              <p>The drug-induced utopias of four Coney Island people are shattered when their addictions become stronger.</p>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img class="img-fluid poster" src="http://images1.fanpop.com/images/image_uploads/Lost-in-Translation-Posters-lost-in-translation-1041743_303_449.jpg">
-              3928 Favorites
-            </td>
-            <td>Lost in Translation (2003)</td>
-            <td>
-              <p>
-                A faded movie star and a neglected young woman form an unlikely bond after crossing paths in Tokyo.
-              </p>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img class="img-fluid poster" src="http://enfuzed.com/wp-content/uploads/2013/07/amelie.png">
-              3928 Favorites
-            </td>
-            <td>Amelie (2001)</td>
-            <td>
-              <p>
-                Amelie is an innocent and naive girl in Paris with her own sense of justice. She decides to help those around her and, along the way, discovers love.
-              </p>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img class="img-fluid poster" src="http://images1.fanpop.com/images/image_uploads/Lost-in-Translation-Posters-lost-in-translation-1041743_303_449.jpg">
-              3928 Favorites
-            </td>
-            <td>Lost in Translation (2003)</td>
-            <td>
-              <p>
-                A faded movie star and a neglected young woman form an unlikely bond after crossing paths in Tokyo.
-              </p>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img class="img-fluid poster" src="http://images1.fanpop.com/images/image_uploads/Lost-in-Translation-Posters-lost-in-translation-1041743_303_449.jpg">
-              3928 Favorites
-            </td>
-            <td>Lost in Translation (2003)</td>
-            <td>
-              <p>
-                A faded movie star and a neglected young woman form an unlikely bond after crossing paths in Tokyo.
-              </p>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img class="img-fluid poster" src="http://images1.fanpop.com/images/image_uploads/Lost-in-Translation-Posters-lost-in-translation-1041743_303_449.jpg">
-              3928 Favorites
-            </td>
-            <td>Lost in Translation (2003)</td>
-            <td>
-              <p>
-                A faded movie star and a neglected young woman form an unlikely bond after crossing paths in Tokyo.
-              </p>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img class="img-fluid poster" src="http://images1.fanpop.com/images/image_uploads/Lost-in-Translation-Posters-lost-in-translation-1041743_303_449.jpg">
-              3928 Favorites
-            </td>
-            <td>Lost in Translation (2003)</td>
-            <td>
-              <p>
-                A faded movie star and a neglected young woman form an unlikely bond after crossing paths in Tokyo.
-              </p>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img class="img-fluid poster" src="http://images1.fanpop.com/images/image_uploads/Lost-in-Translation-Posters-lost-in-translation-1041743_303_449.jpg">
-              3928 Favorites
-            </td>
-            <td>Lost in Translation (2003)</td>
-            <td>
-              <p>
-                A faded movie star and a neglected young woman form an unlikely bond after crossing paths in Tokyo.
-              </p>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img class="img-fluid poster" src="http://images1.fanpop.com/images/image_uploads/Lost-in-Translation-Posters-lost-in-translation-1041743_303_449.jpg">
-              3928 Favorites
-            </td>
-            <td>Lost in Translation (2003)</td>
-            <td>
-              <p>
-                A faded movie star and a neglected young woman form an unlikely bond after crossing paths in Tokyo.
-              </p>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img class="img-fluid poster" src="http://images1.fanpop.com/images/image_uploads/Lost-in-Translation-Posters-lost-in-translation-1041743_303_449.jpg">
-              3928 Favorites
-            </td>
-            <td>Lost in Translation (2003)</td>
-            <td>
-              <p>
-                A faded movie star and a neglected young woman form an unlikely bond after crossing paths in Tokyo.
-              </p>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
+              <ul class="list-inline">
+                <li ng-repeat="user in movie.likes">
+                  <a ng-href="#/profile/{{user}}">{{user}}</a>
+                </li>
+              </ul>
             </td>
           </tr>
         </tbody>

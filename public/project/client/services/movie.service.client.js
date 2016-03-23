@@ -13,9 +13,14 @@
       deleteMovie: deleteMovie,
       getMovieById: getMovieById,
       updateMovie: updateMovie,
-      getMoviesByIds: getMoviesByIds
+      getMoviesByIds: getMoviesByIds,
+      getTopMovies: getTopMovies
     };
     return api;
+
+    function getTopMovies(num) {
+      return $http.get("/api/project/movie/top/" + num);
+    }
 
     function getMoviesByIds(ids) {
       return $http.post("/api/project/movies/", ids);

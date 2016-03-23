@@ -8,9 +8,23 @@ module.exports = function(uuid) {
     createMovie: createMovie,
     userLikesMovie: userLikesMovie,
     deleteMovieById: deleteMovieById,
-    updateMovie: updateMovie
+    updateMovie: updateMovie,
+    getTopMovies: getTopMovies
   };
   return api;
+
+  function getTopMovies(x) {
+    var mockCopy = mock.sort(function(m1, m2) {
+      return m2.likes.length - m1.likes.length;
+    });
+
+    var topMovies = [];
+
+    for (var i = 0; i < x; i++) {
+      topMovies.push(mockCopy[i]);
+    }
+    return topMovies;
+  }
 
   function updateMovie(id, movie) {
     var ids = mock.map(function(m) {

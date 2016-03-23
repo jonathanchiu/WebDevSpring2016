@@ -1,18 +1,22 @@
 module.exports = function(app, movieModel, userModel) {
   app.post("/api/project/user/:userId/movie/:id", userLikesMovie);
   app.get("/api/project/movie/:id/user", findUserLikes);
-
   app.get("/api/project/movie/:id", getMovieById);
+  app.get("/api/project/movie/top/:num", getTopMovies);
   app.post("/api/project/movies/", getMoviesByIds);
   app.post("/api/project/movie/", createMovie);
   app.put("/api/project/movie/:id", updateMovie);
   app.delete("/api/project/movie/:id", deleteMovieById);
 
+  function getTopMovies(req, res) {
+    var numMovies = req.params.num;
+    var topMovies = movieModel.getTopMovies(parseInt(numMovies, 10));
+    res.json(topMovies);
+  }
+
   function getMoviesByIds(req, res) {
     var ids = req.body;
-    console.log("shit");
-    console.log(ids);
-    movies = movieModel.getMoviesByIds(ids);
+    var movies = movieModel.getMoviesByIds(ids);
     res.json(movies);
   }
 

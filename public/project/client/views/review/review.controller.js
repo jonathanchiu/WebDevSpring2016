@@ -5,7 +5,7 @@
     .module("FreshPotatoes")
     .controller("ReviewController", ReviewController);
 
-  function ReviewController($routeParams, ReviewService) {
+  function ReviewController($routeParams, $rootScope, $location, ReviewService) {
     var vm = this;
 
     vm.imdbID = $routeParams.id;
@@ -14,6 +14,7 @@
     vm.selectReview = selectReview;
     vm.updateReview = updateReview;
     vm.createReview = createReview;
+    vm.writeReview = writeReview;
 
     function init() {
       ReviewService
@@ -57,6 +58,25 @@
         .then(function(response) {
           if (response.data) {
             init();
+          }
+        });
+    }
+
+    function writeReview() {
+      var newReview = {
+        imdbID: vm.imdbID,
+        title: vm.reviewTitle,
+        author: $rootScope.currentUser._id,
+        content: vm.reviewContent,
+        edited: new Date(),
+        created: new Date()
+      };
+
+      ReviewService
+        .createReview(newReview)
+        .then(function(response) {
+          if (response.data) {
+            $location.url("/read-review/" + vm.imdbID);
           }
         });
     }

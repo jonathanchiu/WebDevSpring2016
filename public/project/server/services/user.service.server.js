@@ -2,10 +2,17 @@ module.exports = function(app, userModel) {
   app.post("/api/project/user", register);
   app.get("/api/project/user", delegate);
   app.get("/api/project/user/:userId", profile);
+  app.put("/api/project/users", findUsersByIds);
   app.put("/api/project/user/:userId", updateUserById);
   app.delete("/api/project/user/:userId", deleteUserById);
   app.post("/api/project/user/logout", logout);
   app.put("/api/project/user/:userId/likes/:imdbId", addMovieToUserLikes);
+
+  function findUsersByIds(req, res) {
+    var userIds = req.body;
+    var users = userModel.findUsersByIds(userIds);
+    res.json(users);
+  }
 
   function addMovieToUserLikes(req, res) {
     var userId = req.params.userId;

@@ -7,6 +7,10 @@
 
   function userService($http, $rootScope) {
 
+    function findUsersByIds(userIds) {
+      return $http.put("/api/project/users", userIds);
+    }
+
     function findUserByCredentials(username, password) {
       return $http.get("/api/project/user?username=" + username + "&password=" + password);
     }
