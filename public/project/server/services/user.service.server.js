@@ -1,12 +1,35 @@
 module.exports = function(app, userModel) {
   app.post("/api/project/user", register);
+  app.put("/api/project/user/:followedId/follow/:followerId", followUser);
+  app.put("/api/project/user/:followedId/unfollow/:followerId", unfollowUser);
   app.get("/api/project/user", delegate);
+  app.get("/api/project/user/:userId/followers", getFollowersByUserId);
   app.get("/api/project/user/:userId", profile);
   app.put("/api/project/users", findUsersByIds);
   app.put("/api/project/user/:userId", updateUserById);
   app.delete("/api/project/user/:userId", deleteUserById);
   app.post("/api/project/user/logout", logout);
   app.put("/api/project/user/:userId/likes/:imdbId", addMovieToUserLikes);
+
+  function unfollowUser(req, res) {
+    var followedId = req.params.followedId;
+    var followerId = req.params.followerId;
+    var followers = userModel.unfollowUser(followedId, followerId);
+    res.json(followers);
+  }
+
+  function getFollowersByUserId(req, res) {
+    var userId = req.params.userId;
+    var followers = userModel.getFollowersByUserId(userId);
+    res.json(followers);
+  }
+
+  function followUser(req, res) {
+    var followedId = req.params.followedId;
+    var followerId = req.params.followerId;
+    var followers = userModel.followUser(followedId, followerId);
+    res.json(followers);
+  }
 
   function findUsersByIds(req, res) {
     var userIds = req.body;

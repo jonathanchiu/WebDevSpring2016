@@ -7,6 +7,18 @@
 
   function userService($http, $rootScope) {
 
+    function getFollowersByUserId(userId) {
+      return $http.get("/api/project/user/" + userId + "/followers");
+    }
+
+    function unfollowUser(userIdFollow, userIdFollower) {
+      return $http.put("/api/project/user/" + userIdFollow + "/unfollow/" + userIdFollower);
+    }
+
+    function followUser(userIdFollow, userIdFollower) {
+      return $http.put("/api/project/user/" + userIdFollow + "/follow/" + userIdFollower);
+    }
+
     function findUsersByIds(userIds) {
       return $http.put("/api/project/users", userIds);
     }
@@ -49,6 +61,9 @@
 
     var service = {
       getAllUsers : getAllUsers,
+      getFollowersByUserId: getFollowersByUserId,
+      followUser: followUser,
+      unfollowUser: unfollowUser,
       setCurrentUser: setCurrentUser,
       findUserByUsername: findUserByUsername,
       findUserByCredentials: findUserByCredentials,

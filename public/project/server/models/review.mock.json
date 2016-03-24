@@ -6,7 +6,7 @@
     "author": 123,
     "content": "Great scott this movie was great!",
     "edited": 192312,
-    "created": "new Date()"
+    "created": "new Date().toISOString()"
   },
   {
     "_id": 2,
@@ -15,7 +15,7 @@
     "author": 123,
     "content": "Man this movie was indescribable!",
     "edited": 123123,
-    "created": "new Date()"
+    "created": "new Date().toISOString()"
   },
   {
     "_id": 3,
@@ -24,7 +24,7 @@
     "author": 999,
     "content": "Will never watch this movie again!",
     "edited": 2323,
-    "created": "new Date()"
+    "created": "new Date().toISOString()"
   },
   {
     "_id": 4,
@@ -33,7 +33,7 @@
     "author": 999,
     "content": "Probably the best film of the century",
     "edited": 1244,
-    "created": "new Date()"
+    "created": "new Date().toISOString()"
   },
   {
     "_id": 5,
@@ -42,7 +42,7 @@
     "author": 123,
     "content": "Probably the best film of the century",
     "edited": 1244,
-    "created": "new Date()"
+    "created": "new Date().toISOString()"
   },
   {
     "_id": 6,
@@ -51,7 +51,7 @@
     "author": 999,
     "content": "Probably the best film of the century",
     "edited": 1244,
-    "created": "new Date()"
+    "created": "new Date().toISOString()"
   },
   {
     "_id": 7,
@@ -60,7 +60,7 @@
     "author": 123,
     "content": "Probably the best film of the century",
     "edited": 1244,
-    "created": "new Date()"
+    "created": "new Date().toISOString()"
   },
   {
     "_id": 8,
@@ -69,6 +69,6 @@
     "author": 999,
     "content": "Probably the best film of the century",
     "edited": 1244,
-    "created": "new Date()"
+    "created": "new Date().toISOString()"
   }
 ]

@@ -43,7 +43,7 @@
         password: vm.passwordSubmit,
         firstName: vm.firstNameSubmit,
         lastName: vm.lastNameSubmit,
-        dob: vm.birthdateSubmit,
+        dob: new Date(vm.birthdateSubmit).toISOString(),
         role: parseInt(vm.roleSubmit, 10)
       };
     }
@@ -56,7 +56,7 @@
       vm.passwordSubmit = vm.selectedUser.password;
       vm.firstNameSubmit = vm.selectedUser.firstName;
       vm.lastNameSubmit = vm.selectedUser.lastName;
-      vm.birthdateSubmit = vm.selectedUser.dob;
+      vm.birthdateSubmit = new Date(vm.selectedUser.dob);
       vm.roleSubmit = vm.selectedUser.role.toString();
     }
 

@@ -50,7 +50,7 @@
         title: vm.reviewTitleSubmission,
         author: vm.reviewAuthorSubmission,
         content: vm.reviewContentSubmission,
-        edited: new Date()
+        edited: new Date().toISOString().toISOString()
       };
 
       ReviewService
@@ -68,8 +68,8 @@
         title: vm.reviewTitle,
         author: $rootScope.currentUser._id,
         content: vm.reviewContent,
-        edited: new Date(),
-        created: new Date()
+        edited: new Date().toISOString(),
+        created: new Date().toISOString()
       };
 
       ReviewService
@@ -87,8 +87,8 @@
         title: vm.reviewTitleSubmission,
         author: vm.reviewAuthorSubmission,
         content: vm.reviewContentSubmission,
-        edited: new Date(),
-        created: new Date()
+        edited: new Date().toISOString(),
+        created: new Date().toISOString()
       };
 
       ReviewService

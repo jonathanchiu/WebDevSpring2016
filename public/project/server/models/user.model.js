@@ -1,8 +1,10 @@
 var mock = require("./user.mock.json");
+var q = require("q");
 
 module.exports = function(uuid) {
   var api = {
     findUserByCredentials: findUserByCredentials,
+    getFollowersByUserId: getFollowersByUserId,
     findUserByUsername: findUserByUsername,
     createUser: createUser,
     findUserById: findUserById,
@@ -11,9 +13,37 @@ module.exports = function(uuid) {
     updateUserById: updateUserById,
     userLikesMovie: userLikesMovie,
     findUsersByIds: findUsersByIds,
-    addMovieToUserLikes: addMovieToUserLikes
+    addMovieToUserLikes: addMovieToUserLikes,
+    followUser: followUser,
+    unfollowUser: unfollowUser
   };
   return api;
+
+  function getFollowersByUserId(userId) {
+    for (var u in mock) {
+      if (mock[u]._id == userId) {
+        return mock[u].followers;
+      }
+    }
+  }
+
+  function followUser(followedId, followerId) {
+    for (var u in mock) {
+      if (mock[u]._id == followedId) {
+        mock[u].followers.push(parseInt(followerId, 10));
+        return mock[u].followers;
+      }
+    }
+  }
+
+  function unfollowUser(followedId, followerId) {
+    for (var i = 0; i < mock.length; i++) {
+      if (mock[i]._id == followedId) {
+        mock[i].followers.splice(mock.indexOf(followerId), 1);
+        return mock[i].followers;
+      }
+    }
+  }
 
   function addMovieToUserLikes(userId, imdbId) {
     for (var u in mock) {
@@ -82,6 +112,7 @@ module.exports = function(uuid) {
         mock[i].firstName = user.firstName;
         mock[i].lastName = user.lastName;
         mock[i].password = user.password;
+        mock[i].avatar = user.avatar;
         mock[i].description = user.description;
         mock[i].role = user.role;
         mock[i].dob = user.dob;

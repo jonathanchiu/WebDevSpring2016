@@ -42,8 +42,6 @@
         reviews: []
       };
 
-      console.log(newMovie);
-
       MovieService
         .createMovie(newMovie)
         .then(function(response) {
@@ -108,8 +106,7 @@
         .addMovieToUserLikes($rootScope.currentUser._id, movie.imdbid)
         .then(function(response) {
           if (response.data) {
-            console.log(response.data);
-            console.log("success");
+            console.log("Movie added to your favorites!");
           }
         });
     }
@@ -147,7 +144,8 @@
     }
 
     /**
-     * Created by gonchub on 19/03/14.
+     * Thanks to Gist - gonchub for code snippet
+     * Sanitizes a given JSON/Javascript object's keys to lowercase
      */
     function keysToLowerCase(obj) {
       if (!typeof(obj) === "object" || typeof(obj) === "string" || typeof(obj) === "number" || typeof(obj) === "boolean") {
