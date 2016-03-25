@@ -98,7 +98,8 @@
         .userLikesMovie($rootScope.currentUser._id, movie)
         .then(function(response) {
           if (response.data) {
-            vm.numLikes += 1;
+            console.log(response.data);
+            vm.numLikes = response.data.length;
           }
         });
 
@@ -202,7 +203,7 @@
       vm.director = response.Director;
 
       MovieService
-        .getMovieById(response.imdbid)
+        .getMovieById(response.imdbID)
         .then(function(response) {
           vm.numLikes = response.data ? response.data.likes.length : 0;
         });

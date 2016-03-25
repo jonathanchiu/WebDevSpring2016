@@ -74,12 +74,8 @@ module.exports = function(uuid) {
   }
 
   function findUserById(userId) {
-
-    console.log("user model");
-    console.log(userId);
     for (var u in mock) {
       if (mock[u]._id == userId) {
-        console.log(mock[u]);
         return mock[u];
       }
     }

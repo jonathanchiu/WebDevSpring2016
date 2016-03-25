@@ -92,21 +92,23 @@ module.exports = function(uuid) {
 
     if (ids.indexOf(movie.imdbid) < 0) {
       var newMovie = {
-        imdbID: movie.imdbid,
+        imdbid: movie.imdbid,
         title: movie.title,
         poster: movie.poster,
         likes: [],
         reviews: []
       };
-      newMovie.likes.push(userId);
+      newMovie.likes.push(parseInt(userId, 10));
       mock.push(newMovie);
-      return newMovie;
+      return newMovie.likes;
     }
     else {
       for (var m in mock) {
         if (mock[m].imdbid === movie.imdbid) {
-          mock[m].likes.push(userId);
-          return mock[m];
+          if (mock[m].likes.indexOf(parseInt(userId, 10)) < 0) {
+            mock[m].likes.push(userId);
+          }
+          return mock[m].likes;
         }
       }
     }
