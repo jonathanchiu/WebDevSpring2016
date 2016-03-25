@@ -3,6 +3,7 @@ var mock = require("./movie.mock.json");
 module.exports = function(uuid) {
   var api = {
     getAllMovies: getAllMovies,
+    getMoviesByTitle: getMoviesByTitle,
     getMoviesByIds: getMoviesByIds,
     getMovieById: getMovieById,
     createMovie: createMovie,
@@ -12,6 +13,17 @@ module.exports = function(uuid) {
     getTopMovies: getTopMovies
   };
   return api;
+
+  function getMoviesByTitle(title) {
+    console.log(title);
+    var movies = [];
+    for (var m in mock) {
+      if (mock[m].title.toLowerCase().indexOf(title.toLowerCase()) > -1) {
+        movies.push(mock[m]);
+      }
+    }
+    return movies;
+  }
 
   function getTopMovies(x) {
     var mockCopy = mock.sort(function(m1, m2) {

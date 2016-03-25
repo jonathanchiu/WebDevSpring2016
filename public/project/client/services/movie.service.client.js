@@ -9,6 +9,7 @@
     var api = {
       userLikesMovie: userLikesMovie,
       findUserLikes: findUserLikes,
+      getMoviesByTitle: getMoviesByTitle,
       createMovie: createMovie,
       deleteMovie: deleteMovie,
       getMovieById: getMovieById,
@@ -17,6 +18,10 @@
       getTopMovies: getTopMovies
     };
     return api;
+
+    function getMoviesByTitle(title) {
+      return $http.get("/api/project/movie/title/" + title);
+    }
 
     function getTopMovies(num) {
       return $http.get("/api/project/movie/top/" + num);

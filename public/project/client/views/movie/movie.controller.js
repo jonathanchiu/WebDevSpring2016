@@ -177,7 +177,26 @@
         for (var i = 0; i < response.Search.length; i++) {
           keysToLowerCase(response.Search[i]);
         }
-        vm.movies = response.Search;
+
+        MovieService
+          .getMoviesByTitle($rootScope.lastSearched)
+          .then(function(res) {
+            if (res.data) {
+              // First generate array of movie IDs fetched from OMDB
+              var movieIds = response.Search.map(function(m) {
+                return m.imdbid;
+              });
+              
+              // Then find duplicates that match OMDB result set and filter them out
+              var movies = res.data.filter(function(m) {
+                return movieIds.indexOf(m.imdbid) < 0; 
+              });
+
+              // Merge external and local results together, again allowing no duplicates
+              vm.movies = response.Search;
+              vm.movies = vm.movies.concat(movies);
+            }
+          });
       }
     }
 
