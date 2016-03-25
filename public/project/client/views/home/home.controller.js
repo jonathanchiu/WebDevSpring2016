@@ -5,9 +5,10 @@
     .module("FreshPotatoes")
     .controller("HomeController", HomeController);
 
-  function HomeController($location, MovieService) {
+  function HomeController($location, $anchorScroll, MovieService) {
     var vm = this;
-    vm.numTopMovies = 5;
+    vm.numTopMovies = 8;
+    vm.scrollToTopMovies = scrollToTopMovies;
 
     function init() {
       MovieService
@@ -19,5 +20,14 @@
         });
     }
     init();
+
+    function scrollToTopMovies() {
+      if ($location.hash() !== "top-movies") {
+        $location.hash("top-movies");
+      }
+      else {
+        $anchorScroll();
+      }
+    }
   }
 })();

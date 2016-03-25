@@ -1,6 +1,17 @@
 <div class="row">
   <div class="col-md-12">
-    <h3>Top {{model.numTopMovies}} Favorited Movies</h3>
+    <p class="lead text-xs-center">Welcome to Fresh Potatoes</p>
+    <p class="lead text-xs-center">Are you ready to get your potato on?</p>
+    <blockquote class="text-xs-center">
+      <p class="m-b-0">My idea of heaven is a great big baked potato and someone to share it with.</p>
+      <footer class="blockquote-footer">Oprah Winfrey</footer>
+    </blockquote>
+    <img ng-click="model.scrollToTopMovies()" id="home-potato" class="img-fluid center-block" src="https://static-secure.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/9/24/1411574454561/03085543-87de-47ab-a4eb-58e7e39d022e-620x372.jpeg">
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <h3 id="top-movies">Top {{model.numTopMovies}} Favorited Movies</h3>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead class="thead-inverse">

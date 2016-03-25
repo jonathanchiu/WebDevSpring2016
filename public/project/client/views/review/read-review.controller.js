@@ -9,7 +9,6 @@
     var vm = this;
 
     vm.imdbid = $routeParams.id;
-    console.log(vm.imdbid);
     vm.init = init;
     vm.deleteReview = deleteReview;
     vm.selectReview = selectReview;
