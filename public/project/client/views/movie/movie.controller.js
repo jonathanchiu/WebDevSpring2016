@@ -116,7 +116,7 @@
       vm.editMoviePoster = vm.movies[index].poster;
       vm.editMovieTitle = vm.movies[index].title;
       vm.editMovieDescription = vm.movies[index].Plot;
-      vm.editMovieYear = parseInt(vm.movies[index].Year, 10);
+      vm.editMovieYear = parseInt(vm.movies[index].year, 10);
     }
 
     function getPage(page) {

@@ -27,7 +27,6 @@
             <th>ID</th>
             <th>Poster</th>
             <th>Title</th>
-            <th></th>
             <th>Year</th>
             <th>Actions</th>
           </tr>
@@ -55,7 +54,6 @@
             <td>
               <p>{{movie.title}}</p>
             </td>
-            <td></td>
             <td>{{movie.year}}</td>
             <td class="action-buttons">
               <a ng-show="$root.currentUser" ng-click="model.toggleDetails($index, movie.imdbid)" class="btn btn-success">
