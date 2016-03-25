@@ -27,12 +27,12 @@
         })
         .when("/write-review/:id", {
           templateUrl: "client/views/review/write-review.view.html",
-          controller: "ReviewController",
+          controller: "WriteReviewController",
           controllerAs: "model"
         })
         .when("/read-review/:id", {
           templateUrl: "client/views/review/read-review.view.html",
-          controller: "ReviewController",
+          controller: "ReadReviewController",
           controllerAs: "model"
         })
         .when("/profile/:userId", {

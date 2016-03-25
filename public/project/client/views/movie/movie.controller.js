@@ -73,7 +73,7 @@
     function updateMovie(id) {
 
       var movie = {
-        imdbID: vm.editID,
+        imdbid: vm.editID,
         title: vm.editMovieTitle,
         poster: vm.editMoviePoster
       };
@@ -98,7 +98,6 @@
         .userLikesMovie($rootScope.currentUser._id, movie)
         .then(function(response) {
           if (response.data) {
-            console.log(response.data);
             vm.numLikes = response.data.length;
           }
         });
@@ -167,12 +166,17 @@
 
     function renderSearchResults(response) {
       if (response.Response == "False") {
-        vm.hideTable = true;
-        vm.hideMessage = false;
+        vm.movies = [];
+
+        MovieService
+          .getMoviesByTitle($rootScope.lastSearched)
+          .then(function(res) {
+            if (res.data) {
+              vm.movies = vm.movies.concat(res.data);
+            }
+          });
       }
       else {
-        vm.hideMessage = true;
-        vm.hideTable = false;
         // Sanitize keys to conform to how database fields are laid out
         for (var i = 0; i < response.Search.length; i++) {
           keysToLowerCase(response.Search[i]);

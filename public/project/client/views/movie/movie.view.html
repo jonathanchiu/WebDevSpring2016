@@ -16,12 +16,12 @@
     <div class="pull-xs-right">
       <div class="btn-group" role="group" aria-label="Pagination">
         <button ng-hide="$root.currentPage == 1 || !($root.currentPage)" ng-click="model.getPage('p')" type="button" class="btn btn-primary">Prev</button>
-        <button ng-hide="!($root.currentPage) || model.hideTable" ng-click="model.getPage('n')" type="button" class="btn btn-success">Next</button>
+        <button ng-hide="!($root.currentPage) || model.movies.length == 0" ng-click="model.getPage('n')" type="button" class="btn btn-success">Next</button>
       </div>
     </div>
     <div class="table-responsive">
-      <p class="lead" ng-hide="model.hideMessage">No more results! Click previous to go back!</p>
-      <table ng-hide="model.hideTable" class="table">
+      <p class="lead" ng-show="model.movies.length == 0">Nothing to see here until you get searching, or there are no results left!</p>
+      <table class="table">
         <thead class="thead-inverse">
           <tr>
             <th>ID</th>
@@ -48,7 +48,7 @@
         </thead>
 
         <!-- Template for search results -->
-        <tbody ng-model="model.movies" ng-repeat="movie in model.movies">
+        <tbody ng-hide="model.movies.length == 0" ng-model="model.movies" ng-repeat="movie in model.movies">
           <tr data-imdb-id="{{movie.imdbid}}">
             <td>{{movie.imdbid}}</td>
             <td><img class="poster" ng-src="{{movie.poster.indexOf('http') > -1 ? movie.poster : model.noPoster}}"></td>
@@ -62,7 +62,7 @@
                 <i class="fa fa-info"></i>
               </a>
 
-              <span ng-controller="ReviewController">
+              <span>
                 <a ng-show="$root.currentUser" ng-href="#/write-review/{{movie.imdbid}}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a>
                 <a ng-href="#/read-review/{{movie.imdbid}}" class="btn btn-primary"><i class="fa fa-newspaper-o"></i></a>
               </span>
@@ -84,7 +84,7 @@
               <p>{{model.director}}</p>
             </td>
             <td>
-              <h5>Num Likes</h5>
+              <h5>Number of Potatoes</h5>
               <p>{{model.numLikes}}</p>
             </td>
             <td></td>

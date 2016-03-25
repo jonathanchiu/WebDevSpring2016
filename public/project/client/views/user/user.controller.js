@@ -26,7 +26,6 @@
     init();
 
     function deleteUser(id) {
-      console.log(id);
       UserService
         .deleteUserById(id)
         .then(function(response) {
