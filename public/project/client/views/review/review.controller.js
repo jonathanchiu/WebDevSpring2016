@@ -5,7 +5,7 @@
     .module("FreshPotatoes")
     .controller("ReviewController", ReviewController);
 
-  function ReviewController($routeParams, $rootScope, $location, ReviewService) {
+  function ReviewController($routeParams, $q, $rootScope, $location, ReviewService) {
     var vm = this;
 
     vm.imdbid = $routeParams.id;

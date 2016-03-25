@@ -14,7 +14,7 @@
     <hr>
     <div class="text-md-center" id="profile-buttons">
       <button ng-click="model.delegateFollowUnfollow()" ng-show="model.username != $root.currentUser.username" class="btn btn-primary" type="button">{{model.followText}}</button>
-      <button ng-show="$root.currentUser._id == model.userId || $root.currentUser.role === 1" class="btn btn-danger" type="button">Delete</button>
+      <button ng-click="model.deleteUser()" ng-show="$root.currentUser._id == model.userId || $root.currentUser.role === 1" class="btn btn-danger" type="button">Delete</button>
     </div>
   </div>
 
@@ -37,7 +37,7 @@
         <input ng-disabled="$root.currentUser._id != model.userId && $root.currentUser.role != 1" ng-model="model.profileAvatarUrl" type="text" class="form-control" id="avatar" placeholder="Avatar URL">
       </fieldset>
 
-      <fieldset class="form-group">
+      <fieldset ng-hide="$root.currentUser._id != model.userId && $root.currentUser.role != 1" class="form-group">
         <label for="profilePassword">Password</label>
         <input ng-disabled="$root.currentUser._id != model.userId && $root.currentUser.role != 1" ng-model="model.profilePassword" type="password" class="form-control" id="profilePassword" placeholder="Password">
       </fieldset>
@@ -67,7 +67,8 @@
   <div class="col-md-2"></div>
   <div class="col-md-10">
     <h3 class="form-header">Favorites</h3>
-    <p ng-hide="model.likedMovies.length > 0" class="lead">This user has not favorited any movies yet.</p>
+    <p class="lead" ng-if="!model.currentUserIsFollower">You must be following this user to see favorited movies.</p>
+    <p class="lead" ng-if="model.currentUserIsFollower && model.likedMovies.length == 0">This user has not favorited any movies.</p>
   </div>
 </div>
 
@@ -80,21 +81,33 @@
 </div>
 </div>
 
-<div class="row">
-  <div class="col-md-2"></div>
-  <div class="col-md-10">
-    <h3 class="form-header">Activity</h3>
-    <p class="lead">You must follow this user to view their activity.</p>
-  </div>
-</div>
-
-<div>
+<div ng-if="model.currentUserIsFollower">
 <div class="row">
   <div class="col-md-2"></div>
   <div class="col-md-10">
     <h3 class="form-header">Reviews</h3>
-    <p ng-if="!model.currentUserIsFollower">You must be following this user to see reviews posted.</p>
-    <p ng-hide="model.reviews.length > 0" class="lead">This user has not written any reviews yet.</p>
+    <p class="lead" ng-if="!model.currentUserIsFollower">You must be following this user to see reviews posted.</p>
+    <p class="lead" ng-if="model.currentUserIsFollower && model.reviews.length == 0">This user has not written any reviews.</p>
   </div>
 </div>
 <div>
+
+<div ng-if="model.currentUserIsFollower && model.reviews.length > 0" class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-10">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <th>Movie</th>
+          <th>Title</th>
+          <th>Content</th>
+        </thead>
+        <tr ng-repeat="review in model.reviews">
+          <td>{{review.imdbid}}</td>
+          <td>{{review.title}}</td>
+          <td>{{review.content}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

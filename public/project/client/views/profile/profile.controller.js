@@ -5,13 +5,14 @@
     .module("FreshPotatoes")
     .controller("ProfileController", ProfileController);
 
-  function ProfileController($rootScope, $scope, $routeParams, $location, UserService, MovieService, ReviewService) {
+  function ProfileController($rootScope, $routeParams, $location, UserService, MovieService, ReviewService) {
     var vm = this;
     var user = $rootScope.currentUser;
     vm.userId = $routeParams.userId;
 
     vm.update = update;
     vm.delegateFollowUnfollow = delegateFollowUnfollow;
+    vm.deleteUser = deleteUser;
     vm.init = init;
     vm.likes;
 
@@ -59,6 +60,16 @@
       }
     }
     init();
+
+    function deleteUser() {
+      UserService
+        .deleteUserById($routeParams.userId)
+        .then(function(response) {
+          if (response.data) {
+            $location.url("/login");
+          }
+        });
+    }
 
     // Is the current user viewing the profile a follower or the same user?
     function determineFollowStatus() {

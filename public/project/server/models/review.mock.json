@@ -1,7 +1,7 @@
 [
   {
     "_id": 1,
-    "imdbID": "tt1798709",
+    "imdbid": "tt1798709",
     "title": "Review Title Wow One",
     "author": 123,
     "content": "Great scott this movie was great!",
@@ -10,7 +10,7 @@
   },
   {
     "_id": 2,
-    "imdbID": "tt1798709",
+    "imdbid": "tt1798709",
     "title": "Review Title Dos",
     "author": 123,
     "content": "Man this movie was indescribable!",
@@ -19,7 +19,7 @@
   },
   {
     "_id": 3,
-    "imdbID": "tt0335266",
+    "imdbid": "tt0335266",
     "title": "This movie sucked so badly",
     "author": 999,
     "content": "Will never watch this movie again!",
@@ -28,7 +28,7 @@
   },
   {
     "_id": 4,
-    "imdbID": "tt0335266",
+    "imdbid": "tt0335266",
     "title": "This movie was GREAT!",
     "author": 999,
     "content": "Probably the best film of the century",
@@ -37,7 +37,7 @@
   },
   {
     "_id": 5,
-    "imdbID": "tt1723811",
+    "imdbid": "tt1723811",
     "title": "This movie was GREAT!",
     "author": 123,
     "content": "Probably the best film of the century",
@@ -46,7 +46,7 @@
   },
   {
     "_id": 6,
-    "imdbID": "tt1723811",
+    "imdbid": "tt1723811",
     "title": "This movie was GREAT!",
     "author": 999,
     "content": "Probably the best film of the century",
@@ -55,7 +55,7 @@
   },
   {
     "_id": 7,
-    "imdbID": "tt1375666",
+    "imdbid": "tt1375666",
     "title": "This movie was GREAT!",
     "author": 123,
     "content": "Probably the best film of the century",
@@ -64,7 +64,7 @@
   },
   {
     "_id": 8,
-    "imdbID": "tt1375666",
+    "imdbid": "tt1375666",
     "title": "This movie was GREAT!",
     "author": 999,
     "content": "Probably the best film of the century",

@@ -7,10 +7,11 @@
 
   function HomeController($location, MovieService) {
     var vm = this;
+    vm.numTopMovies = 5;
 
     function init() {
       MovieService
-        .getTopMovies(3)
+        .getTopMovies(vm.numTopMovies)
         .then(function(response) {
           if (response.data) {
             vm.topMovies = response.data;
