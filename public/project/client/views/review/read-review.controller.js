@@ -19,7 +19,6 @@
         .getReviewsByMovieId(vm.imdbid)
         .then(function(response) {
           if (response.data) {
-            console.log(response.data);
             vm.reviews = response.data;
           }
         });

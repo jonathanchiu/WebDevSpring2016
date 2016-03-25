@@ -1,6 +1,6 @@
 var mock = require("./movie.mock.json");
 
-module.exports = function(uuid) {
+module.exports = function(uuid, userModel) {
   var api = {
     getAllMovies: getAllMovies,
     getMoviesByTitle: getMoviesByTitle,
@@ -15,13 +15,9 @@ module.exports = function(uuid) {
   return api;
 
   function getMoviesByTitle(title) {
-    console.log(title);
     var movies = [];
     for (var m in mock) {
-      console.log(mock[m].title.toLowerCase().indexOf(title.toLowerCase()) > -1);
       if (mock[m].title.toLowerCase().indexOf(title.toLowerCase()) > -1) {
-        console.log(mock[m].title.toLowerCase());
-        console.log(title.toLowerCase());
         movies.push(mock[m]);
       }
     }

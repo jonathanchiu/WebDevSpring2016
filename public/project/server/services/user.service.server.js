@@ -39,7 +39,7 @@ module.exports = function(app, userModel) {
 
   function addMovieToUserLikes(req, res) {
     var userId = req.params.userId;
-    var imdbId = req.params.imdbid;
+    var imdbId = req.params.imdbId;
     var likes = userModel.addMovieToUserLikes(userId, imdbId);
     res.json(likes);
   }
