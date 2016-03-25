@@ -5,7 +5,7 @@
     .module("FreshPotatoes")
     .controller("MovieController", MovieController);
 
-  function MovieController($scope, $rootScope, $location, OmdbService, MovieService, UserService) {
+  function MovieController($rootScope, $location, OmdbService, MovieService, UserService) {
     var vm = this;
     var detailsAreShowing = 0;
 
@@ -198,7 +198,9 @@
 
               // Merge external and local results together, again allowing no duplicates
               vm.movies = response.Search;
-              vm.movies = vm.movies.concat(movies);
+              if ($rootScope.currentPage == 1) {
+                vm.movies = vm.movies.concat(movies);
+              }
             }
           });
       }
