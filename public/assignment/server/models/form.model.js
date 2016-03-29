@@ -1,7 +1,10 @@
 var mock = require("./form.mock.json");
 var fieldTemplates = require("./field-templates.mock.json");
 
-module.exports = function(uuid, db) {
+module.exports = function(uuid, db, mongoose) {
+
+  var FormSchema = require("./form.schema.server.js")();
+  var Form = mongoose.model("Form", FormSchema);
 
   function findFormByTitle(title) {
     for (var f in mock) {
@@ -13,10 +16,11 @@ module.exports = function(uuid, db) {
   }
 
   function createFormForUser(userId, newForm) {
-    newForm._id = uuid.v4();
-    newForm.userId = userId;
-    mock.push(newForm);
-    return findAllFormsForUser(userId);
+    return Form
+            .create(newForm)
+            .then(function(doc) {
+              return doc;
+            });
   }
 
   function findFormById(formId) {
@@ -29,33 +33,32 @@ module.exports = function(uuid, db) {
   }
 
   function findAllFormsForUser(userId) {
-    var forms = [];
-    for (var f in mock) {
-      if (mock[f].userId == userId) {
-        forms.push(mock[f]);
-      }
-    }
-    return forms;
+    return Form
+            .find(userId)
+            .then(function(doc) {
+              return doc;
+            });
   }
 
   function deleteFormById(formId) {
-    for (var i = 0; i < mock.length; i++) {
-      if (mock[i]._id == formId) {
-        mock.splice(i, 1);
-        break;
-      }
-    }
-    return mock;
+    return Form
+            .remove({_id: formId})
+            .then(function(doc) {
+              console.log(doc);
+              return doc;
+            });
   }
 
   function updateFormById(formId, form) {
-    for (var f in mock) {
-      if (mock[f]._id == formId) {
-        mock[f].title = form.title;
-        break;
-      }
-    }
-    return mock;
+    return Form.findOneAndUpdate(
+      {_id: formId},
+      {$set: form},
+      {new: true}
+    )
+    .then(function(doc) {
+      console.log(doc);
+      return doc;
+    });
   }
 
   function getFieldsForForm(formId) {

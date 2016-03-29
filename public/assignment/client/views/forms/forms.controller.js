@@ -5,7 +5,7 @@
     .module("FormBuilderApp")
     .controller("FormController", FormController);
 
-  function FormController($rootScope, $location, FormService) {
+  function FormController($rootScope, $route, $location, FormService) {
     var vm = this;
 
     vm.createFormForUser = createFormForUser;
@@ -27,8 +27,8 @@
     function createFormForUser(title) {
       if (title) {
         var newForm = {
-          title: title,
           userId: $rootScope.currentUser._id,
+          title: title,
           fields: []
         };
 
@@ -48,12 +48,7 @@
       FormService
         .deleteFormById(deleteFormId)
         .then(function(response) {
-          if (response.data) {
-            var forms = response.data.filter(function(f) {
-              return parseInt(f.userId, 10) === $rootScope.currentUser._id;
-            });
-            vm.forms = forms;
-          }
+          $route.reload();
         });
     }
 
@@ -66,12 +61,7 @@
         FormService
           .updateFormById(vm.selectedFormId, updatedForm)
           .then(function(response) {
-            if (response.data) {
-              var forms = response.data.filter(function(f) {
-                return parseInt(f.userId, 10) === $rootScope.currentUser._id;
-              });
-              vm.forms = forms;
-            }
+            $route.reload();
           });
       }
     }

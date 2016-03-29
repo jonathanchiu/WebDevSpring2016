@@ -8,8 +8,24 @@ module.exports = function(app, formModel) {
   function createFormForUser(req, res) {
     var userId = req.params.userId;
     var newForm = req.body;
-    var forms = formModel.createFormForUser(userId, newForm);
-    res.json(forms);
+    formModel
+      .createFormForUser(userId, newForm)
+      .then(
+        function(doc) {
+          return formModel.findAllFormsForUser(userId);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      )
+      .then(
+        function(forms) {
+          res.json(forms);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function findFormById(req, res) {
@@ -20,20 +36,45 @@ module.exports = function(app, formModel) {
 
   function findAllFormsForUser(req, res) {
     var userId = req.params.userId;
-    var forms = formModel.findAllFormsForUser(userId);
-    res.json(forms);
+    formModel
+      .findAllFormsForUser(userId)
+      .then(
+        function(doc) {
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function deleteFormById(req, res) {
     var formId = req.params.formId;
-    var forms = formModel.deleteFormById(formId);
-    res.json(forms);
+
+    formModel
+      .deleteFormById(formId)
+      .then(
+        function(doc) {
+          res.send(200);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function updateFormById(req, res) {
     var formId = req.params.formId;
     var form = req.body;
-    var forms = formModel.updateFormById(formId, form);
-    res.json(forms);
+    formModel
+      .updateFormById(formId, form)
+      .then(
+        function(doc) {
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 };
