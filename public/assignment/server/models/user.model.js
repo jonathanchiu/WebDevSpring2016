@@ -1,6 +1,10 @@
 var mock = require("./user.mock.json");
 
-module.exports = function(uuid) {
+module.exports = function(uuid, db, mongoose) {
+
+  var UserSchema = require("./user.schema.server.js")();
+  var User = mongoose.model("User", UserSchema);
+
   var api = {
     findUserByCredentials: findUserByCredentials,
     findUserByUsername: findUserByUsername,
@@ -13,67 +17,59 @@ module.exports = function(uuid) {
   return api;
 
   function findUserById(userId) {
-    for (var u in mock) {
-      if (mock[u]._id === userId) {
-        return mock[u];
-      }
-    }
-    return null;
+    return User.findById(userId)
+          .then(function(user) {
+            return user;
+          });
   }
 
   function deleteUserById(userId) {
-
-    for (var i = 0; i < mock.length; i++) {
-      if (mock[i]._id === userId) {
-        mock.splice(i, 1);
-        break;
-      }
-    }
-    return mock;
+    return User.findById(userId)
+          .then(function(doc) {
+            doc.remove();
+            return getAllUsers();
+          });
   }
 
   function createUser(user) {
-    user._id = uuid.v4();
-    mock.push(user);
-    return user;
+    return User.create(user)
+          .then(function(user) {
+            return user;
+          });
   }
 
   function getAllUsers() {
-
-    return mock;
+    return User.find({})
+          .then(function(doc) {
+            return doc;
+          });
   }
 
   function updateUserById(userId, user) {
-    for (var i = 0; i < mock.length; i++) {
-      if (mock[i]._id == userId) {
-        mock[i].firstName = user.firstName;
-        mock[i].lastName = user.lastName;
-        mock[i].username = user.username;
-        mock[i].password = user.password;
-        break;
-      }
-    }
-    return mock;
+    return User.findOneAndUpdate(
+      {_id: userId},
+      {$set: user},
+      {new: true}
+    )
+    .then(function(doc) {
+      return doc;
+    });
   }
 
   function findUserByCredentials(credentials) {
-
-    for (var u in mock) {
-      if (mock[u].username === credentials.username &&
-        mock[u].password === credentials.password) {
-        return mock[u];
-      }
-    }
-    return null;
+    return User.findOne({
+        username: credentials.username,
+        password: credentials.password
+      }).then(function(user) {
+        return user;
+      });
   }
 
   function findUserByUsername(username) {
-
-    for (var u in mock) {
-      if (mock[u].username === username) {
-        return mock[u];
-      }
-    }
-    return null
+    return User.find({
+      username: username
+    }).then(function(doc) {
+      return doc;
+    });
   }
 };

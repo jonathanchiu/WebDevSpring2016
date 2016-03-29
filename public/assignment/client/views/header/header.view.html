@@ -15,7 +15,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li ng-class="{ active: isActive('/register'), hide: $root.currentUser }"><a href="#/register">Register</a></li>
         <li ng-class="{ active: isActive('/login'), hide: $root.currentUser }"><a href="#/login">Login</a></li>
-        <li ng-class="{ hide: !$root.currentUser }"><a href="#/">{{$root.currentUser.username}}</a></li>
+        <li ng-class="{ hide: !$root.currentUser }"><a href="#/profile">{{$root.currentUser.username}}</a></li>
         <li ng-class="{ active: isActive('/profile'), hide: !$root.currentUser }"><a href="#/profile">Profile</a></li>
         <li ng-class="{ active: isActive('/forms'), hide: !$root.currentUser }"><a href="#/forms">Forms</a></li>
         <li ng-class="{ active: isActive('/admin'), hide: !($root.currentUser.roles.indexOf('admin') > -1) }"><a href="#/admin">Admin</a></li>

@@ -1,7 +1,7 @@
 var mock = require("./form.mock.json");
 var fieldTemplates = require("./field-templates.mock.json");
 
-module.exports = function(uuid) {
+module.exports = function(uuid, db) {
 
   function findFormByTitle(title) {
     for (var f in mock) {

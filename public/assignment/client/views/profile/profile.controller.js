@@ -18,7 +18,10 @@
       vm.password = currentUser.password;
       vm.firstname = currentUser.firstName;
       vm.lastname = currentUser.lastName;
-      vm.email = currentUser.email;
+      vm.emails = currentUser.emails;
+      vm.phones = currentUser.phones;
+
+      console.log($rootScope.currentUser);
     }
     init();
 
@@ -29,19 +32,21 @@
         password: vm.password,
         firstName: vm.firstname,
         lastName: vm.lastname,
-        email: vm.email
       };
 
+      if (vm.emails) {
+        user.emails = vm.emails.replace(/ /g,'').split(",");
+      }
+
+      if (vm.phones) {
+        user.phones = vm.phones.replace(/ /g,'').split(",")
+      }
       UserService
         .updateUser($rootScope.currentUser._id, user)
         .then(function(response) {
           if (response.data) {
-            // Since we return all users, get the user with the matching ID
-            // and set current user to it
-            var updatedUser = response.data.filter(function(u) {
-              return u._id == $rootScope.currentUser._id;
-            })[0]
-            UserService.setCurrentUser(updatedUser);
+            UserService.setCurrentUser(response.data);
+            $location.url("/profile");
           }
         });
     }

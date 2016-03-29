@@ -8,14 +8,29 @@ module.exports = function(app, userModel) {
 
   function register(req, res) {
     var user = req.body;
-    user = userModel.createUser(user);
-    res.json(user);
+    user = userModel.createUser(user)
+            .then(
+              function(user) {
+                res.json(user);
+              },
+              function(err) {
+                res.status(400).send(err);
+              }
+            );
   }
 
   function profile(req, res) {
     var userId = req.params.userId;
-    var user = userModel.findUserById(userId);
-    res.json(user)
+    userModel
+      .findUserById(userId)
+      .then(
+        function(doc) {
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function delegate(req, res) {
@@ -47,21 +62,45 @@ module.exports = function(app, userModel) {
         password: req.query.password
     };
 
-    var user = userModel.findUserByCredentials(credentials);
-    res.json(user);
+    userModel
+      .findUserByCredentials(credentials)
+      .then(
+        function(doc) {
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function updateUserById(req, res) {
     var userId = req.params.userId;
     var user = req.body;
-    var users = userModel.updateUserById(userId, user);
-    res.json(users);
+    userModel
+      .updateUserById(userId, user)
+      .then(
+        function(doc) {
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function deleteUserById(req, res) {
     var userId = req.params.userId;
-    var users = userModel.deleteUserById(userId);
-    res.json(users);
+    userModel
+      .deleteUserById(userId)
+      .then(
+        function(doc) {
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function logout(req, res) {

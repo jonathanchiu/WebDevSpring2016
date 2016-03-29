@@ -21,17 +21,23 @@
         lastName: null,
         username: vm.username,
         password: vm.password,
-        email: vm.email
+        emails: vm.email.replace(/ /g,'').split(","),
+        phones: [],
+        roles: ['default']
       };
+
+      console.log(user);
 
       UserService
         .createUser(user)
-        .then(function(response) {
-          if (response.data) {
+        .then(
+          function(response) {
+            console.log(response.data);
+            response.data.emails = response.data.emails.join(",");
+            console.log(response.data);
             UserService.setCurrentUser(response.data);
             $location.url("/profile");
-          }
-        });
+          });
     }
   }
 })();
