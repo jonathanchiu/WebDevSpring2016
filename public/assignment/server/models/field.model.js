@@ -6,8 +6,17 @@ module.exports = function(uuid, db, mongoose) {
   var FieldSchema = require("./field.schema.server.js")();
   var Field = mongoose.model("Field", FieldSchema);
 
-  var api = {
+  function getFieldTemplateType(fieldType) {
+    return Field
+            .findOne({type: fieldType.toUpperCase()})
+            .then(function(doc) {
+              console.log(doc);
+              return doc;
+            });
+  }
 
+  var api = {
+    getFieldTemplateType: getFieldTemplateType
   };
   return api
 };

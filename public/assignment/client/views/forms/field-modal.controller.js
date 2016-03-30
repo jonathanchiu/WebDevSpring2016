@@ -21,6 +21,7 @@
 
     function init() {
       $scope.label = $scope.selectedField.label;
+      $scope.placeholder = $scope.selectedField.placeholder;
 
       if ($scope.showTextarea) {
         $scope.textArea = [];
@@ -55,6 +56,7 @@
       var field = {
         label: $scope.label,
         placeholder: $scope.placeholder,
+        type: $scope.selectedField.type.toUpperCase(),
         // Only add options key and value if they exist
         options: formOptionsArray.length > 0 ? formOptionsArray : null
       };
@@ -62,10 +64,6 @@
       FieldService
         .updateField($scope.formId, $scope.selectedField._id, field)
         .then(function(response) {
-          FieldService
-            .getFieldsForForm($scope.formId)
-            .then(function(response) {
-            });
         });
 
       // Do a hard reload because we don't have access to the field controller

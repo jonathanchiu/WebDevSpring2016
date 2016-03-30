@@ -5,7 +5,7 @@ module.exports = function () {
     label: String,
     type: {
       type: String,
-      enum: ['TEXT', 'EMAIL', 'PASSWORD', 'OPTIONS', 'DATE', 'RADIOS', 'CHECKBOXES'],
+      enum: ['TEXT', 'EMAIL', 'PASSWORD', 'TEXTAREA', 'OPTIONS', 'DATE', 'RADIOS', 'CHECKBOXES'],
       default: 'TEXT'
     },
     placeholder: String,

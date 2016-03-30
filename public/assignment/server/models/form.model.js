@@ -62,12 +62,11 @@ module.exports = function(uuid, db, mongoose) {
   }
 
   function getFieldsForForm(formId) {
-    for (var f in mock) {
-      if (mock[f]._id == formId) {
-        return mock[f].fields;
-      }
-    }
-    return null;
+    return Form
+            .findById(formId)
+            .then(function(doc) {
+              return doc.fields;
+            });
   }
 
   function getFieldForForm(formId, fieldId) {
@@ -84,56 +83,44 @@ module.exports = function(uuid, db, mongoose) {
   }
 
   function deleteFieldFromForm(formId, fieldId) {
-    for (var f in mock) {
-      if (mock[f]._id == formId) {
-        for (var i = 0; i < mock[f].fields.length; i++) {
-          if (mock[f].fields[i]._id == fieldId) {
-            mock[f].fields.splice(i, 1);
-            return mock[f].fields;
-          }
-        }
-      }
-    }
-    return null;
-  }
-
-  function getFieldTemplateType(fieldType) {
-    for (var f in fieldTemplates) {
-      if (fieldTemplates[f].type.toLowerCase() == fieldType.toLowerCase()) {
-        fieldTemplates[f]._id = uuid.v4();
-        return fieldTemplates[f];
-      }
-    }
-    return null;
+    return Form
+            .update(
+              {_id: formId},
+              // We must convert the fieldId to an ObjectId that Mongo can recognize
+              {$pull: {fields: {_id: mongoose.Types.ObjectId(fieldId)}}}
+            )
+            .then(function(doc) {
+              console.log(doc);
+              return doc;
+            });
   }
 
   function createFieldForForm(formId, field) {
-    field._id = uuid.v4();
-
-    for (var f in mock) {
-      if (mock[f]._id == formId) {
-        mock[f].fields.push(field);
-        return mock[f].fields;
-      }
-    }
-    return null;
+    // We do this so we can uniquely identify each field for other operations
+    field._id = mongoose.Types.ObjectId();
+    return Form
+            .findById(formId)
+            .then(function(doc) {
+              doc.fields.push(field);
+              return doc.save();
+            });
   }
 
+
   function updateField(formId, fieldId, field) {
-    for (var f in mock) {
-      if (mock[f]._id == formId) {
-        for (var i = 0; i < mock[f].fields.length; i++) {
-          if (mock[f].fields[i]._id == fieldId) {
-            mock[f].fields[i].label = field.label;
-            mock[f].fields[i].placeholder = field.placeholder;
-            if (field.options && mock[f].fields[i].options) {
-              mock[f].fields[i].options = field.options;
-            }
-            return mock[f].fields[i];
-          }
-        }
-      }
-    }
+    return Form
+            .update(
+              {_id: formId, "fields._id" : mongoose.Types.ObjectId(fieldId) },
+              {$set: {
+                'fields.$.label' : field.label,
+                'fields.$.type' : field.type,
+                'fields.$.placeholder' : field.placeholder,
+                'fields.$.options' : field.options
+              }}
+            )
+            .then(function(doc) {
+              return doc;
+            });
   }
 
   var api = {
@@ -147,8 +134,7 @@ module.exports = function(uuid, db, mongoose) {
     getFieldForForm: getFieldForForm,
     deleteFieldFromForm: deleteFieldFromForm,
     createFieldForForm: createFieldForForm,
-    updateField: updateField,
-    getFieldTemplateType: getFieldTemplateType
+    updateField: updateField
   };
   return api
 };

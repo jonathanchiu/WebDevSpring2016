@@ -1,4 +1,4 @@
-module.exports = function(app, formModel) {
+module.exports = function(app, formModel, fieldModel) {
   app.get("/api/assignment/form/:formId/field", getFieldsForForm);
   app.get("/api/assignment/form/:formId/field/:fieldId", getFieldForForm);
   app.delete("/api/assignment/form/:formId/field/:fieldId", deleteFieldFromForm);
@@ -8,14 +8,34 @@ module.exports = function(app, formModel) {
 
   function getFieldsForForm(req, res) {
     var formId = req.params.formId;
-    var fields = formModel.getFieldsForForm(formId);
-    res.json(fields);
+    formModel
+      .getFieldsForForm(formId)
+      .then(
+        function(doc) {
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function getFieldTemplateType(req, res) {
     var fieldType = req.params.fieldType;
-    var field = formModel.getFieldTemplateType(fieldType);
-    res.json(field);
+    console.log("field type from field service server");
+    console.log(fieldType);
+    fieldModel
+      .getFieldTemplateType(fieldType)
+      .then(
+        function(doc) {
+          console.log(doc);
+          res.json(doc);
+        },
+        function(err) {
+          console.log(err);
+          res.status(400).send(err);
+        }
+      );
   }
 
   function getFieldForForm(req, res) {
@@ -28,22 +48,66 @@ module.exports = function(app, formModel) {
   function deleteFieldFromForm(req, res) {
     var formId = req.params.formId;
     var fieldId = req.params.fieldId;
-    var forms = formModel.deleteFieldFromForm(formId, fieldId);
-    res.json(forms);
+    formModel
+      .deleteFieldFromForm(formId, fieldId)
+      .then(
+        function(doc) {
+          return formModel.getFieldsForForm(formId);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      )
+      .then(
+        function(doc) {
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function createFieldForForm(req, res) {
     var formId = req.params.formId;
     var field = req.body;
-    var forms = formModel.createFieldForForm(formId, field);
-    res.json(forms);
+    console.log("create field for form");
+    console.log(formId);
+    console.log(field);
+    formModel
+      .createFieldForForm(formId, field)
+      .then(
+        function(doc) {
+          res.json(doc);
+        },
+        function(err) {
+          console.log(err);
+          res.status(400).send(err);
+        }
+      );
   }
 
   function updateField(req, res) {
     var formId = req.params.formId;
     var fieldId = req.params.fieldId;
     var field = req.body;
-    var forms = formModel.updateField(formId, fieldId, field);
-    res.json(forms);
+    formModel
+      .updateField(formId, fieldId, field)
+      .then(
+        function(doc) {
+          return formModel.getFieldsForForm(formId);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      )
+      .then(
+        function(doc) {
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 };

@@ -5,7 +5,7 @@
     .module("FormBuilderApp")
     .controller("FieldController", FieldController);
 
-  function FieldController($rootScope, $scope, $uibModal, $routeParams, $location, FieldService) {
+  function FieldController($rootScope, $uibModal, $routeParams, $location, FieldService) {
     var vm = this;
     var formId = $routeParams.formId;
 
@@ -47,12 +47,13 @@
         .createFieldForForm(formId, field)
         .then(function(response) {
           if (response.data) {
-            vm.fields = response.data;
+            vm.fields = response.data.fields;
           }
         });
     }
 
     function addField(fieldType) {
+      console.log("adding field controller");
       // Get the field template for the given field type
       FieldService
         .getFieldTemplateType(fieldType)
@@ -63,9 +64,9 @@
             // Then add it to the form's list of fields
             FieldService
               .createFieldForForm(formId, field)
-              .then(function(response) {
-                if (response.data) {
-                  vm.fields = response.data;
+              .then(function(res) {
+                if (res.data) {
+                  vm.fields = res.data.fields;
                 }
               });
           }
