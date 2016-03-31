@@ -10,6 +10,16 @@
     "placeholder": "New Field"
   },
   {
+    "label": "New Email Field",
+    "type": "EMAIL",
+    "placeholder": "New Field"
+  },
+  {
+    "label": "New Password Field",
+    "type": "PASSWORD",
+    "placeholder": "New Field"
+  },
+  {
     "label": "New Date Field",
     "type": "DATE"
   },

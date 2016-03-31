@@ -12,7 +12,7 @@
     $scope.selectedField = selectedField;
     $scope.formId = formId;
     $scope.showPlaceholder = $scope.selectedField.type === 'TEXT' ||
-                             $scope.selectedField.type === 'TEXTAREA';
+                             $scope.selectedField.type === 'TEXTAREA' || 'EMAIL' || 'PASSWORD';
 
     $scope.showTextarea = $scope.selectedField.type === 'OPTIONS' ||
                           $scope.selectedField.type === 'CHECKBOXES' ||

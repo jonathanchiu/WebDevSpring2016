@@ -14,6 +14,7 @@
         <textarea ng-switch-when='TEXTAREA' class="form-control" placeholder="{{field.placeholder}}"></textarea>
         <input ng-switch-when='DATE' type="date" class="form-control">
         <input ng-switch-when='EMAIL' type="email" class="form-control" placeholder="{{field.placeholder}}">
+        <input ng-switch-when='PASSWORD' type="password" class="form-control" placeholder="{{field.placeholder}}">
         <select ng-switch-when='OPTIONS' type="date" class="form-control">
           <option ng-repeat="option in field.options" value="{{option.value}}">{{option.label}}</option>
         </select>
@@ -47,6 +48,8 @@
       <label for="select-new-field-form-fields">Add New Field</label>
       <select ng-model="model.fieldType" class="form-control" name="select-new-field-form-fields" id="select-new-field-form-fields">
         <option value="TEXT">Single Line Text</option>
+        <option value="EMAIL">Email</option>
+        <option value="PASSWORD">Password</option>
         <option value="TEXTAREA">Multi Line Text</option>
         <option value="DATE">Date</option>
         <option value="CHECKBOXES">Checkboxes</option>
