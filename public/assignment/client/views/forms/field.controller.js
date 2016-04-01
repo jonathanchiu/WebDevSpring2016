@@ -14,6 +14,21 @@
     vm.showEditPane = showEditPane;
     vm.cloneField = cloneField;
 
+    // When editing a field's location in array, if it is dropped in a new location
+    // make a call to database to update the fields ordering for the form
+    vm.fieldTree = {
+      accept: function(sourceNodeScope, destNodesScope, destIndex) {
+        return true;
+      },
+      dropped: function(sourceNodeScope, destNodesScope, destIndex) {
+        FieldService
+          .updateAllFieldsForForm(formId, vm.fields)
+          .then(function(response) {
+            return true;
+          });
+      }
+    };
+
     function init() {
       var formId = $routeParams.formId;
       FieldService

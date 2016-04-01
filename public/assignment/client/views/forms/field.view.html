@@ -5,7 +5,7 @@
   <li role="presentation" class="active"><a href="">Fields</a></li>
 </ul>
 
-<form ng-model="model.fields" id="form-fields" class="form-horizontal" ui-tree ui-tree-nodes="">
+<form ng-model="model.fields" id="form-fields" class="form-horizontal" ui-tree="model.fieldTree" ui-tree-nodes="">
   <div ng-repeat="field in model.fields" ng-switch on="field.type" ui-tree-node>
     <div class="form-group">
       <div class="col-sm-8">

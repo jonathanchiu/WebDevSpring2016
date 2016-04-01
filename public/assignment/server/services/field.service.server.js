@@ -5,6 +5,23 @@ module.exports = function(app, formModel, fieldModel) {
   app.post("/api/assignment/form/:formId/field", createFieldForForm);
   app.put("/api/assignment/form/:formId/field/:fieldId", updateField);
   app.get("/api/assignment/field/:fieldType", getFieldTemplateType);
+  app.put("/api/assignment/form/:formId/field/", updateAllFieldsForForm);
+
+  function updateAllFieldsForForm(req, res) {
+    var formId = req.params.formId;
+    var fields = req.body;
+
+    formModel
+      .updateAllFieldsForForm(formId, fields)
+      .then(
+        function(doc) {
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
+  }
 
   function getFieldsForForm(req, res) {
     var formId = req.params.formId;
@@ -22,17 +39,14 @@ module.exports = function(app, formModel, fieldModel) {
 
   function getFieldTemplateType(req, res) {
     var fieldType = req.params.fieldType;
-    console.log("field type from field service server");
-    console.log(fieldType);
+
     fieldModel
       .getFieldTemplateType(fieldType)
       .then(
         function(doc) {
-          console.log(doc);
           res.json(doc);
         },
         function(err) {
-          console.log(err);
           res.status(400).send(err);
         }
       );
@@ -71,9 +85,7 @@ module.exports = function(app, formModel, fieldModel) {
   function createFieldForForm(req, res) {
     var formId = req.params.formId;
     var field = req.body;
-    console.log("create field for form");
-    console.log(formId);
-    console.log(field);
+
     formModel
       .createFieldForForm(formId, field)
       .then(

@@ -31,13 +31,18 @@
       return $http.put("/api/assignment/form/" + formId + "/field/" + fieldId, field);
     }
 
+    function updateAllFieldsForForm(formId, fields) {
+      return $http.put("/api/assignment/form/" + formId + "/field/", fields);
+    }
+
     var service = {
       getFieldsForForm: getFieldsForForm,
       getFieldForForm: getFieldForForm,
       deleteFieldFromForm: deleteFieldFromForm,
       createFieldForForm: createFieldForForm,
       updateField: updateField,
-      getFieldTemplateType: getFieldTemplateType
+      getFieldTemplateType: getFieldTemplateType,
+      updateAllFieldsForForm: updateAllFieldsForForm
     };
 
     return service;

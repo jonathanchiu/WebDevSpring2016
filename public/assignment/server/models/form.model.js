@@ -6,6 +6,15 @@ module.exports = function(uuid, db, mongoose) {
   var FormSchema = require("./form.schema.server.js")();
   var Form = mongoose.model("Form", FormSchema);
 
+  function updateAllFieldsForForm(formId, fields) {
+    return Form
+            .findById(formId)
+            .then(function(doc) {
+              doc.fields = fields;
+              return doc.save();
+            });
+  }
+
   function findFormByTitle(title) {
     for (var f in mock) {
       if (mock[f].title === title) {
@@ -125,6 +134,7 @@ module.exports = function(uuid, db, mongoose) {
 
   var api = {
     findFormByTitle: findFormByTitle,
+    updateAllFieldsForForm: updateAllFieldsForForm,
     createFormForUser: createFormForUser,
     findFormById: findFormById,
     findAllFormsForUser: findAllFormsForUser,
