@@ -39,10 +39,11 @@
       user.roles = user.roles.replace(/ /g,'').split(",");
 
       UserService
-        .createUser(user)
+        .createUserAdmin(user)
         .then(function(response) {
+          console.log(response);
           if (response.data) {
-            vm.users.push(response.data);
+            vm.users = response.data;
           }
         }, handleError);
     }

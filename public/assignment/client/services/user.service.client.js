@@ -24,15 +24,19 @@
     }
 
     function findAllUsers() {
-      return $http.get("/api/user");
+      return $http.get("/api/assignment/admin/user");
     }
 
     function createUser(user) {
       return $http.post("/api/assignment/user", user);
     }
 
+    function createUserAdmin(user) {
+      return $http.post("/api/assignment/admin/user", user);
+    }
+
     function deleteUserById(userId) {
-      return $http.delete("/api/assignment/user/" + userId);
+      return $http.delete("/api/assignment/admin/user/" + userId);
     }
 
     function findUserByUsername(username) {
@@ -44,7 +48,7 @@
     }
 
     function updateUserAdmin(userId, user) {
-      return $http.put("/api/assignment/user/" + userId + "/admin", user);
+      return $http.put("/api/assignment/admin/user/" + userId, user);
     }
 
     var service = {
@@ -53,6 +57,7 @@
       findUserByUsername: findUserByUsername,
       findUserByCredentials: findUserByCredentials,
       createUser : createUser,
+      createUserAdmin : createUserAdmin,
       deleteUserById : deleteUserById,
       updateUser : updateUser,
       updateUserAdmin: updateUserAdmin,
