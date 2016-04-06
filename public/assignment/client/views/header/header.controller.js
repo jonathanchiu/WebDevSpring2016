@@ -5,7 +5,7 @@
     .module("FormBuilderApp")
     .controller("HeaderController", HeaderController);
 
-  function HeaderController($scope, $rootScope, $location) {
+  function HeaderController($scope, $rootScope, $location, UserService) {
     $scope.isActive = isActive;
     $scope.logout = logout;
 
@@ -17,7 +17,17 @@
 
     // "Logs out" the current user by resetting the currentUser var to null
     function logout() {
-      $rootScope.currentUser = null;
+      UserService
+        .logout()
+        .then(
+            function(response){
+                $rootScope.currentUser = null;
+                $location.url("/login");
+            },
+            function(err) {
+                $scope.error = err;
+            }
+      );
     }
   }
 })();

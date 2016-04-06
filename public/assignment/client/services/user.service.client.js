@@ -7,6 +7,14 @@
 
   function userService($http, $rootScope) {
 
+    function login(user) {
+      return $http.post("/api/assignment/login", user);
+    }
+
+    function logout() {
+      return $http.post("/api/assignment/logout");
+    }
+
     function findUserByCredentials(username, password) {
       return $http.get("/api/assignment/user?username=" + username + "&password=" + password);
     }
@@ -16,7 +24,7 @@
     }
 
     function findAllUsers() {
-      return $http.get("/api/assignment/user");
+      return $http.get("/api/user");
     }
 
     function createUser(user) {
@@ -42,7 +50,9 @@
       findUserByCredentials: findUserByCredentials,
       createUser : createUser,
       deleteUserById : deleteUserById,
-      updateUser : updateUser
+      updateUser : updateUser,
+      login : login,
+      logout : logout
     };
 
     return service;

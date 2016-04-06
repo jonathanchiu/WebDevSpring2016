@@ -31,6 +31,7 @@
     "mongoose": "^4.4.8",
     "node-uuid": "^1.4.7",
     "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "q": "^1.4.1"
   },
   "devDependencies": {},

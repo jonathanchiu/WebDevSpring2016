@@ -1,10 +1,68 @@
+var passport      = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var userModel = require('../models/user.model.js');
+
 module.exports = function(app, userModel) {
+  var auth = authorized;
+
+  app.post("/api/assignment/login", passport.authenticate('local'), login);
   app.post("/api/assignment/user", register);
   app.get("/api/assignment/user", delegate);
   app.get("/api/assignment/user/:id", profile);
-  app.put("/api/assignment/user/:userId", updateUserById);
-  app.delete("/api/assignment/user/:userId", deleteUserById);
-  app.post("/api/project/omdb/logout", logout);
+  app.get("/api/user", auth, getAllUsers);
+  app.put("/api/assignment/user/:userId", auth, updateUserById);
+  app.delete("/api/assignment/user/:userId", auth, deleteUserById);
+  app.post("/api/assignment/logout", logout);
+  app.get("/api/loggedin", loggedin);
+
+  passport.use(new LocalStrategy(localStrategy));
+  passport.serializeUser(serializeUser);
+  passport.deserializeUser(deserializeUser);
+
+  function loggedin(req, res) {
+    res.send(req.isAuthenticated() ? req.user : '0');
+  }
+
+  function localStrategy(username, password, done) {
+    userModel
+      .findUserByCredentials({username: username, password: password})
+      .then(
+        function(user) {
+          if (!user) { return done(null, false); }
+            return done(null, user);
+        },
+        function(err) {
+          if (err) { return done(err); }
+        }
+        );
+    }
+
+  function serializeUser(user, done) {
+    done(null, user);
+  }
+
+  function deserializeUser(user, done) {
+    userModel
+      .findUserById(user._id)
+      .then(
+        function(user) {
+          done(null, user);
+        },
+        function(err) {
+          done(err, null);
+        }
+      );
+  }
+
+  function login(req, res) {
+    var user = req.user;
+    res.json(user);
+  }
+
+  function logout(req, res) {
+    req.logOut();
+    res.send(200);
+  }
 
   function register(req, res) {
     var user = req.body;
@@ -39,9 +97,6 @@ module.exports = function(app, userModel) {
     }
     else if (req.query.username) {
       findUserByUsername(req, res);
-    }
-    else {
-      getAllUsers(req, res);
     }
   }
 
@@ -103,7 +158,16 @@ module.exports = function(app, userModel) {
       );
   }
 
-  function logout(req, res) {
-    res.send(200);
+  function isAdmin(user) {
+    return (user.roles.indexOf("admin") > -1);
+  }
+
+  function authorized(req, res, next) {
+    if (!req.isAuthenticated()) {
+      res.send(401);
+    } 
+    else {
+      next();
+    }
   }
 };
