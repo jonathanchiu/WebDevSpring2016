@@ -1,6 +1,9 @@
 var bodyParser = require('body-parser')
 var express = require('express');
 var uuid = require("node-uuid");
+var session       = require('express-session');
+var cookieParser  = require('cookie-parser');
+var passport = require("passport");
 var app = express();
 
 var mongoose = require('mongoose');
@@ -21,7 +24,16 @@ var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
 app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use(session({
+    secret: 'this is the secret',
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.get('/hello', function(req, res){
   res.send('hello world');
