@@ -23,7 +23,7 @@
         password: vm.password,
         emails: vm.email.replace(/ /g,'').split(","),
         phones: [],
-        roles: ['default']
+        roles: ['student']
       };
 
       console.log(user);

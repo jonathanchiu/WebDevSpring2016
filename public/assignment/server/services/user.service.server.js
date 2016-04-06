@@ -65,16 +65,41 @@ module.exports = function(app, userModel) {
   }
 
   function register(req, res) {
-    var user = req.body;
-    user = userModel.createUser(user)
-            .then(
-              function(user) {
-                res.json(user);
-              },
-              function(err) {
-                res.status(400).send(err);
-              }
-            );
+    var newUser = req.body;
+    newUser.roles = ['student'];
+
+    userModel
+      .findUserByUsername(newUser.username)
+      .then(
+        function(user) {
+            if (user.length) {
+              res.json(null);
+            } 
+            else {
+              return userModel.createUser(newUser);
+            }
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      )
+      .then(
+        function(user) {
+          if (user) {
+            req.login(user, function(err) {
+                if (err) {
+                  res.status(400).send(err);
+                } 
+                else {
+                  res.json(user);
+                }
+            });
+          }
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function profile(req, res) {

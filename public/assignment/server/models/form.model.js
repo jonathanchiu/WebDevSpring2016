@@ -43,7 +43,7 @@ module.exports = function(uuid, db, mongoose) {
 
   function findAllFormsForUser(userId) {
     return Form
-            .find(userId)
+            .find({userId: userId})
             .then(function(doc) {
               return doc;
             });

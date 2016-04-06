@@ -69,6 +69,8 @@ module.exports = function(uuid, db, mongoose) {
     return User.find({
       username: username
     }).then(function(doc) {
+      console.log("findUserByUsername");
+      console.log(doc);
       return doc;
     });
   }
