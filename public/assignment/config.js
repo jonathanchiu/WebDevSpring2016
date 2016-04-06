@@ -33,7 +33,10 @@
         .when("/admin", {
           templateUrl: "client/views/admin/admin.view.html",
           controller: "AdminController",
-          controllerAs: "model"
+          controllerAs: "model",
+          resolve: {
+            loggedin: checkAdmin
+          }
         })
         .when("/forms", {
           templateUrl: "client/views/forms/forms.view.html",
@@ -95,6 +98,21 @@
         }
       });
 
+      return deferred.promise;
+    };
+
+    var checkAdmin = function($q, $timeout, $http, $location, $rootScope) {
+      var deferred = $q.defer();
+    
+      $http.get('/api/loggedin').success(function(user) {
+        $rootScope.errorMessage = null;
+        // User is Authenticated
+        if (user !== '0' && user.roles.indexOf('admin') != -1) {
+          $rootScope.currentUser = user;
+          deferred.resolve();
+        }
+      });
+      
       return deferred.promise;
     };
 })();

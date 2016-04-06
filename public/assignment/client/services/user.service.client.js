@@ -43,6 +43,10 @@
       return $http.put("/api/assignment/user/" + userId, user);
     }
 
+    function updateUserAdmin(userId, user) {
+      return $http.put("/api/assignment/user/" + userId + "/admin", user);
+    }
+
     var service = {
       findAllUsers : findAllUsers,
       setCurrentUser: setCurrentUser,
@@ -51,6 +55,7 @@
       createUser : createUser,
       deleteUserById : deleteUserById,
       updateUser : updateUser,
+      updateUserAdmin: updateUserAdmin,
       login : login,
       logout : logout
     };

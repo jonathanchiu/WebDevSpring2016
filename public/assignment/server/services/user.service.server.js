@@ -9,6 +9,7 @@ module.exports = function(app, userModel) {
   app.post("/api/assignment/user", register);
   app.get("/api/assignment/user", delegate);
   app.get("/api/assignment/user/:id", profile);
+  app.put("/api/assignment/user/:userId/admin", updateUserByIdAdmin);
   app.get("/api/user", auth, getAllUsers);
   app.put("/api/assignment/user/:userId", auth, updateUserById);
   app.delete("/api/assignment/user/:userId", auth, deleteUserById);
@@ -66,7 +67,9 @@ module.exports = function(app, userModel) {
 
   function register(req, res) {
     var newUser = req.body;
-    newUser.roles = ['student'];
+    if (newUser.roles.length === 0) {
+      newUser.roles = ['student'];
+    }
 
     userModel
       .findUserByUsername(newUser.username)
@@ -126,8 +129,16 @@ module.exports = function(app, userModel) {
   }
 
   function getAllUsers(req, res) {
-    var users = userModel.getAllUsers();
-    res.json(users);
+    var users = userModel
+                  .getAllUsers()
+                  .then(
+                    function(doc) {
+                      res.json(doc);
+                    },
+                    function(err) {
+                      res.status(400).send(err);
+                    }
+                  );
   }
 
   function findUserByUsername(req, res) {
@@ -159,6 +170,33 @@ module.exports = function(app, userModel) {
     var user = req.body;
     userModel
       .updateUserById(userId, user)
+      .then(
+        function(doc) {
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
+  }
+
+  function updateUserByIdAdmin(req, res) {
+    var userId = req.params.userId;
+    var user = req.body;
+    console.log("USER TO UPDATE TO");
+    console.log(user);
+    userModel
+      .updateUserByIdAdmin(userId, user)
+      .then(
+        function(doc) {
+          console.log("UPDATED USER");
+          console.log(doc);
+          return userModel.getAllUsers();
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      )
       .then(
         function(doc) {
           res.json(doc);

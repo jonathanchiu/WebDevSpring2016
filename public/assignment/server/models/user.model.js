@@ -12,7 +12,8 @@ module.exports = function(uuid, db, mongoose) {
     findUserById: findUserById,
     deleteUserById: deleteUserById,
     getAllUsers: getAllUsers,
-    updateUserById: updateUserById
+    updateUserById: updateUserById,
+    updateUserByIdAdmin: updateUserByIdAdmin
   };
   return api;
 
@@ -32,9 +33,15 @@ module.exports = function(uuid, db, mongoose) {
   }
 
   function createUser(user) {
+    // Account for adding a user in admin panel
+    delete user._id;
+
     return User.create(user)
           .then(function(user) {
             return user;
+          },
+          function(err) {
+            console.log(err);
           });
   }
 
@@ -46,6 +53,17 @@ module.exports = function(uuid, db, mongoose) {
   }
 
   function updateUserById(userId, user) {
+    return User.findOneAndUpdate(
+      {_id: userId},
+      {$set: user},
+      {new: true}
+    )
+    .then(function(doc) {
+      return doc;
+    });
+  }
+
+  function updateUserByIdAdmin(userId, user) {
     return User.findOneAndUpdate(
       {_id: userId},
       {$set: user},
