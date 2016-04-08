@@ -26,3 +26,7 @@ To exercise all the different functionalities implemented for the proof of conce
 * Admin User
   * Username: admin
   * Password: admin
+
+For the assignment:
+* Username: alice
+* Password: alice
