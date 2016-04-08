@@ -12,6 +12,8 @@
     vm.update = update;
     vm.add    = add;
     vm.select = select;
+    vm.sortType = 'username';
+    vm.sortReverse = false;
 
     function init() {
       UserService
