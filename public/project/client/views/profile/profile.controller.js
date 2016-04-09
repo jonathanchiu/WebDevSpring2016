@@ -117,7 +117,7 @@
             .unfollowUser(followedId, followerId)
             .then(function(response) {
               if (response.data) {
-                vm.profileFollowers = response.data.length;
+                vm.profileFollowers = response.data.followers.length;
                 vm.currentUserIsFollower = false;
                 vm.followText = "Follow";
               }
@@ -128,7 +128,7 @@
           .followUser(followedId, followerId)
           .then(function(response) {
             if (response.data) {
-              vm.profileFollowers = response.data.length;
+              vm.profileFollowers = response.data.followers.length;
               vm.currentUserIsFollower = true;
               vm.followText = "Unfollow";
             }

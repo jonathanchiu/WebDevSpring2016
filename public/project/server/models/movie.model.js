@@ -1,6 +1,6 @@
 var mock = require("./movie.mock.json");
 
-module.exports = function(uuid, userModel) {
+module.exports = function(uuid, userModel, db, mongoose) {
   var api = {
     getAllMovies: getAllMovies,
     getMoviesByTitle: getMoviesByTitle,

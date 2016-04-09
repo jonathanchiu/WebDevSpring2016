@@ -1,6 +1,6 @@
 var mock = require("./review.mock.json");
 
-module.exports = function(uuid) {
+module.exports = function(uuid, db, mongoose) {
   var api = {
     getAllReviews: getAllReviews,
     getReviewById: getReviewById,

@@ -13,11 +13,11 @@
             <th>Author</th>
             <th>Created</th>
             <th>Content</th>
-            <th ng-show="$root.currentUser.role == 1">Actions</th>
+            <th ng-show="$root.currentUser.roles.indexOf('admin') > -1">Actions</th>
           </tr>
         </thead>
 
-        <thead ng-show="$root.currentUser.role == 1">
+        <thead ng-show="$root.currentUser.roles.indexOf('admin') > -1">
           <tr>
             <th><input ng-model="model.reviewTitleSubmission" type="text" class="form-control" placeholder="Review Title"></th>
             <th><input ng-model="model.reviewAuthorSubmission" type="text" class="form-control" placeholder="Author ID"></th>
@@ -36,7 +36,7 @@
             <td><a ng-href="#/profile/{{review.author}}">{{review.author}}</a></td>
             <td>{{review.created}}</td>
             <td>{{review.content}}</td>
-            <td ng-show="$root.currentUser.role == 1" class="action-buttons">
+            <td ng-show="$root.currentUser.roles.indexOf('admin') > -1" class="action-buttons">
               <a ng-click="model.deleteReview(review._id, $index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
               <a ng-click="model.selectReview($index)" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
             </td>

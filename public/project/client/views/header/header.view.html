@@ -16,7 +16,7 @@
       <li ng-show="$root.currentUser" class="nav-item">
         <a class="nav-link" ng-href="#/profile/{{$root.currentUser._id}}">Profile</a>
       </li>
-      <li ng-show="$root.currentUser && $root.currentUser.role === 1" class="nav-item">
+      <li ng-show="$root.currentUser && $root.currentUser.roles.indexOf('admin') > -1" class="nav-item">
         <a class="nav-link" href="#/users">Users</a>
       </li>
       <li ng-show="$root.currentUser" class="nav-item">

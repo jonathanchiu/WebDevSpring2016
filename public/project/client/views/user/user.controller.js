@@ -56,7 +56,7 @@
       vm.firstNameSubmit = vm.selectedUser.firstName;
       vm.lastNameSubmit = vm.selectedUser.lastName;
       vm.birthdateSubmit = new Date(vm.selectedUser.dob);
-      vm.roleSubmit = vm.selectedUser.role.toString();
+      vm.roleSubmit = vm.selectedUser.roles.toString();
     }
 
     function updateUser() {

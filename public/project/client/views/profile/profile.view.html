@@ -14,7 +14,7 @@
     <hr>
     <div class="text-md-center" id="profile-buttons">
       <button ng-click="model.delegateFollowUnfollow()" ng-show="model.username != $root.currentUser.username" class="btn btn-primary" type="button">{{model.followText}}</button>
-      <button ng-click="model.deleteUser()" ng-show="$root.currentUser._id == model.userId || $root.currentUser.role === 1" class="btn btn-danger" type="button">Delete</button>
+      <button ng-click="model.deleteUser()" ng-show="$root.currentUser._id == model.userId || $root.currentUser.roles.indexOf('admin') > -1" class="btn btn-danger" type="button">Delete</button>
     </div>
   </div>
 
@@ -24,27 +24,27 @@
 
       <fieldset class="form-group">
         <label for="firstName">First Name</label>
-        <input ng-disabled="$root.currentUser._id != model.userId && $root.currentUser.role != 1" ng-model="model.profileFirstName" type="text" class="form-control" id="firstName" placeholder="First Name">
+        <input ng-disabled="$root.currentUser._id != model.userId && $root.currentUser.roles.indexOf('admin') < 0" ng-model="model.profileFirstName" type="text" class="form-control" id="firstName" placeholder="First Name">
       </fieldset>
 
       <fieldset class="form-group">
         <label for="lastName">Last Name</label>
-        <input ng-disabled="$root.currentUser._id != model.userId && $root.currentUser.role != 1" ng-model="model.profileLastName" type="text" class="form-control" id="lastName" placeholder="Last Name">
+        <input ng-disabled="$root.currentUser._id != model.userId && $root.currentUser.roles.indexOf('admin') < 0" ng-model="model.profileLastName" type="text" class="form-control" id="lastName" placeholder="Last Name">
       </fieldset>
 
       <fieldset class="form-group">
         <label for="avatar">Avatar URL</label>
-        <input ng-disabled="$root.currentUser._id != model.userId && $root.currentUser.role != 1" ng-model="model.profileAvatarUrl" type="text" class="form-control" id="avatar" placeholder="Avatar URL">
+        <input ng-disabled="$root.currentUser._id != model.userId && $root.currentUser.roles.indexOf('admin') < 0" ng-model="model.profileAvatarUrl" type="text" class="form-control" id="avatar" placeholder="Avatar URL">
       </fieldset>
 
-      <fieldset ng-hide="$root.currentUser._id != model.userId && $root.currentUser.role != 1" class="form-group">
+      <fieldset ng-hide="$root.currentUser._id != model.userId && $root.currentUser.roles.indexOf('admin') < 0" class="form-group">
         <label for="profilePassword">Password</label>
-        <input ng-disabled="$root.currentUser._id != model.userId && $root.currentUser.role != 1" ng-model="model.profilePassword" type="password" class="form-control" id="profilePassword" placeholder="Password">
+        <input ng-disabled="$root.currentUser._id != model.userId && $root.currentUser.roles.indexOf('admin') < 0" ng-model="model.profilePassword" type="password" class="form-control" id="profilePassword" placeholder="Password">
       </fieldset>
 
       <fieldset class="form-group">
         <label for="profileDescription">Description</label>
-        <textarea ng-disabled="$root.currentUser._id != model.userId && $root.currentUser.role != 1" ng-model="model.profileDescription" type="text" class="form-control" rows="4" id="profileDescription" placeholder="Description"></textarea>
+        <textarea ng-disabled="$root.currentUser._id != model.userId && $root.currentUser.roles.indexOf('admin') < 0" ng-model="model.profileDescription" type="text" class="form-control" rows="4" id="profileDescription" placeholder="Description"></textarea>
         <small class="text-muted">
           What are some of your favorite movies? Actors? Genres?
         </small>
@@ -52,10 +52,10 @@
 
       <fieldset class="form-group">
         <label for="profileBirthdate">Birthdate</label>
-        <input ng-disabled="$root.currentUser._id != model.userId && $root.currentUser.role != 1" ng-model="model.profileBirthdate" type="date" class="form-control" id="profileBirthdate" placeholder="Birthdate">
+        <input ng-disabled="$root.currentUser._id != model.userId && $root.currentUser.roles.indexOf('admin') < 0" ng-model="model.profileBirthdate" type="date" class="form-control" id="profileBirthdate" placeholder="Birthdate">
       </fieldset>
 
-      <fieldset ng-show="$root.currentUser._id == model.userId || $root.currentUser.role == 1"class="form-group">
+      <fieldset ng-show="$root.currentUser._id == model.userId || $root.currentUser.roles.indexOf('admin') > -1"class="form-group">
         <button ng-click="model.update()" class="btn btn-success">Update</button>
       </fieldset>
     </form>

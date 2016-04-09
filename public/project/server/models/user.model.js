@@ -1,7 +1,10 @@
 var mock = require("./user.mock.json");
-var q = require("q");
 
-module.exports = function(uuid) {
+module.exports = function(uuid, db, mongoose) {
+
+  var UserSchema = require("./user.schema.server.js")();
+  var User = mongoose.model("ProjectUser", UserSchema);
+
   var api = {
     findUserByCredentials: findUserByCredentials,
     getFollowersByUserId: getFollowersByUserId,
@@ -11,7 +14,6 @@ module.exports = function(uuid) {
     deleteUserById: deleteUserById,
     getAllUsers: getAllUsers,
     updateUserById: updateUserById,
-    userLikesMovie: userLikesMovie,
     findUsersByIds: findUsersByIds,
     addMovieToUserLikes: addMovieToUserLikes,
     followUser: followUser,
@@ -20,120 +22,114 @@ module.exports = function(uuid) {
   return api;
 
   function getFollowersByUserId(userId) {
-    for (var u in mock) {
-      if (mock[u]._id == userId) {
-        return mock[u].followers;
-      }
-    }
+    return User
+            .findById(userId)
+            .then(function(doc) {
+              return doc.followers;
+            });
   }
 
   function followUser(followedId, followerId) {
-    for (var u in mock) {
-      if (mock[u]._id == followedId) {
-        mock[u].followers.push(parseInt(followerId, 10));
-        return mock[u].followers;
-      }
-    }
+    return User
+            .findById(followedId)
+            .then(function(doc) {
+              doc.followers.push(followerId);
+              return doc.save();
+            });
   }
 
   function unfollowUser(followedId, followerId) {
-    for (var i = 0; i < mock.length; i++) {
-      if (mock[i]._id == followedId) {
-        mock[i].followers.splice(mock.indexOf(followerId), 1);
-        return mock[i].followers;
-      }
-    }
+    return User
+            .findById(followedId)
+            .then(function(doc) {
+              var index = doc.followers.indexOf(followerId);
+              doc.followers.splice(index, 99);
+              return doc.save();
+            });
   }
 
   function addMovieToUserLikes(userId, imdbId) {
-    for (var u in mock) {
-      if (mock[u]._id == userId) {
-        mock[u].likes.push(imdbId);
-        return mock[u].likes;
-      }
-    }
+    return User
+            .findById(userId)
+            .then(function(doc) {
+              doc.likes.push(imdbId);
+              doc.save();
+              return doc.likes;
+            });
   }
 
   function findUsersByIds(userIds) {
-    var users = []
-    for (var u in mock) {
-      if (userIds.indexOf(mock[u]._id) > 0) {
-        users.push(mock[u])
-      }
-    }
-    return users;
-  }
-
-  function userLikesMovie(userId, movie) {
-    for (var u in mock) {
-      if (mock[u]._id === userId) {
-        mock[u].likes.push(movie._id);
-        return mock[u].likes;
-      }
-    }    
+    return User
+            .find({ "_id": { "$in": userIds }})
+            .then(function(doc) {
+              return doc;
+            });
   }
 
   function findUserById(userId) {
-    for (var u in mock) {
-      if (mock[u]._id == userId) {
-        return mock[u];
-      }
-    }
-    return null;
+    return User
+            .findById(userId)
+            .then(function(doc) {
+              return doc;
+            });
   }
 
   function deleteUserById(userId) {
-
-    for (var i = 0; i < mock.length; i++) {
-      if (mock[i]._id == userId) {
-        mock.splice(i, 1);
-        return mock;
-      }
-    }
-  }
-
-  function createUser(user) {
-    user._id = uuid.v4();
-    mock.push(user);
-    return user;
+    return User.findById(userId)
+          .then(function(doc) {
+            doc.remove();
+            return getAllUsers();
+          });
   }
 
   function getAllUsers() {
-    return mock;
+    return User.find({})
+          .then(function(doc) {
+            return doc;
+          });
+  }
+
+  function createUser(user) {
+    // Account for adding a user in admin panel
+    delete user._id;
+
+    return User.create(user)
+          .then(function(user) {
+            return user;
+          },
+          function(err) {
+            console.log(err);
+          });
   }
 
   function updateUserById(userId, user) {
-    for (var i = 0; i < mock.length; i++) {
-      if (mock[i]._id == userId) {
-        mock[i].firstName = user.firstName;
-        mock[i].lastName = user.lastName;
-        mock[i].password = user.password;
-        mock[i].avatar = user.avatar;
-        mock[i].description = user.description;
-        mock[i].role = user.role;
-        mock[i].dob = user.dob;
-      }
-    }
-    return mock;
+    return User.findOneAndUpdate(
+      {_id: userId},
+      {$set: user},
+      {new: true}
+    )
+    .then(function(doc) {
+      return doc;
+    });
   }
 
   function findUserByCredentials(credentials) {
-    for (var u in mock) {
-      if (mock[u].username === credentials.username &&
-        mock[u].password === credentials.password) {
-        return mock[u];
-      }
-    }
-    return null;
+    console.log(credentials);
+    return User.findOne({
+        username: credentials.username,
+        password: credentials.password
+      }).then(function(user) {
+        return user;
+      });
   }
 
   function findUserByUsername(username) {
-
-    for (var u in mock) {
-      if (mock[u].username === username) {
-        return mock[u];
-      }
-    }
-    return null
+    return User.find({
+      username: username
+    }).then(function(doc) {
+      console.log("findUserByUsername");
+      console.log(doc);
+      return doc;
+    });
   }
 };
