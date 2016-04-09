@@ -12,6 +12,7 @@
 
     vm.update = update;
     vm.delegateFollowUnfollow = delegateFollowUnfollow;
+    vm.noPoster = 'images/saitama.jpeg';
     vm.deleteUser = deleteUser;
     vm.init = init;
     vm.likes;

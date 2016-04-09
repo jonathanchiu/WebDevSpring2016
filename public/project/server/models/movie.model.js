@@ -1,6 +1,10 @@
 var mock = require("./movie.mock.json");
 
-module.exports = function(uuid, userModel, db, mongoose) {
+module.exports = function(uuid, db, mongoose) {
+
+  var MovieSchema = require("./movie.schema.server.js")();
+  var Movie = mongoose.model("ProjectMovie", MovieSchema);
+
   var api = {
     getAllMovies: getAllMovies,
     getMoviesByTitle: getMoviesByTitle,
@@ -15,113 +19,127 @@ module.exports = function(uuid, userModel, db, mongoose) {
   return api;
 
   function getMoviesByTitle(title) {
-    var movies = [];
-    for (var m in mock) {
-      if (mock[m].title.toLowerCase().indexOf(title.toLowerCase()) > -1) {
-        movies.push(mock[m]);
-      }
-    }
-    return movies;
+    var regex = new RegExp(title);
+    return Movie
+            .find({title: regex})
+            .then(function(doc) {
+              console.log(doc);
+              return doc;
+            });
   }
 
   function getTopMovies(x) {
-    var mockCopy = mock.sort(function(m1, m2) {
-      return m2.likes.length - m1.likes.length;
-    });
+    return Movie
+            .find({})
+            .then(function(doc) {
+              console.log(doc);
+              return doc;
+            });
+    // var mockCopy = mock.sort(function(m1, m2) {
+    //   return m2.likes.length - m1.likes.length;
+    // });
 
-    var topMovies = [];
+    // var topMovies = [];
 
-    for (var i = 0; i < x; i++) {
-      topMovies.push(mockCopy[i]);
-    }
-    return topMovies;
+    // for (var i = 0; i < x; i++) {
+    //   topMovies.push(mockCopy[i]);
+    // }
+    // return topMovies;
   }
 
   function updateMovie(id, movie) {
-    var ids = mock.map(function(m) {
-      return m.imdbid;
+    return Movie.findOneAndUpdate(
+      {imdbid: id},
+      {$set: movie},
+      {upsert: true}
+    )
+    .then(function(doc) {
+      console.log(doc);
+      return doc;
     });
-
-    if (ids.indexOf(id) < 0) {
-      mock.push(movie);
-      return movie;
-    }
-    else {
-      for (var m in mock) {
-        if (mock[m].imdbid === id) {
-          mock[m].title = movie.title;
-          mock[m].poster = movie.poster;
-          return mock[m];
-        }
-      }
-    }
   }
 
   function deleteMovieById(id) {
-    for (var i = 0; i < mock.length; i++) {
-      if (mock[i].imdbid === id) {
-        mock.splice(i, 1);
-        return mock;
-      }
-    }
-    return null;
+    console.log("DELETING MOVIE");
+    console.log(id);
+    return Movie
+            .findOne({$or: [
+              // We have an or because it can either be a locally created movie or one from OMDB
+              {imdbid: id},
+              {_id: id}
+            ]})
+            .then(function(doc) {
+              console.log("DELETED");
+              console.log(doc);
+              doc.remove();
+              return getAllMovies();
+            });
   }
 
   function getAllMovies() {
-    return mock;
+    return Movie.find({})
+          .then(function(doc) {
+            return doc;
+          });
   }
 
   function getMoviesByIds(ids) {
-    var movies = [];
-    for (var m in mock) {
-      if (ids.indexOf(mock[m].imdbid) > 0) {
-        movies.push(mock[m]);
-      }
-    }
-    return movies;
+    return Movie
+            .find({ "imdbid": { "$in": ids }})
+            .then(function(doc) {
+              return doc;
+            });
   }
 
   function getMovieById(id) {
-    for (var m in mock) {
-      if (mock[m].imdbid === id) {
-        return mock[m];
-      }
-    }
-    return null;
+    return Movie
+            .findOne({imdbid: id})
+            .then(function(doc) {
+              return doc;
+            });
   }
 
   function createMovie(movie) {
-    movie.imdbid = uuid.v4();
-    mock.push(movie);
-    return movie;
+    delete movie._id;
+
+    return Movie.create(movie)
+          .then(function(doc) {
+            doc.imdbid = doc._id;
+            console.log(doc);
+            return doc.save();
+          },
+          function(err) {
+            console.log(err);
+          });
   }
 
   function userLikesMovie(userId, movie) {
-    var ids = mock.map(function(m) {
-      return m.imdbid;
-    });
+    return Movie
+      .find({})
+      .then(function(doc) {
+        var ids = doc.map(function(m) {
+          return m.imdbid;
+        });
 
-    if (ids.indexOf(movie.imdbid) < 0) {
-      var newMovie = {
-        imdbid: movie.imdbid,
-        title: movie.title,
-        poster: movie.poster,
-        likes: [],
-        reviews: []
-      };
-      newMovie.likes.push(parseInt(userId, 10));
-      mock.push(newMovie);
-      return newMovie.likes;
-    }
-    else {
-      for (var m in mock) {
-        if (mock[m].imdbid === movie.imdbid) {
-          if (mock[m].likes.indexOf(parseInt(userId, 10)) < 0) {
-            mock[m].likes.push(userId);
-          }
-          return mock[m].likes;
+        if (ids.indexOf(movie.imdbid) < 0) {
+          var newMovie = {
+            imdbid: movie.imdbid,
+            title: movie.title,
+            poster: movie.poster,
+            likes: [],
+            reviews: []
+          };
+          newMovie.likes.push(userId);
+          return createMovie(newMovie);
         }
-      }
-    }
+        else {
+          Movie
+            .findOne({imdbid: movie.imdbid})
+            .then(function(doc) {
+              doc.likes.push(userId);
+              return doc.save();
+            });
+        }
+      });
   }
 }

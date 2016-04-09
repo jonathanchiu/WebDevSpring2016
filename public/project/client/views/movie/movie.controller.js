@@ -51,22 +51,13 @@
         });
     }
 
-    function deleteMovie(id, index) {
+    function deleteMovie(movie, index) {
+      var deleteId = movie.imdbid ? movie.imdbid : movie._id;
+
       MovieService
-        .getMovieById(id)
+        .deleteMovie(deleteId)
         .then(function(response) {
-          // If movie exists in our own database
-          if (response.data) {
-            MovieService
-              .deleteMovie(function(response) {
-                if (response.data) {
-                  vm.movies = response.data
-                }
-              });
-          }
-          else {
-            vm.movies.splice(index, 1);
-          }
+          vm.movies.splice(index, 1);
         });
     }
 
@@ -94,16 +85,17 @@
 
     function favoriteMovie(index) {
       var movie = vm.movies[index];
+      var favoriteId = movie.imdbid ? movie.imdbid : movie._id;
       MovieService
         .userLikesMovie($rootScope.currentUser._id, movie)
         .then(function(response) {
           if (response.data) {
-            vm.numLikes = response.data.length;
+            vm.numLikes = response.data.likes.length;
           }
         });
 
       UserService
-        .addMovieToUserLikes($rootScope.currentUser._id, movie.imdbid)
+        .addMovieToUserLikes($rootScope.currentUser._id, favoriteId)
         .then(function(response) {
           if (response.data) {
             console.log("Movie added to your favorites!");

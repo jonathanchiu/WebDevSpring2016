@@ -11,44 +11,108 @@ module.exports = function(app, movieModel, userModel) {
 
   function getMoviesByTitle(req, res) {
     var title = req.params.title;
-    var movies = movieModel.getMoviesByTitle(title);
-    res.json(movies);
+    movieModel
+      .getMoviesByTitle(title)
+      .then(
+        function(doc) {
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function getTopMovies(req, res) {
     var numMovies = req.params.num;
-    var topMovies = movieModel.getTopMovies(parseInt(numMovies, 10));
-    res.json(topMovies);
+    movieModel
+      .getTopMovies(parseInt(numMovies, 10))
+      .then(
+        function(doc) {
+          console.log(doc);
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function getMoviesByIds(req, res) {
     var ids = req.body;
-    var movies = movieModel.getMoviesByIds(ids);
-    res.json(movies);
+    movieModel
+      .getMoviesByIds(ids)
+      .then(
+        function(doc) {
+          console.log(doc);
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function createMovie(req, res) {
     var movie = req.body;
-    movies = movieModel.createMovie(movie);
-    res.json(movies);
+    movieModel
+      .createMovie(movie)
+      .then(
+        function(doc) {
+          console.log(doc);
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function updateMovie(req, res) {
     var movie = req.body;
-    var movies = movieModel.updateMovie(movie.imdbid, movie);
-    res.json(movies);
+    movieModel
+      .updateMovie(movie.imdbid, movie)
+      .then(
+        function(doc) {
+          console.log(doc);
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function getMovieById(req, res) {
     var id = req.params.id;
-    var movie = movieModel.getMovieById(id);
-    res.json(movie);
+    movieModel
+      .getMovieById(id)
+      .then(
+        function(doc) {
+          console.log(doc);
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function deleteMovieById(req, res) {
     var id = req.params.id;
-    var movies = movieModel.deleteMovieById(id);
-    res.json(movies);
+    console.log("SERVER DELETING MOVIE");
+    console.log(id);
+    movieModel
+      .deleteMovieById(id)
+      .then(
+        function(doc) {
+          console.log(doc);
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function userLikesMovie(req, res) {
@@ -57,8 +121,17 @@ module.exports = function(app, movieModel, userModel) {
     var movieId = req.params.id;
     var movie;
 
-    var movie = movieModel.userLikesMovie(userId, movieOmdb);
-    res.json(movie);
+    movieModel
+      .userLikesMovie(userId, movieOmdb)
+      .then(
+        function(doc) {
+          console.log(doc);
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function findUserLikes(req, res) {

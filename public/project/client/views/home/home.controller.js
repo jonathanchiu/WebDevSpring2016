@@ -8,6 +8,7 @@
   function HomeController($location, $anchorScroll, MovieService) {
     var vm = this;
     vm.numTopMovies = 8;
+    vm.noPoster = 'images/saitama.jpeg';
     vm.scrollToTopMovies = scrollToTopMovies;
 
     function init() {

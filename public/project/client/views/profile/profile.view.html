@@ -75,7 +75,7 @@
 <div ng-repeat="rows in model.likedMovies" class="row">
   <div class="col-md-2"></div>
   <div ng-repeat="movie in rows" class="col-md-2">
-    <img class="img-fluid poster" ng-src="{{movie.poster}}">
+    <img class="img-fluid poster" ng-src="{{movie.poster || model.noPoster}}">
     <p>{{movie.title}}</p>
   </div>
 </div>

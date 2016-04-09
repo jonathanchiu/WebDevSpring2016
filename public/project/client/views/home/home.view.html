@@ -24,7 +24,7 @@
         <tbody>
           <tr ng-repeat="movie in model.topMovies">
             <td>
-              <img class="img-fluid poster" ng-src="{{movie.poster}}">
+              <img class="img-fluid poster" ng-src="{{movie.poster || model.noPoster}}">
               Number of Potatoes: {{movie.likes.length}}
             </td>
             <td>{{movie.title}}</td>

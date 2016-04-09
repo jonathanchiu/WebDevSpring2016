@@ -1,5 +1,3 @@
-var mock = require("./user.mock.json");
-
 module.exports = function(uuid, db, mongoose) {
 
   var UserSchema = require("./user.schema.server.js")();
@@ -114,7 +112,6 @@ module.exports = function(uuid, db, mongoose) {
   }
 
   function findUserByCredentials(credentials) {
-    console.log(credentials);
     return User.findOne({
         username: credentials.username,
         password: credentials.password
