@@ -8,38 +8,87 @@ module.exports = function(app, reviewModel) {
 
   function getReviewById(req, res) {
     var id = req.params.id;
-    var review = reviewModel.getReviewById(id);
-    res.json(review);
+    reviewModel
+      .getReviewById(id)
+      .then(
+        function(doc) {
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function getReviewsByUserId(req, res) {
     var userId = req.params.userId;
-    var reviews = reviewModel.getReviewsByUserId(userId);
-    res.json(reviews);
+    reviewModel
+      .getReviewsByUserId(userId)
+      .then(
+        function(doc) {
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function getReviewsByMovieId(req, res) {
     var movieId = req.params.movieId;
-    var reviews = reviewModel.getReviewsByMovieId(movieId);
-    res.json(reviews);
+    console.log("GETTIN REVIEWS FOR: " + movieId);
+    reviewModel
+      .getReviewsByMovieId(movieId)
+      .then(
+        function(doc) {
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function createReview(req, res) {
     var review = req.body;
-    var returnedReview = reviewModel.createReview(review);
-    res.json(returnedReview);
+    reviewModel
+      .createReview(review)
+      .then(
+        function(doc) {
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function deleteReviewById(req, res) {
     var id = req.params.id;
-    var reviews = reviewModel.deleteReviewById(id);
-    res.json(reviews);
+    reviewModel
+      .deleteReviewById(id)
+      .then(
+        function(doc) {
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 
   function updateReview(req, res) {
     var review = req.body;
     var reviewId = req.params.id
-    var reviews = reviewModel.updateReview(reviewId, review);
-    res.json(reviews);
+    reviewModel
+      .updateReview(reviewId, review)
+      .then(
+        function(doc) {
+          res.json(doc);
+        },
+        function(err) {
+          res.status(400).send(err);
+        }
+      );
   }
 }

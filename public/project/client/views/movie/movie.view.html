@@ -70,7 +70,7 @@
               <a ng-show="$root.currentUser && $root.currentUser.roles.indexOf('admin') > -1" ng-click="model.selectMovie($index)" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
             </td>
           </tr>
-          <tr ng-show="model.activePosition === $index">
+          <tr ng-show="model.activePosition === $index && !model.error">
             <td>{{model.title}}&nbsp;({{model.year}})</td>
             <td>Rated {{model.rated}}</td>
             <td>
@@ -87,6 +87,7 @@
             </td>
             <td></td>
           </tr>
+          <tr ng-show="model.error"><td>{{model.error}}</td></tr>
         </tbody>
       </table>
     </div>

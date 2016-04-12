@@ -17,34 +17,15 @@
         imdbid: vm.imdbid,
         title: vm.reviewTitle,
         author: $rootScope.currentUser._id,
-        content: vm.reviewContent,
-        edited: new Date().toISOString(),
-        created: new Date().toISOString()
+        content: vm.reviewContent
       };
 
       ReviewService
         .createReview(newReview)
         .then(function(response) {
           if (response.data) {
+            console.log(response.data);
             $location.url("/read-review/" + vm.imdbid);
-          }
-        });
-    }
-
-    function createReview() {
-      var newReview = {
-        imdbID: vm.imdbid,
-        title: vm.reviewTitleSubmission,
-        author: vm.reviewAuthorSubmission,
-        content: vm.reviewContentSubmission,
-        edited: new Date().toISOString(),
-        created: new Date().toISOString()
-      };
-
-      ReviewService
-        .createReview(newReview)
-        .then(function(response) {
-          if (response.data) {
           }
         });
     }

@@ -84,9 +84,13 @@ module.exports = function(uuid, db, mongoose) {
   }
 
   function getMoviesByIds(ids) {
+    console.log("GETTING MOVIES BY IDSSSS");
+    console.log(ids);
     return Movie
             .find({ "imdbid": { "$in": ids }})
             .then(function(doc) {
+              console.log("MOVIES RETURNED");
+              console.log(doc);
               return doc;
             });
   }
@@ -101,10 +105,14 @@ module.exports = function(uuid, db, mongoose) {
 
   function createMovie(movie) {
     delete movie._id;
-
+    console.log("CREATING MOVIE");
+    console.log(movie);
     return Movie.create(movie)
           .then(function(doc) {
-            doc.imdbid = doc._id;
+            
+            if (!doc.imdbid) {
+              doc.imdbid = doc._id;
+            }
             console.log(doc);
             return doc.save();
           },
@@ -136,7 +144,9 @@ module.exports = function(uuid, db, mongoose) {
           Movie
             .findOne({imdbid: movie.imdbid})
             .then(function(doc) {
-              doc.likes.push(userId);
+              if (doc.likes.indexOf(userId) < 0) {
+                doc.likes.push(userId);
+              }
               return doc.save();
             });
         }

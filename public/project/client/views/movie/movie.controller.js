@@ -24,6 +24,8 @@
     vm.hideTable = false;
 
     function search() {
+      vm.error = null;
+      resetViewState();
       $rootScope.lastSearched = vm.searchedMovie;
       $rootScope.currentPage = 1;
 
@@ -85,7 +87,7 @@
 
     function favoriteMovie(index) {
       var movie = vm.movies[index];
-      var favoriteId = movie.imdbid ? movie.imdbid : movie._id;
+      var favoriteId = movie.imdbid;
       MovieService
         .userLikesMovie($rootScope.currentUser._id, movie)
         .then(function(response) {
@@ -211,19 +213,29 @@
     }
 
     function renderMovieDetails(response) {
-      vm.title = response.title;
-      vm.year = response.Year;
-      vm.rated = response.Rated;
-      vm.plot = response.Plot;
-      vm.actors = response.Actors;
-      vm.genre = response.Genre;
-      vm.director = response.Director;
+      if (response.Response == "False") {
+        console.log("ERROR NOT FOUND");
+        vm.error = "There is no information to show for this movie!";
+      }
+      else {
+        vm.error = null;
+        vm.title = response.title;
+        vm.year = response.Year;
+        vm.rated = response.Rated;
+        vm.plot = response.Plot;
+        vm.actors = response.Actors;
+        vm.genre = response.Genre;
+        vm.director = response.Director;
 
-      MovieService
-        .getMovieById(response.imdbID)
-        .then(function(response) {
-          vm.numLikes = response.data ? response.data.likes.length : 0;
-        });
+        console.log(response);
+
+        MovieService
+          .getMovieById(response.imdbID)
+          .then(function(response) {
+            console.log(response);
+            vm.numLikes = response.data ? response.data.likes.length : 0;
+          });
+      }
     }
   }
 })();

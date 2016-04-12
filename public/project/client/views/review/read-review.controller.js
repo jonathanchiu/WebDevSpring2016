@@ -5,20 +5,23 @@
     .module("FreshPotatoes")
     .controller("ReadReviewController", ReadReviewController);
 
-  function ReadReviewController($routeParams, $q, $rootScope, $location, ReviewService) {
+  function ReadReviewController($routeParams, $route, $rootScope, $location, ReviewService) {
     var vm = this;
 
     vm.imdbid = $routeParams.id;
     vm.init = init;
     vm.deleteReview = deleteReview;
     vm.selectReview = selectReview;
+    vm.createReview = createReview;
     vm.updateReview = updateReview;
 
     function init() {
+      console.log(vm.imdbid);
       ReviewService
         .getReviewsByMovieId(vm.imdbid)
         .then(function(response) {
           if (response.data) {
+            console.log(response.data);
             vm.reviews = response.data;
           }
         });
@@ -47,8 +50,7 @@
       var updatedReview = {
         title: vm.reviewTitleSubmission,
         author: vm.reviewAuthorSubmission,
-        content: vm.reviewContentSubmission,
-        edited: new Date().toISOString().toISOString()
+        content: vm.reviewContentSubmission
       };
 
       ReviewService
@@ -56,6 +58,23 @@
         .then(function(response) {
           if (response.data) {
             init();
+          }
+        });
+    }
+
+    function createReview() {
+      var newReview = {
+        imdbid: vm.imdbid,
+        title: vm.reviewTitleSubmission,
+        author: vm.reviewAuthorSubmission,
+        content: vm.reviewContentSubmission
+      };
+
+      ReviewService
+        .createReview(newReview)
+        .then(function(response) {
+          if (response.data) {
+            $route.reload();
           }
         });
     }

@@ -50,7 +50,9 @@ module.exports = function(uuid, db, mongoose) {
     return User
             .findById(userId)
             .then(function(doc) {
-              doc.likes.push(imdbId);
+              if (doc.likes.indexOf(imdbId) < 0) {
+                doc.likes.push(imdbId);
+              }
               doc.save();
               return doc.likes;
             });
