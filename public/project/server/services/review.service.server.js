@@ -36,7 +36,6 @@ module.exports = function(app, reviewModel) {
 
   function getReviewsByMovieId(req, res) {
     var movieId = req.params.movieId;
-    console.log("GETTIN REVIEWS FOR: " + movieId);
     reviewModel
       .getReviewsByMovieId(movieId)
       .then(

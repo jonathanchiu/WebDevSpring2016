@@ -24,7 +24,6 @@
         .createReview(newReview)
         .then(function(response) {
           if (response.data) {
-            console.log(response.data);
             $location.url("/read-review/" + vm.imdbid);
           }
         });

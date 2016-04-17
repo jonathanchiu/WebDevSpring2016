@@ -11,8 +11,17 @@
     vm.logout = logout;
 
     function logout() {
-      $rootScope.currentUser = null;
-      $location.url("/home");
+      UserService
+        .logout()
+        .then(
+            function(response){
+                $rootScope.currentUser = null;
+                $location.url("/login");
+            },
+            function(err) {
+                $scope.error = err;
+            }
+      );
     }
   }
 })();

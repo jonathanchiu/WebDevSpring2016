@@ -1,8 +1,8 @@
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+var cookieParser  = require('cookie-parser');
 var express = require('express');
 var uuid = require("node-uuid");
 var session       = require('express-session');
-var cookieParser  = require('cookie-parser');
 var passport = require("passport");
 var app = express();
 
@@ -25,12 +25,12 @@ var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true
 }));
-app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 

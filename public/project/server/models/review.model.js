@@ -63,16 +63,12 @@ module.exports = function(uuid, db, mongoose) {
     return Review
           .create(review)
           .then(function(doc) {
-            console.log("IMDB ID");
-            console.log(doc.imdbid);
             if (!doc.imdbid) {
               doc.imdbid = doc._id;
             }
-            console.log(doc);
             return doc.save();
           },
           function(err) {
-            console.log(err);
           });
   }
 
@@ -83,7 +79,6 @@ module.exports = function(uuid, db, mongoose) {
       {upsert: true}
     )
     .then(function(doc) {
-      console.log(doc);
       return doc;
     });
   }

@@ -11,6 +11,10 @@
       return $http.get("/api/project/user/" + userId + "/followers");
     }
 
+    function login(user) {
+      return $http.post("/api/project/login", user);
+    }
+
     function unfollowUser(userIdFollow, userIdFollower) {
       return $http.put("/api/project/user/" + userIdFollow + "/unfollow/" + userIdFollower);
     }
@@ -59,6 +63,10 @@
       return $http.put("/api/project/user/" + userId, user);
     }
 
+    function logout() {
+      return $http.post("/api/project/logout");
+    }
+
     var service = {
       getAllUsers : getAllUsers,
       getFollowersByUserId: getFollowersByUserId,
@@ -71,7 +79,9 @@
       deleteUserById : deleteUserById,
       updateUserById : updateUserById,
       findUserById: findUserById,
-      addMovieToUserLikes: addMovieToUserLikes
+      addMovieToUserLikes: addMovieToUserLikes,
+      logout : logout,
+      login: login
     };
 
     return service;

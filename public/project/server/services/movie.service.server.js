@@ -29,7 +29,6 @@ module.exports = function(app, movieModel, userModel) {
       .getTopMovies(parseInt(numMovies, 10))
       .then(
         function(doc) {
-          console.log(doc);
           res.json(doc);
         },
         function(err) {
@@ -44,7 +43,6 @@ module.exports = function(app, movieModel, userModel) {
       .getMoviesByIds(ids)
       .then(
         function(doc) {
-          console.log(doc);
           res.json(doc);
         },
         function(err) {
@@ -59,7 +57,6 @@ module.exports = function(app, movieModel, userModel) {
       .createMovie(movie)
       .then(
         function(doc) {
-          console.log(doc);
           res.json(doc);
         },
         function(err) {
@@ -74,7 +71,6 @@ module.exports = function(app, movieModel, userModel) {
       .updateMovie(movie.imdbid, movie)
       .then(
         function(doc) {
-          console.log(doc);
           res.json(doc);
         },
         function(err) {
@@ -89,7 +85,6 @@ module.exports = function(app, movieModel, userModel) {
       .getMovieById(id)
       .then(
         function(doc) {
-          console.log(doc);
           res.json(doc);
         },
         function(err) {
@@ -100,13 +95,10 @@ module.exports = function(app, movieModel, userModel) {
 
   function deleteMovieById(req, res) {
     var id = req.params.id;
-    console.log("SERVER DELETING MOVIE");
-    console.log(id);
     movieModel
       .deleteMovieById(id)
       .then(
         function(doc) {
-          console.log(doc);
           res.json(doc);
         },
         function(err) {
@@ -125,7 +117,6 @@ module.exports = function(app, movieModel, userModel) {
       .userLikesMovie(userId, movieOmdb)
       .then(
         function(doc) {
-          console.log(doc);
           res.json(doc);
         },
         function(err) {

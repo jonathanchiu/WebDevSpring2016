@@ -23,7 +23,6 @@ module.exports = function(uuid, db, mongoose) {
     return Movie
             .find({title: regex})
             .then(function(doc) {
-              console.log(doc);
               return doc;
             });
   }
@@ -32,7 +31,6 @@ module.exports = function(uuid, db, mongoose) {
     return Movie
             .find({})
             .then(function(doc) {
-              console.log(doc);
               return doc;
             });
     // var mockCopy = mock.sort(function(m1, m2) {
@@ -54,14 +52,11 @@ module.exports = function(uuid, db, mongoose) {
       {upsert: true}
     )
     .then(function(doc) {
-      console.log(doc);
       return doc;
     });
   }
 
   function deleteMovieById(id) {
-    console.log("DELETING MOVIE");
-    console.log(id);
     return Movie
             .findOne({$or: [
               // We have an or because it can either be a locally created movie or one from OMDB
@@ -69,8 +64,6 @@ module.exports = function(uuid, db, mongoose) {
               {_id: id}
             ]})
             .then(function(doc) {
-              console.log("DELETED");
-              console.log(doc);
               doc.remove();
               return getAllMovies();
             });
@@ -84,13 +77,9 @@ module.exports = function(uuid, db, mongoose) {
   }
 
   function getMoviesByIds(ids) {
-    console.log("GETTING MOVIES BY IDSSSS");
-    console.log(ids);
     return Movie
             .find({ "imdbid": { "$in": ids }})
             .then(function(doc) {
-              console.log("MOVIES RETURNED");
-              console.log(doc);
               return doc;
             });
   }
@@ -105,19 +94,15 @@ module.exports = function(uuid, db, mongoose) {
 
   function createMovie(movie) {
     delete movie._id;
-    console.log("CREATING MOVIE");
-    console.log(movie);
     return Movie.create(movie)
           .then(function(doc) {
             
             if (!doc.imdbid) {
               doc.imdbid = doc._id;
             }
-            console.log(doc);
             return doc.save();
           },
           function(err) {
-            console.log(err);
           });
   }
 

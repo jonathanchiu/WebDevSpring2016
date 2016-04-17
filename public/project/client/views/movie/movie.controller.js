@@ -100,7 +100,6 @@
         .addMovieToUserLikes($rootScope.currentUser._id, favoriteId)
         .then(function(response) {
           if (response.data) {
-            console.log("Movie added to your favorites!");
           }
         });
     }
@@ -214,7 +213,6 @@
 
     function renderMovieDetails(response) {
       if (response.Response == "False") {
-        console.log("ERROR NOT FOUND");
         vm.error = "There is no information to show for this movie!";
       }
       else {
@@ -227,12 +225,9 @@
         vm.genre = response.Genre;
         vm.director = response.Director;
 
-        console.log(response);
-
         MovieService
           .getMovieById(response.imdbID)
           .then(function(response) {
-            console.log(response);
             vm.numLikes = response.data ? response.data.likes.length : 0;
           });
       }

@@ -2,8 +2,9 @@ var passport      = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var userModel = require('../models/user.model.js');
 
-module.exports = function(app, userModel) {
+module.exports = function(app, userModel, mongoose) {
   var auth = authorized;
+  var User = mongoose.model('project.user', require("../../../project/server/models/user.schema.server.js")());
 
   app.post("/api/assignment/admin/user", auth, createUserAdmin);
   app.put("/api/assignment/admin/user/:userId", auth, updateUserByIdAdmin);
@@ -11,7 +12,7 @@ module.exports = function(app, userModel) {
   app.get("/api/assignment/admin/user", auth, getAllUsers);
   app.get("/api/assignment/admin/user/:userId", auth, findUserById);
 
-  app.post("/api/assignment/login", passport.authenticate('local'), login);
+  app.post("/api/assignment/login", passport.authenticate('assignment'), login);
   app.post("/api/assignment/user", register);
   app.get("/api/assignment/user", delegate);
   app.get("/api/assignment/user/:id", profile);
@@ -19,7 +20,7 @@ module.exports = function(app, userModel) {
   app.post("/api/assignment/logout", logout);
   app.get("/api/loggedin", loggedin);
 
-  passport.use(new LocalStrategy(localStrategy));
+  passport.use('assignment', new LocalStrategy(localStrategy));
   passport.serializeUser(serializeUser);
   passport.deserializeUser(deserializeUser);
 
@@ -124,16 +125,30 @@ module.exports = function(app, userModel) {
   }
 
   function deserializeUser(user, done) {
-    userModel
-      .findUserById(user._id)
-      .then(
-        function(user) {
-          done(null, user);
-        },
-        function(err) {
-          done(err, null);
-        }
-      );
+    if (user.followers) {
+      return User
+        .findById(user._id)
+        .then(
+          function(user) {
+            done(null, user);
+          },
+          function(err) {
+            done(err, null);
+          }
+        );
+    }
+    else {
+      userModel
+        .findUserById(user._id)
+        .then(
+          function(user) {
+            done(null, user);
+          },
+          function(err) {
+            done(err, null);
+          }
+        );
+    }
   }
 
   function login(req, res) {
