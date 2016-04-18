@@ -9,7 +9,6 @@
     var vm = this;
 
     vm.imdbid = $routeParams.id;
-    vm.createReview = createReview;
     vm.writeReview = writeReview;
 
     function writeReview() {
