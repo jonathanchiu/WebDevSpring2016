@@ -13,19 +13,9 @@ node server.js
 * [Wireframe](https://app.moqups.com/jonathanchiu7@gmail.com/GeCMogm8/view)
 
 ### Notes
-For the project proof of concept, what a user can do is dependent on if
-* A user is logged in
-* A logged in default/normal user
-* A logged in admin user
-
-To exercise all the different functionalities implemented for the proof of concept, you are *strongly* encouraged to utilize the site as all the different cases described above.
-
-* Regular User
-  * Username: bobsaget
-  * Password: bobsaget
-* Admin User
-  * Username: admin
-  * Password: admin
+Project credentials
+* Username/password (admin): alice
+* Username/password: bob
 
 For the assignment:
 * Username: alice
